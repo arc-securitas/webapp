@@ -2,18 +2,21 @@ import styled, { css } from "styled-components";
 import { COLORS, FONTS, FONT_SIZE } from "../constants/style_guide";
 
 export const MainLandingBody = styled.div`
-  background: linear-gradient(${COLORS.blue_primary}, #fff);
+  background: linear-gradient(${COLORS.light_blue}, #fff);
+  display: flow-root;
+  positon: relative;
+  top: 0;
 `;
 
 export const FooterDiv = styled.div`
   width: 100%;
-  background-color: ${COLORS.blue_primary};
+  background-color: ${COLORS.white};
   padding: 0.1em;
   margin: 0;
   font-family: ${FONTS.body_primary};
-  color: ${COLORS.white};
+  color: ${COLORS.black};
   text-align: center;
-  height: 100vh;
+
   ul {
     margin: 0;
     padding: 0;
@@ -36,12 +39,15 @@ export const FooterDiv = styled.div`
     li {
       margin: 0.75rem;
     }
+    margin-bottom: 1rem;
   }
   .cc {
     position: absolute;
     bottom: auto;
     text-align: center;
     width: 100%;
+    font-size: 0.75rem;
+    padding-bottom: 1rem;
   }
 `;
 
@@ -50,7 +56,10 @@ export const HeaderDiv = styled.div`
   background-color: ${COLORS.light_blue};
   width: 100%;
   align-items: center;
-  position: fixed;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
   filter: drop-shadow(4px 2px 4px grey);
   .title {
     color: ${COLORS.blue_primary};
@@ -65,12 +74,71 @@ export const HeaderDiv = styled.div`
   }
 `;
 
-export const NextSteps = styled.div`
-  display: inline;
-  background-color: ${COLORS.blue_primary};
-`;
-
 export const Button = styled.button`
   display: inline;
-  background-color: ${COLORS.blue_primary};
+  background-color: ${COLORS.white};
+  font-family: ${FONTS.body_primary};
+  width: fit-content;
+  padding: 0.5rem;
+  justify-content: center;
+  border-radius: 4px;
+  color: ${COLORS.blue_primary};
+  text-transformation: uppercase;
+  border: 0;
+  font-weight: bold;
+`;
+
+export const NextSteps = styled.div`
+  text-align: center;
+  padding: 6rem 1rem;
+  margin-top: 1rem;
+  color: ${COLORS.white};
+  justify-content: center;
+  background-color: ${COLORS.blue_highlight_dark};
+  ${Button} {
+    text-align: center;
+    justify-content: center;
+  }
+`;
+
+export const LandingItem = styled.div`
+  padding: 0em 2em;
+
+  h2 {
+    text-align: ${(props) => (props.isHeader ? `center` : `left`)};
+    font-family: ${FONTS.heading_primary};
+    font-size: ${(props) => (props.isHeader ? `1.75rem` : `1.125rem`)};
+  }
+  p {
+    font-family: ${FONTS.body_primary};
+    font-size: ${(props) => (props.isHeader ? `1rem` : `0.875rem`)};
+
+    text-align: ${(props) => (props.isHeader ? `center` : `left`)};
+  }
+  img {
+    position: relative;
+    left: 50%;
+    -webkit-transform: translateY(-0%) translateX(-50%);
+  }
+  .button-wrapper {
+    width: 100%;
+    text-align: -webkit-center;
+  }
+  .button {
+    font-family: ${FONTS.body_primary};
+    width: fit-content;
+    padding: 0.5rem;
+    justify-content: center;
+    border-radius: 4px;
+    color: ${COLORS.white};
+    background-color: ${COLORS.blue_primary};
+  }
+`;
+
+export const LandingHeading = styled(LandingItem)`
+  .button {
+    font-family: ${FONTS.body_serif};
+    padding: 0.5rem;
+    background-color: ${COLORS.blue_primary};
+  }
 `;

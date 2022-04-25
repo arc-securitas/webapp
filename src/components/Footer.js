@@ -5,7 +5,7 @@ import { BsInstagram } from "react-icons/bs";
 export default function Footer() {
   return (
     <FooterDiv>
-      <img src="logo (2).png" />
+      <img src="images/Logo.svg" />
       <br />
       <ul className="sitemap">
         <li>Product</li>
