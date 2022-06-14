@@ -13,7 +13,6 @@ export const FooterDiv = styled.div`
   font-family: ${FONTS.body_primary};
   color: ${COLORS.white};
   text-align: center;
-  height: 100vh;
   ul {
     margin: 0;
     padding: 0;
