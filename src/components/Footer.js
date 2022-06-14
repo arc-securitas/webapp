@@ -1,12 +1,13 @@
 import React from "react";
+import "./Footer.css"
 import { FooterDiv } from "./../styles/style";
 import { FaLinkedinIn, FaFacebookF } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
+
 export default function Footer() {
   return (
-    <FooterDiv>
-      <img src="logo (2).png" />
-      <br />
+    <FooterDiv className='overallFooter' style={{backgroundColor: "Black"}}>
+      <img src="Logo-blue.png" style={{marginBottom:"-0.025px"}}/>
       <ul className="sitemap">
         <li>Product</li>
         <li>About</li>
