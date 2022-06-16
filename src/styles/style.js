@@ -46,10 +46,11 @@ export const FooterDiv = styled.div`
 
 export const HeaderDiv = styled.div`
   display: inline-flex;
+  position: sticky; /** Allows the header to stay in view as user scrolls*/
+  top: 0; /** Allows the header to stay in view as user scrolls*/
   background-color: ${COLORS.light_blue};
   width: 100%;
   align-items: center;
-  position: fixed;
   filter: drop-shadow(4px 2px 4px grey);
   .title {
     color: ${COLORS.blue_primary};

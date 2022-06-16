@@ -13,7 +13,7 @@ export default function Footer() {
         <li>About</li>
         <li>Careers</li>
         <li>FAQ</li>
-        <li>Privary Policy</li>
+        <li>Privacy Policy</li>
         <li>Terms &#38; Conditions</li>
         <li>Cookie Policy</li>
       </ul>

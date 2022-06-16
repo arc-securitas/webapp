@@ -12,6 +12,9 @@ import Landing from "./pages/landing";
 function App() {
   return (
     <Router>
+      
+      <Header/>
+      
       <ul className="navBar">
         <li>
           <NavLink exact to="/" id="home">ARC</NavLink>
@@ -21,6 +24,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<About />} />
       </Routes>
+      <Footer/>
     </Router>
   );
 }
