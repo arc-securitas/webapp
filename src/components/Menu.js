@@ -4,7 +4,7 @@ import {
     NavLink,
 } from "react-router-dom";
 import { StyledMenu, Button } from "./../styles/style";
-import "./Header.css"
+import "./../App.css"
 
 export default function Menu({ open }) {
     return (

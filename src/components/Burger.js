@@ -1,7 +1,7 @@
 import React from 'react';
 import { bool, func } from 'prop-types';
 import { StyledBurger } from "./../styles/style";
-import "./Header.css"
+import "./../App.css"
 
 export default function Burger({ open, setOpen }) {
     return (
