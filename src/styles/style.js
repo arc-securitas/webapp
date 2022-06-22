@@ -155,7 +155,7 @@ export const NextSteps = styled.div`
   background-color: ${COLORS.blue_primary};
 `;
 
-export const Button = styled.button`
+export const ButtonDiv = styled.button`
   display: inline;
   background-color: ${COLORS.blue_primary};
   border: none;
