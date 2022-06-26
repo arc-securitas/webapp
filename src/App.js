@@ -15,14 +15,14 @@ function App() {
     <Router>
       <ul className="navBar">
         <li>
-          <NavLink exact to="/" id="home">Home</NavLink>
-          <NavLink exact to="/about" id="about">About Us</NavLink>
+          <NavLink exact to="webapp/" id="home">Home</NavLink>
+          <NavLink exact to="webapp/about" id="about">About Us</NavLink>
         </li>
       </ul>
 
       <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/about" element={<About />} />
+        <Route exact path="webapp/" element={<Home />} />
+        <Route exact path="webapp/about" element={<About />} />
       </Routes>
     </Router>
   );
