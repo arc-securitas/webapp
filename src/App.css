@@ -101,6 +101,7 @@ html {
 .navbar {
   position: sticky;
   top: 0; 
+  width: 100%;
   background-color:#E0F0FF;
   align-items: center;
   justify-content: center;
@@ -134,7 +135,7 @@ a {
   margin-left: 1rem;
   margin-top: 0.75rem;
   text-align: center;
-  display: inline-block
+  display: inline-block;
 }
 
 a:hover {
@@ -153,3 +154,51 @@ a.inactive {
   width: 100%;
   background-color: #3684C9;
 }
+
+/* @media screen and (min-width: 481px) {
+  ul li {
+      display: inline-block;
+  }
+}
+
+@media screen and (min-width: 320px) {
+  .overallHeader {
+      height: 62px;
+  }
+  .nav {
+      display: none;   
+  }
+  .getStarted {
+      display: none;
+  }
+  .dropdown {
+      display: block;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .overallHeader {
+      height: 80px;
+  }
+  .nav {
+      display: block;   
+  }
+  .getStarted {
+      display: block;
+  }
+  .dropdown {
+      display: none;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .overallHeader {
+      height: 80px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .overallHeader {
+      height: 80px;
+  }
+} */

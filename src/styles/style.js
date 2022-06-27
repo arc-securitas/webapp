@@ -97,7 +97,7 @@ export const StyledBurger = styled.div`
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${COLORS.blue_primary};
+    background: ${({ open }) => open ? COLORS.white : COLORS.blue_primary};
     border-radius: 10px;
     transition: all 0.0s linear;
     position: relative;
@@ -124,7 +124,7 @@ export const StyledMenu = styled.nav`
   display: flex;
   flex-direction: column;
   justify-content: top;
-  background: ${COLORS.white};
+  background: ${COLORS.blue_primary};
   height: 100vh;
   text-align: left;
   padding: 2rem;
@@ -139,12 +139,12 @@ export const StyledMenu = styled.nav`
     padding: 2rem;
     font-family: ${FONTS.body_primary};
     font-weight: bold;
-    color: ${COLORS.black};
+    color: ${({ open }) => open ? COLORS.white : COLORS.blue_primary};
     text-decoration: none;
     transition: color 0.3s linear;
     
     &:hover {
-      color: ${COLORS.blue_primary};
+      color: ${COLORS.light_blue};
     }
   }
 `;
