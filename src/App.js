@@ -56,7 +56,7 @@ function App(props) {
                 fontWeight: 'bold'
               }
 
-            }} onClick={handleDrawerToggle} underline='none' component={RouterLink} to={"/" + item}>
+            }} onClick={handleDrawerToggle} underline='none' component={RouterLink} to={"/webapp/" + item}>
               <ListItemText primary={item} />
             </Link>
           </ListItem>
@@ -136,7 +136,7 @@ function App(props) {
                     fontWeight: 'bold'
                   }
 
-                }} underline='none' component={RouterLink} to={"/" + item} key={item}>
+                }} underline='none' component={RouterLink} to={"/webapp/" + item} key={item}>
                   {item}
                 </Link>
               ))}
@@ -219,9 +219,9 @@ function App(props) {
       </Box>
 
       <Routes>
-        <Route exact path="/home" element={<Home />} />
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/about" element={<About />} />
+        <Route exact path="/webapp/home" element={<Home />} />
+        <Route exact path="/webapp/" element={<Home />} />
+        <Route exact path="/webapp/about" element={<About />} />
       </Routes>
 
       {/* Footer */}
