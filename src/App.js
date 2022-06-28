@@ -25,7 +25,7 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import CloseIcon from '@mui/icons-material/Close';
 
-const drawerWidth = '100%';
+const drawerWidth = '80%';
 const navItems = ['Landing', 'Product', 'About'];
 
 function App(props) {
@@ -39,11 +39,11 @@ function App(props) {
   const drawer = (
     <Box sx={{ display: 'flex', justifyContent: 'center', height: '100%', backgroundColor: '#3684C9' }}>
       <List>
-        <IconButton edge="start" sx={{ color: "#fff", marginLeft: '150%' }} onClick={handleDrawerToggle}><CloseIcon /></IconButton>
+        <IconButton edge="start" sx={{ color: "#fff", marginLeft: '130%' }} onClick={handleDrawerToggle}><CloseIcon /></IconButton>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <Link sx={{
-              fontFamily: 'Lato',
+              fontFamily: 'Outfit',
               fontSize: '16px',
               display: 'inline-block',
               color: '#fff',
@@ -56,7 +56,7 @@ function App(props) {
                 fontWeight: 'bold'
               }
 
-            }} underline='none' component={RouterLink} to={"/" + item}>
+            }} onClick={handleDrawerToggle} underline='none' component={RouterLink} to={"/" + item}>
               <ListItemText primary={item} />
             </Link>
           </ListItem>
@@ -72,6 +72,7 @@ function App(props) {
           textAlign: 'center',
           gap: '4px',
           justifyContent: 'center',
+          fontWeight: 700,
 
           '&:hover': {
             backgroundColor: '#fff'
@@ -209,8 +210,7 @@ function App(props) {
                 display: 'none'
               },
 
-              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-              width: '100%'
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth},
             }}
           >
             {drawer}
