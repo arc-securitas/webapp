@@ -1,0 +1,133 @@
+#overall {
+    background-color: #3684C9;
+    background-image: linear-gradient(#E0F0FF, #E5E5E5);
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .left {
+        display: block;
+        width: 100%;
+        padding-bottom: 5%;
+    }
+
+    .right {
+        display: block;
+        width: 100%;
+    }
+
+    .safetyRe {
+        top: 102px;
+
+        font-family: 'Outfit';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 30px;
+        line-height: 38px;
+
+        text-align: center;
+        width: 280px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0px;
+        margin-bottom: 0px;
+
+        color: #000000;
+
+    }
+
+    .sec1Content {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 150%;
+
+        text-align: center;
+        width: 280px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+
+        color: #000000;
+
+    }
+
+    #getStart {
+        width: 280px;
+    }
+
+    .img1 {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 264px;
+    }
+
+    .h2s {
+        font-family: 'Outfit';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 23px;
+
+        color: #000000;
+
+        /* text-align: center; */
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .otherContent {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 150%;
+        
+        /* text-align: center; */
+        padding-left: 20px;
+        padding-right: 20px;
+
+        color: #000000;
+    }
+
+    .img2, .img3, .img5 {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+
+    .img4 {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+    }
+
+    #section1, #section2, #section3, #section4, #section5 {
+        padding-top: 5%;
+        padding-bottom: 5%;
+    }
+}
+
+#getStart {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 15px 24px;
+    gap: 4px;
+
+    background: #3684C9;
+    border-color: #3684C9;
+    border-radius: 4px;
+
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 18px;
+    color: #FFFFFF;
+}

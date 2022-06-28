@@ -7,7 +7,7 @@ import {
   Route
 } from "react-router-dom";
 import Footer from "./components/Footer.js";
-import Landing from "./pages/landing.js";
+import Home from "./pages/home.js";
 import About from "./pages/about.js";
 
 import * as React from 'react';
@@ -26,7 +26,7 @@ import Link from '@mui/material/Link';
 import CloseIcon from '@mui/icons-material/Close';
 
 const drawerWidth = '80%';
-const navItems = ['Landing', 'Product', 'About'];
+const navItems = ['Home', 'Product', 'About'];
 
 function App(props) {
   const { window } = props;
@@ -219,8 +219,8 @@ function App(props) {
       </Box>
 
       <Routes>
-        <Route exact path="/landing" element={<Landing />} />
-        <Route exact path="/" element={<Landing />} />
+        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
         <Route exact path="/about" element={<About />} />
       </Routes>
 
