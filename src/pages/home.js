@@ -2,11 +2,9 @@
 import './homeMobile.css';
 import './homeTablet.css';
 import './homeLaptop.css';
-import useGoogleSheets from 'use-google-sheets';
 
 import React from "react";
 import Footer from "../components/Footer";
-import Row from 'react-bootstrap/Row';
 import { Button } from 'react-bootstrap';
 
 const Home = () => {
@@ -82,8 +80,6 @@ const Home = () => {
                     GET STARTED
                 </Button>
             </div>
-
-            <Footer />
 
         </>
     )

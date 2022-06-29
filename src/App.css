@@ -118,7 +118,7 @@ html {
   white-space: nowrap;
 }
 
-img {
+#headerLogo {
   width: 30.75px;
   height: 30px;
   margin-right: 1rem;

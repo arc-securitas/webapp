@@ -101,7 +101,7 @@ function App(props) {
         }}>
 
           <Toolbar>
-            <img src="Logo-blue.png" />
+            <img id="headerLogo" src="Logo-blue.png" />
 
             <Typography sx={{
               align: 'center',
