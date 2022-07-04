@@ -31,20 +31,22 @@ const About = () => {
                 </section>
                 <section>
                     <p className='subtitles'>OUR MISSION</p>
-                    <p>We envision a world in which people can feel safe in their everyday lives, including in their careers. However, from our extensive research, we know that client-facing real estate professionals fear for their personal safety. Yet, there is no industry-wide solution for employee safety management. We integrate various safety-oriented features into a system that streamlines processes for the brokerage, providing peace of mind for everyone while improving firm efficiency. Arc is our contribution towards the world we envision.</p>
+                    <p>We envision a world in which people can feel safe on the job. However, from our extensive research, we know that many real estate professionals fear for their personal safety. Yet there is no industry-wide solution for employee safety management. We streamline processes for both the brokerage and the agent, providing peace of mind for everyone. With Arc, you can prioritize safety without sacrificing productivity.</p>
                 </section>
                 <section>
-                    <p className='subheads'>We are <span className='blueStuff'>committed</span> to the vision of a <span className='blueStuff'>safer world</span>.</p>
-                    <p><strong>We were founded with the mission</strong> to reinvent real estate safety</p>
+                    <p className='subheads'>We are <span className='blueStuff'>committed</span> to building a <span className='blueStuff'>safer world</span>.</p>
+                    <p>We were founded with the mission to <strong>raise the bar for personal safety</strong> in the real estate space.</p>
 
-                    <p>During our early days being exposed to real estate, we heard stories from agents that shocked us and highlighted the dangers inherent to the industry. Since then, we’ve continued to hear stories every day. Every day, we hear real estate agents tell us how they fear for their own safety while on the job because there is no industry-wide safety solution. We believe in developing technology that helps combat this fear and ensure that real estate professionals can work safely and comfortably.</p>
+                    <p>When asked about her safety, one agent told us: “At the end of the day after many long hours of showing homes, I pour myself a glass of wine, sit down on the couch, and think about all the moments that things could have gone wrong.”</p>
+
+                    <p>We believe in developing technology that helps combat this fear so you can do what you do best.</p>
                 </section>
                 <section>
 
                 </section>
                 <section>
-                    <p className='subtitles'>OUR COMMUNITY</p>
-                    <p>Our community is made up of a large network of real estate professionals across the West Coast and beyond. We recognize the unique needs of our users and continuously strive to develop features that reflect the individual and collective experiences we see in our community. We are proud to see our original vision for Arc flourish and grow with the support of agents in our community.</p>
+                    <p className='subtitles2'>OUR COMMUNITY</p>
+                    <p>Our community is made up of a large network of real estate professional across the West Coast and beyond. We recognize the unique needs of our users and continuously develop features that benefit you the way you want. We are proud of the work we do and the community we have built.</p>
                 </section>
                 <section>
                     <p className='subheads'>Meet the Team</p>

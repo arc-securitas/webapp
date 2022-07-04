@@ -22,7 +22,7 @@ const Home = () => {
                         </div>
                     </div>
                     <div className='right'>
-                        <img className="img1" src={"mockup.png"} />
+                        <img className="img1" src={"mockup.svg"} />
                     </div>
                 </section>
 
@@ -34,7 +34,7 @@ const Home = () => {
                         </div>
                     </div>
                     <div className='right'>
-                        <img className="img2" src={"Group19.png"} />
+                        <img className="img2" src={"Group19.svg"} />
                     </div>
                 </section>
 
@@ -46,7 +46,7 @@ const Home = () => {
                         </div>
                     </div>
                     <div className='left'>
-                        <img className="img3" src={"Group22.png"} />
+                        <img className="img3" src={"Group22.svg"} />
                     </div>
                 </section>
 
@@ -58,7 +58,7 @@ const Home = () => {
                         </div>
                     </div>
                     <div className='right'>
-                        <img className="img4" src={"Group15.png"} />
+                        <img className="img4" src={"Group15.svg"} />
                     </div>
                 </section>
 
@@ -70,7 +70,7 @@ const Home = () => {
                         </div>
                     </div>
                     <div className='left'>
-                        <img className="img5" src={"Group17.png"} />
+                        <img className="img5" src={"Group17.svg"} />
                     </div>
                 </section>
             </div>
