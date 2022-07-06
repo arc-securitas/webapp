@@ -20,6 +20,15 @@
     line-height: 15px;
 }
 
+.subtitles2 {
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 25px;
+}
+
 .blueStuff {
     color: #3684C9;
 }
@@ -50,4 +59,18 @@
     padding-left: 10px;
     padding-right: 10px;
     left: calc(50% - 200px/2 + 0.5px);
+}
+
+@media only screen and (min-width: 1025px) {
+    .content {
+        padding-left: 25%;
+        padding-right: 25%;
+    }
+}
+
+@media only screen and (min-width: 1441px) {
+    .content {
+        padding-left: 30%;
+        padding-right: 30%;
+    }
 }
