@@ -103,7 +103,6 @@ function App(props) {
           backgroundColor: '#E0F0FF',
           alignItems: 'center',
           justifyContent: 'center',
-          marginBottom: '30px'
         }}>
 
           <Toolbar>

@@ -49,7 +49,18 @@ const JoinModal = (props) => {
                     px: 4,
                     pb: 3,
                 }}>
-                    <IconButton edge="start" sx={{ color: "#000", marginLeft: '85%', marginTop: '5%' }} onClick={handleClose}><CloseIcon /></IconButton>
+                    <IconButton edge="start" sx={{ 
+                        color: "#000",
+                        '@media screen and (min-width: 320px)': {
+                            marginLeft: '85%', 
+                            marginTop: '5%',
+                        },
+    
+                        '@media screen and (min-width: 481px)': {
+                            marginLeft: '95%', 
+                            marginTop: '0%',
+                        }, 
+                         }} onClick={handleClose}><CloseIcon /></IconButton>
                     
                     <h1 id='joinHeader'>Join our<br />mailing list</h1>
                     <p id='joinParagraph'>to stay up to date on all things Arc.</p>
