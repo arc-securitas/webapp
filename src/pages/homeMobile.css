@@ -1,4 +1,8 @@
-#overall {
+#overall, #section1 {
+    background-color: #E0F0FF;
+}
+
+#overall, #suboverall{
     background-color: #3684C9;
     background-image: linear-gradient(#E0F0FF, #E5E5E5);
 }
