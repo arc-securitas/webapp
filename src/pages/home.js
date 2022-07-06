@@ -3,9 +3,10 @@ import './homeMobile.css';
 import './homeTablet.css';
 import './homeLaptop.css';
 
+import JoinModal from "../components/joinModal.js";
+
 import React from "react";
-import Footer from "../components/Footer";
-import { Button } from 'react-bootstrap';
+import Button from '@mui/material/Button';
 
 const Home = () => {
     return (
@@ -16,9 +17,56 @@ const Home = () => {
                         <div className='insideContent'>
                             <p className='safetyRe'>Safety, Reimagined.</p>
                             <p className='sec1Content'>Helping brokerages prioritize agent <strong>safety</strong> and <strong>productivity</strong>.</p>
-                            <Button id="getStart">
-                                Get Started
-                            </Button>
+                            <JoinModal buttonStyling = {{
+                                display: 'inline',
+                                backgroundColor: "#3684C9",
+                                border: 'none',
+                                borderRadius: '4px',
+                                fontFamily: "Outfit",
+                                fontWeight: '700',
+                                textTransform: 'none',
+                                color: "#fff",
+                                padding: '12px 20px',
+                                textAlign: 'center',
+                                gap: '4px',
+                                justifyContent: 'center',
+                                position: 'relative',
+
+                                '@media screen and (min-width: 320px)': {
+                                    width: '280px',
+                                    marginLeft: 'calc(50% - 280px / 2)'
+                                },
+
+                                '@media screen and (min-width: 480px)': {
+                                    width: '374px',
+                                    marginLeft: 'calc(50% - 374px / 2)'
+                                },
+
+                                '@media screen and (min-width: 768px)': {
+                                    width: '335px',
+                                    marginLeft: 'calc(50% - 335px / 2)'
+                                },
+
+                                '@media screen and (min-width: 820px)': {   //CHECK THIS ONE!!!!!!!!!!!!
+                                    width: '320px',
+                                    marginLeft: 'auto'
+                                },
+
+                                '@media screen and (min-width: 1024px)': {
+                                    width: '370px',
+                                    marginLeft: 'auto'
+                                },
+
+                                '@media screen and (min-width: 1440px)': {
+                                    width: '443px',
+                                    marginLeft: 'auto'
+                                },
+
+                                '&:hover': {
+                                    backgroundColor: '#3684C9'
+                                }
+
+                            }} />
                         </div>
                     </div>
                     <div className='right'>
@@ -76,9 +124,26 @@ const Home = () => {
             </div>
             <div id="section6">
                 <p className="h3s">Step into the future of real estate safety.</p>
-                <Button id="getStartWhite">
-                    GET STARTED
-                </Button>
+                <JoinModal buttonStyling = {{
+                    display: 'inline',
+                    backgroundColor: "#fff",
+                    border: 'none',
+                    borderRadius: '4px',
+                    fontFamily: "Outfit",
+                    fontWeight: '700',
+                    textTransform: 'none',
+                    color: '#3684C9',
+                    padding: '12px 20px',
+                    textAlign: 'center',
+                    gap: '4px',
+                    justifyContent: 'center',
+                    fontWeight: 700,
+                    marginLeft: 'calc(50% - 48px)',
+
+                    '&:hover': {
+                        backgroundColor: '#fff'
+                    }
+                }} />
             </div>
 
         </>
