@@ -9,6 +9,7 @@ import {
 import Footer from "./components/Footer.js";
 import Home from "./pages/home.js";
 import About from "./pages/about.js";
+import Product from "./pages/product.js";
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -192,7 +193,7 @@ function App(props) {
             </IconButton>
           </Toolbar>
         </AppBar>
-        
+
         <Box component="nav">
           <Drawer
             container={container}
@@ -222,6 +223,7 @@ function App(props) {
         <Route exact path="/webapp/home" element={<Home />} />
         <Route exact path="/webapp/" element={<Home />} />
         <Route exact path="/webapp/about" element={<About />} />
+        <Route exact path="/webapp/product" element={<Product />} />
       </Routes>
 
       {/* Footer */}

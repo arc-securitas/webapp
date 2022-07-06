@@ -74,6 +74,7 @@ const Home = () => {
                     </div>
                 </section>
             </div>
+            {/* TODO: Turn section6 into a component named "CallToAction" */}
             <div id="section6">
                 <p className="h3s">Step into the future of real estate safety.</p>
                 <Button id="getStartWhite">
