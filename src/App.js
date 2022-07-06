@@ -9,6 +9,7 @@ import {
 import Footer from "./components/Footer.js";
 import Home from "./pages/home.js";
 import About from "./pages/about.js";
+import JoinModal from "./components/joinModal.js";
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -21,7 +22,6 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -36,6 +36,10 @@ function App(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const drawer = (
     <Box sx={{ display: 'flex', justifyContent: 'center', height: '100%', backgroundColor: '#3684C9' }}>
       <List>
@@ -43,7 +47,7 @@ function App(props) {
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <Link sx={{
-              fontFamily: 'Outfit',
+              fontFamily: "Outfit",
               fontSize: '16px',
               display: 'inline-block',
               color: '#fff',
@@ -61,12 +65,14 @@ function App(props) {
             </Link>
           </ListItem>
         ))}
-        <Button sx={{
+        <JoinModal buttonStyling={{
           display: 'inline',
           backgroundColor: "#fff",
           border: 'none',
           borderRadius: '4px',
           fontFamily: "Outfit",
+          fontWeight: '700',
+          textTransform: 'none',
           color: '#3684C9',
           padding: '12px 20px',
           textAlign: 'center',
@@ -77,7 +83,7 @@ function App(props) {
           '&:hover': {
             backgroundColor: '#fff'
           }
-        }}>Get Started</Button>
+        }} />
       </List>
     </Box>
   );
@@ -140,13 +146,14 @@ function App(props) {
                   {item}
                 </Link>
               ))}
-
-              <Button sx={{
+              <JoinModal onClick={handleDrawerToggle} buttonStyling={{
                 display: 'inline',
                 backgroundColor: "#3684C9",
                 border: 'none',
                 borderRadius: '4px',
                 fontFamily: "Outfit",
+                fontWeight: '700',
+                textTransform: 'none',
                 color: "#fff",
                 padding: '12px 20px',
                 textAlign: 'center',
@@ -173,7 +180,7 @@ function App(props) {
                   backgroundColor: '#3684C9'
                 }
 
-              }} variant="contained">Get Started</Button>
+              }} />
             </Box>
             <IconButton
               aria-label="open drawer"
@@ -192,7 +199,7 @@ function App(props) {
             </IconButton>
           </Toolbar>
         </AppBar>
-        
+
         <Box component="nav">
           <Drawer
             container={container}
@@ -210,7 +217,7 @@ function App(props) {
                 display: 'none'
               },
 
-              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth},
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
             }}
           >
             {drawer}

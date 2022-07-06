@@ -2,7 +2,6 @@ import './about.css';
 import useGoogleSheets from 'use-google-sheets';
 
 import React from "react";
-import Footer from "../components/Footer";
 import Row from 'react-bootstrap/Row';
 
 const About = () => {
