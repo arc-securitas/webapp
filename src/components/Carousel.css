@@ -1,0 +1,45 @@
+.carousel {
+  overflow:  hidden;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.inner {
+  white-space: nowrap;
+  transition: transform 0.3s;
+  align-items: center;
+}
+
+.carousel-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.carousel:hover {
+  background-color: #f8f8f8;
+}
+
+.pips {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.active-pip {
+  background-color: #707070;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  margin: 0px 2px;
+}
+
+.inactive-pip {
+  background-color: #D9D9D9;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  margin: 0px 2px;
+}
