@@ -2,6 +2,11 @@
 import './homeMobile.css';
 import './homeTablet.css';
 import './homeLaptop.css';
+import mockup from '../images/mockup.svg';
+import img2 from '../images/Group19.svg';
+import img3 from '../images/Group22.svg';
+import img4 from '../images/Group15.svg';
+import img5 from '../images/Group17.svg';
 
 import JoinModal from "../components/joinModal.js";
 
@@ -70,7 +75,7 @@ const Home = () => {
                         </div>
                     </div>
                     <div className='right'>
-                        <img className="img1" src={"mockup.svg"} />
+                        <img className="img1" src={mockup} />
                     </div>
                 </section>
                 <div id="suboverall">
@@ -82,7 +87,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='right'>
-                            <img className="img2" src={"Group19.svg"} />
+                            <img className="img2" src={img2} />
                         </div>
                     </section>
 
@@ -94,7 +99,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='left'>
-                            <img className="img3" src={"Group22.svg"} />
+                            <img className="img3" src={img3} />
                         </div>
                     </section>
 
@@ -106,7 +111,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='right'>
-                            <img className="img4" src={"Group15.svg"} />
+                            <img className="img4" src={img4} />
                         </div>
                     </section>
 
@@ -118,7 +123,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='left'>
-                            <img className="img5" src={"Group17.svg"} />
+                            <img className="img5" src={img5} />
                         </div>
                     </section>
                 </div>
