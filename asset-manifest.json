@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/webapp/static/css/main.bbfe768b.css",
+    "main.js": "/webapp/static/js/main.e4949154.js",
+    "static/js/787.0522c164.chunk.js": "/webapp/static/js/787.0522c164.chunk.js",
+    "static/media/mockup.svg": "/webapp/static/media/mockup.c46ccd46579ce9f488667bc9d5f756c2.svg",
+    "static/media/Group19.svg": "/webapp/static/media/Group19.2566aa7e3b2035c574126a7efd422a87.svg",
+    "static/media/Group17.svg": "/webapp/static/media/Group17.0de75c35b52c9f5605f94766b154c530.svg",
+    "static/media/Group15.svg": "/webapp/static/media/Group15.a09f3c83cb9613c63aab9268c48acfbd.svg",
+    "static/media/Group22.svg": "/webapp/static/media/Group22.0c245e73515da97acd8bfd1a4c5097b1.svg",
+    "static/media/Logo-blue.svg": "/webapp/static/media/Logo-blue.97f7e6bfae874d652c7a5acbd896283d.svg",
+    "index.html": "/webapp/index.html",
+    "main.bbfe768b.css.map": "/webapp/static/css/main.bbfe768b.css.map",
+    "main.e4949154.js.map": "/webapp/static/js/main.e4949154.js.map",
+    "787.0522c164.chunk.js.map": "/webapp/static/js/787.0522c164.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bbfe768b.css",
+    "static/js/main.e4949154.js"
+  ]
+}
