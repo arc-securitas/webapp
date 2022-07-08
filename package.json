@@ -1,7 +1,7 @@
 {
   "name": "arcwebsite",
   "version": "0.1.0",
-  "homepage": "https://arc-securitas.github.io/",
+  "homepage": "https://arc-securitas.github.io/webapp/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.9.3",
@@ -28,7 +28,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",  
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
