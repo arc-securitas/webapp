@@ -49,7 +49,7 @@ const About = () => {
                 </section>
                 <section>
                     <p className='subheads'>Meet the Team</p>
-                    <Row className='overallPpl1' xs={3} sm={5}>
+                    <Row className='overallPpl1' xs={2} sm={5}>
                     {memdata.map((val, index) => (
                         <div className='overallPpl'>
                             <img class="profileImg" src={val["Your professional picture for the Website"].replace("open?", "uc?export=view&")} alt={val["Your Name (As you would like it to appear on the website)"]}></img>

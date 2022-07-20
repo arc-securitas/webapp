@@ -9,6 +9,7 @@ html {
   width: 100%;
   min-height: 100vh;
   max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .App-logo {
@@ -153,4 +154,19 @@ a.inactive {
 .offcanvas {
   width: 100%;
   background-color: #3684C9;
+}
+
+@media screen and (max-width: 319px) {
+  body {
+    display: none;
+  }
+
+  html {
+    margin: 10px; 
+  }
+
+  html::after {
+    content: "Your screen size seems to be too small and is unfortunately not supported by our website. Our minimum supported screen size is 320 pixels wide. We apologize for any inconvenience this may have caused.";
+    color: red;
+  }
 }
