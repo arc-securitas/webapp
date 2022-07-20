@@ -9,6 +9,7 @@ import {
 import Footer from "./components/Footer.js";
 import Home from "./pages/home.js";
 import About from "./pages/about.js";
+import BackendTest from "./pages/backendTest.js";
 import JoinModal from "./components/joinModal.js";
 
 import logoPic from "./images/Logo-blue.svg";
@@ -28,7 +29,7 @@ import Link from '@mui/material/Link';
 import CloseIcon from '@mui/icons-material/Close';
 
 const drawerWidth = '80%';
-const navItems = ['Home', 'Product', 'About'];
+const navItems = ['Home', 'Product', 'About', 'BackendTest'];
 
 function App(props) {
   const { window } = props;
@@ -229,7 +230,9 @@ function App(props) {
       <Routes>
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/webapp" element={<Home />} />
         <Route exact path="/about" element={<About />} />
+        <Route exact path="/backendTest" element={<BackendTest />} />
       </Routes>
 
       {/* Footer */}
