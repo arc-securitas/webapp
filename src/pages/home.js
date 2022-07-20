@@ -11,7 +11,6 @@ import img5 from '../images/Group17.svg';
 import JoinModal from "../components/joinModal.js";
 
 import React from "react";
-import Button from '@mui/material/Button';
 
 const Home = () => {
     return (
@@ -47,23 +46,23 @@ const Home = () => {
                                     marginLeft: 'calc(50% - 374px / 2)'
                                 },
 
-                                '@media screen and (min-width: 768px)': {
-                                    width: '335px',
-                                    marginLeft: 'calc(50% - 335px / 2)'
+                                '@media screen and (min-width: 769px)': {
+                                    width: '95%',
+                                    marginLeft: 'auto'
                                 },
 
-                                '@media screen and (min-width: 820px)': {   //CHECK THIS ONE!!!!!!!!!!!!
-                                    width: '320px',
+                                '@media screen and (min-width: 820px)': {
+                                    width: '95%',
                                     marginLeft: 'auto'
                                 },
 
                                 '@media screen and (min-width: 1024px)': {
-                                    width: '370px',
+                                    width: '95%',
                                     marginLeft: 'auto'
                                 },
 
-                                '@media screen and (min-width: 1440px)': {
-                                    width: '443px',
+                                '@media screen and (min-width: 1441px)': {
+                                    width: '95%',
                                     marginLeft: 'auto'
                                 },
 
@@ -145,6 +144,7 @@ const Home = () => {
                     justifyContent: 'center',
                     fontWeight: 700,
                     marginLeft: 'calc(50% - 48px)',
+                    marginTop: '1rem',
 
                     '&:hover': {
                         backgroundColor: '#fff'

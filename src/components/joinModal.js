@@ -1,3 +1,11 @@
+/**
+ * joinModal.js
+ * GetStarted Button and Popup window for joining email list
+ * Uses Material UI's button and Modal components
+ * All MUI components (Button, Modal, IconButton) have inline styling
+ * Other components styled in joinModal.css
+ */
+
 import './joinModal.css';
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -7,6 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Modal from '@mui/material/Modal';
 
 const JoinModal = (props) => {
+    // Opening and closing modal window
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => {
         setOpen(true);
@@ -17,9 +26,12 @@ const JoinModal = (props) => {
 
     return (
         <React.Fragment>
+            {/* Get Started Button - Styling passed in from the page that is using the component */}
             <Button onClick={handleOpen} sx={props.buttonStyling} variant="contained" >Get Started</Button>
+            
+            {/* Join maling list popup window */}
             <Modal
-                disableEnforceFocus
+                disableEnforceFocus 
                 disableAutoFocus
                 disableScrollLock
                 open={open}
@@ -27,6 +39,7 @@ const JoinModal = (props) => {
                 aria-labelledby="child-modal-title"
                 aria-describedby="child-modal-description"
             >
+                {/* White box background of the pop up window */}
                 <Box sx={{
                     position: 'absolute',
                     top: '50%',
@@ -49,6 +62,8 @@ const JoinModal = (props) => {
                     px: 4,
                     pb: 3,
                 }}>
+                    
+                    {/* Button to close pop up window */}
                     <IconButton edge="start" sx={{ 
                         color: "#000",
                         '@media screen and (min-width: 320px)': {
@@ -64,8 +79,11 @@ const JoinModal = (props) => {
                     
                     <h1 id='joinHeader'>Join our<br />mailing list</h1>
                     <p id='joinParagraph'>to stay up to date on all things Arc.</p>
+                    
+                    {/* Email input field */}
                     <input type="text" id="joinInputEmail" name="email" placeholder="Email" /><br />
                     
+                    {/* Join button */}
                     <Button onClick={handleClose} sx={{
                         display: 'inline',
                         backgroundColor: "#3684C9",
