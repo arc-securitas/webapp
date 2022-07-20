@@ -2,6 +2,7 @@
  * Header
  * Uses Material UI's App bar
  * Uses a Hamburger menu when running on mobile and tablet device
+ * All styling done through inline styling
  */ 
 
 import {
