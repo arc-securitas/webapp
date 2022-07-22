@@ -130,7 +130,7 @@ const Home = () => {
             <div id="section6">
                 <p className="h3s">Step into the future of real estate safety.</p>
                 <JoinModal buttonStyling = {{
-                    display: 'inline',
+                    display: 'block',
                     backgroundColor: "#fff",
                     border: 'none',
                     borderRadius: '4px',
@@ -143,7 +143,9 @@ const Home = () => {
                     gap: '4px',
                     justifyContent: 'center',
                     fontWeight: 700,
-                    marginLeft: 'calc(50% - 48px)',
+                    alignItems: 'center',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
                     marginTop: '1rem',
 
                     '&:hover': {
