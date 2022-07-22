@@ -27,7 +27,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import JoinModal from "./joinModal.js";
 
-const drawerWidth = '80%';
+const drawerWidth = '60%';
 
 // Page Names
 const navItems = ['Home', 'Product', 'About'];
@@ -46,7 +46,25 @@ export default function Header(props) {
         <Box sx={{ display: 'flex', justifyContent: 'center', height: '100%', backgroundColor: '#3684C9' }}>
             <List>
                 {/* Close Icon Button */}
-                <IconButton edge="start" sx={{ color: "#fff", marginLeft: '130%' }} onClick={handleDrawerToggle}><CloseIcon /></IconButton>
+                <IconButton edge="start" sx={{ 
+                    color: "#fff", 
+                    '@media screen and (min-width: 320px)': { 
+                        marginLeft: '100%' 
+                    },
+
+                    '@media screen and (min-width: 450px)': { 
+                        marginLeft: '120%' 
+                    },
+
+                    '@media screen and (min-width: 520px)': { 
+                        marginLeft: '140%' 
+                    },
+                    
+                    '@media screen and (min-width: 620px)': { 
+                        marginLeft: '160%' 
+                    },
+
+                     }} onClick={handleDrawerToggle}><CloseIcon /></IconButton>
                 
                 {/* Page Links Mapping */}
                 {navItems.map((item) => (
@@ -86,6 +104,7 @@ export default function Header(props) {
                     gap: '4px',
                     justifyContent: 'center',
                     fontWeight: 700,
+                    marginTop: '2.5rem',
 
                     '&:hover': {
                         backgroundColor: '#fff'
@@ -122,7 +141,13 @@ export default function Header(props) {
                         fontFamily: 'Outfit',
                         fontWeight: 'bold',
                         fontSize: '32px',
-                        marginRight: '2rem',
+
+                        '@media screen and (min-width: 320px)': { 
+                            marginRight: '1rem'
+                        },
+                        '@media screen and (min-width: 331px)': { 
+                            marginRight: '2rem'
+                        },
                     }}>Arc Security</Typography>
 
                     {/* Page Links */}
@@ -139,6 +164,7 @@ export default function Header(props) {
                                 fontSize: '16px',
                                 marginRight: '1rem',
                                 marginLeft: '1rem',
+                                marginTop: '15px',
                                 textAlign: 'center',
                                 display: 'inline-block',
                                 color: '#000',
@@ -169,6 +195,7 @@ export default function Header(props) {
                             textAlign: 'center',
                             gap: '4px',
                             justifyContent: 'center',
+                            marginTop: '-10px',
 
                             '@media screen and (min-width: 768px)': {
                                 marginLeft: '3rem'
@@ -201,10 +228,13 @@ export default function Header(props) {
                         sx={{
                             mr: 2,
                             display: 'block',
+                            position: 'absolute',
+                            marginTop: '10px',
+                            marginLeft: '90%',
 
                             '@media screen and (min-width: 768px)': {
                                 display: 'none'
-                            }
+                            },
                         }}
                     >
                         <MenuIcon sx={{ color: "#3684C9" }} />
