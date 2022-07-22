@@ -6,7 +6,7 @@
 
 @media screen and (min-width: 320px) {
   .overallFooter {
-    height: 440px;
+    height: 450px;
   }
 }
 
@@ -21,3 +21,8 @@
     height: 260px;
   }
 }
+
+.overallFooter {
+  box-sizing: border-box;
+}
+

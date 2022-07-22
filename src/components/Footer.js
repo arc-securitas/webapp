@@ -4,7 +4,7 @@ import { FooterDiv } from "./../styles/style";
 import { FaLinkedinIn, FaFacebookF } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
 
-import logoBlue from "../images/Logo-blue.svg";
+import logoBlue from "../images/LogoBlueActual.svg";
 
 import {
   Link as RouterLink,
@@ -39,6 +39,7 @@ export default function Footer() {
         </li>
       </ul>
       <p className="cc"> &copy;2022 Arc Security. All rights reserved</p>
+      <br />
     </FooterDiv>
   );
 }

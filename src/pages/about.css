@@ -34,8 +34,8 @@
 }
 
 .profileImg {
-    width: 200px; /* width of container */
-    height: 200px; /* height of container */
+    width: 180px; /* width of container */
+    height: 180px; /* height of container */
     object-fit: cover;
     border: 5px;
     border-radius: 4px;
@@ -61,6 +61,44 @@
     left: calc(50% - 200px/2 + 0.5px);
 }
 
+.overallPpl1 {
+    text-align: center;
+}
+
+@media only screen and (min-width: 400px) and (max-width: 440px) {
+    .profileImg {
+        width: 150px; 
+        height: 150px; 
+        object-fit: cover;
+        border: 5px;
+        border-radius: 4px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media only screen and (min-width: 342px) and (max-width: 400px) {
+    .profileImg {
+        width: 120px; 
+        height: 120px; 
+        object-fit: cover;
+        border: 5px;
+        border-radius: 4px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .profileData {
+        font-size: smaller;
+        padding-top: 3px;
+    }
+    
+    .profileData1 {
+        font-size: smaller;
+    }
+}
+
 @media only screen and (min-width: 1025px) {
     .content {
         padding-left: 25%;
@@ -68,7 +106,7 @@
     }
 }
 
-@media only screen and (min-width: 1441px) {
+@media only screen and (min-width: 1650px) {
     .content {
         padding-left: 30%;
         padding-right: 30%;

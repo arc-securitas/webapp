@@ -9,7 +9,7 @@ import {
     Link as RouterLink,
 } from "react-router-dom";
 
-import logoPic from "../images/Logo-blue.svg";
+import logoPic from "../images/LogoBlueActual.svg";
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
