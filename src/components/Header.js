@@ -126,8 +126,11 @@ export default function Header(props) {
                 top: 0,
                 width: '100%',
                 backgroundColor: '#E0F0FF',
-                alignItems: 'center',
-                justifyContent: 'center',
+
+                '@media screen and (min-width: 768px)': { 
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                },
             }}>
 
                 <Toolbar>
@@ -230,7 +233,14 @@ export default function Header(props) {
                             display: 'block',
                             position: 'absolute',
                             marginTop: '10px',
-                            marginLeft: '90%',
+
+                            '@media screen and (min-width: 320px)': {
+                                marginLeft: '80%',
+                            },
+
+                            '@media screen and (min-width: 450px)': {
+                                marginLeft: '85%',
+                            },
 
                             '@media screen and (min-width: 768px)': {
                                 display: 'none'
