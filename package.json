@@ -4,6 +4,7 @@
   "homepage": "https://arc-securitas.github.io/webapp/",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^1.10.2",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
