@@ -46,3 +46,17 @@
   max-width: 400px;
   margin: auto;
 }
+
+@media only screen and (min-width: 1025px) {
+  .product-page {
+      padding-left: 25%;
+      padding-right: 25%;
+  }
+}
+
+@media only screen and (min-width: 1650px) {
+  .product-page {
+      padding-left: 30%;
+      padding-right: 30%;
+  }
+}
