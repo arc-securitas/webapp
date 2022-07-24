@@ -1,8 +1,6 @@
-import './product.css';
-
 import React from "react";
-import TabContainer from '../components/TabContainer.js';
-import Tab from '../components/Tab.js';
+import './product.css';
+import TabContainer, { Tab } from '../components/TabContainer.js';
 import Carousel, { CarouselItem } from '../components/Carousel.tsx';
 
 const Product = () => {

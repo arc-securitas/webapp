@@ -1,14 +1,31 @@
-import React from "react";
+/*
+  Basically a slideshow. Horizontally scrolls when arrows are clicked.
+
+  Use it like this:
+  ---------------------------------------------------------------
+    import Carousel, { CarouselItem } from 'wherever'
+
+    <Carousel>
+        <CarouselItem>
+            {Stuff}
+        </CarouselItem>
+        <CarouselItem>
+            {More Stuff}
+        </CarouselItem>
+    </Carousel>
+  ---------------------------------------------------------------
+
+  Each <CarouselItem> (see below) is its own slide, and the {Stuff} inside is what shows up.
+  No props!
+*/
+
+import React from 'react';
 import './Carousel.css';
 
-export const CarouselItem = ({ children, width }) => {
-  return (
-    <div className="carousel-item" style={{ width: width }}>
-      {children}
-    </div>
-  );
-};
-
+/*
+  Carousel component. Provides functionality to display current item, update current
+  item, and animate movement of slides.
+*/
 class Carousel extends React.Component<{children: any}, {activeItem: number}> {
   itemCount: number;
 
@@ -23,7 +40,9 @@ class Carousel extends React.Component<{children: any}, {activeItem: number}> {
 
   render() {
     return (
-      <div className="carousel" onClick={() => this.setActiveItem(this.state.activeItem + 1)}>
+      <div className="carousel">
+        <img className="arrow-left" src={"arrow-left.svg"} onClick={() => this.setActiveItem(this.state.activeItem - 1)} />
+        <img className="arrow-right" src={"arrow-right.svg"} onClick={() => this.setActiveItem(this.state.activeItem + 1)} />
         <div className="inner" style={{ transform: `translateX(-${this.state.activeItem * 100}%)` }}>
           {React.Children.map(this.props.children, (child, index) => {
             return React.cloneElement(child, { width: "100%" });
@@ -40,6 +59,10 @@ class Carousel extends React.Component<{children: any}, {activeItem: number}> {
     );
   }
 
+  /**
+   * Sets the active item to the specified index
+   * @param {number} item - Index to update to. Automatically wraps to stay in bounds
+   */
   setActiveItem(item: number) {
     if (item >= this.itemCount) {
       this.setState({activeItem: 0});
@@ -52,3 +75,12 @@ class Carousel extends React.Component<{children: any}, {activeItem: number}> {
 }
 
 export default Carousel;
+
+// CarouselItem component. Basically just a wrapper with some CSS.
+export const CarouselItem = ({ children, width }) => {
+  return (
+    <div className="carousel-item" style={{ width: width }}>
+      {children}
+    </div>
+  );
+};
