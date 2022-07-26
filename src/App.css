@@ -73,7 +73,7 @@ html {
   .navbar {
     height: 80px;
   }
-  
+
   a {
     color: #000;
   }
@@ -83,7 +83,7 @@ html {
   .navbar {
     height: 80px;
   }
-  
+
   a {
     color: #000;
   }
@@ -101,7 +101,7 @@ html {
 
 .navbar {
   position: sticky;
-  top: 0; 
+  top: 0;
   width: 100%;
   background-color:#E0F0FF;
   align-items: center;

@@ -8,6 +8,7 @@ import Header from "./components/Header.js";
 import Footer from "./components/Footer.js";
 import Home from "./pages/home.js";
 import About from "./pages/about.js";
+import Product from "./pages/product.js";
 
 function App(props) {
   return (

@@ -1,0 +1,15 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+}
+
+.tab-container {
+  background-color: white;
+}
+
+.pane {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
