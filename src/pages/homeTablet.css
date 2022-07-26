@@ -1,4 +1,8 @@
-@media only screen and (min-width: 481px) and (max-width: 769px) {
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    #overall {
+        padding-top: 10px;
+    }
+    
     .left {
         display: block;
         width: 100%;
@@ -122,3 +126,4 @@
         padding-bottom: 2%;
     }
 }
+

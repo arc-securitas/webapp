@@ -1,24 +1,28 @@
 @media screen and (min-width: 481px) {
-    ul li {
-        display: inline-block;
-    }
+  ul li {
+    display: inline-block;
+  }
 }
 
 @media screen and (min-width: 320px) {
-    .overallFooter {
-        height: 440px;
-    }
+  .overallFooter {
+    height: 450px;
+  }
 }
 
 @media screen and (min-width: 481px) {
-    .overallFooter {
-        height: 294px;
-    }
+  .overallFooter {
+    height: 294px;
+  }
 }
 
 @media screen and (min-width: 769px) {
-    .overallFooter {
-        height: 194px;
-    }
+  .overallFooter {
+    height: 260px;
+  }
+}
+
+.overallFooter {
+  box-sizing: border-box;
 }
 

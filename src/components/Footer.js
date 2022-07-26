@@ -4,6 +4,8 @@ import { FooterDiv } from "./../styles/style";
 import { FaLinkedinIn, FaFacebookF } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
 
+import logoBlue from "../images/LogoBlueActual.svg";
+
 import {
   Link as RouterLink,
   BrowserRouter as Router,
@@ -15,9 +17,9 @@ import {
 export default function Footer() {
   return (
     <FooterDiv className='overallFooter' style={{backgroundColor: "Black"}}>
-      <img src="Logo-blue.png" style={{marginBottom:"-0.025px"}}/>
+      <img src={logoBlue} style={{marginBottom:"-0.025px"}}/>
       <ul className="sitemap">
-        <li><NavLink to="/webapp/about">Product</NavLink></li>
+        <li>Product</li>
         <li>About</li>
         <li>Careers</li>
         <li>FAQ</li>
@@ -37,6 +39,7 @@ export default function Footer() {
         </li>
       </ul>
       <p className="cc"> &copy;2022 Arc Security. All rights reserved</p>
+      <br />
     </FooterDiv>
   );
 }
