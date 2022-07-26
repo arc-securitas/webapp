@@ -1,0 +1,45 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+}
+
+.tab_container {
+  background-color: white;
+}
+
+.pane {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.active {
+  font-family: 'Outfit';
+  text-align: center;
+  font-weight: bold;
+  color: #3684C9;
+
+  background-color: white;
+  border-bottom: 2px solid #3684C9;
+  border-top: 2px solid white;
+  padding: 12px 0px;
+  flex-grow: 1;
+}
+
+.inactive {
+  font-family: 'Outfit';
+  font-weight: 400;
+  text-align: center;
+
+  background-color: #DADADA;
+  border-top: 2px solid #DADADA;
+  padding: 12px 0px;
+  flex-grow: 1;
+
+  cursor: pointer;
+}
+
+.inactive:hover {
+  background-color: #DFDFDF;
+}

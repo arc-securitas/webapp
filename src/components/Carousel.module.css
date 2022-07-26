@@ -11,7 +11,7 @@
   align-items: center;
 }
 
-.carousel-item {
+.carousel_item {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -24,7 +24,7 @@
   margin-top: 10px;
 }
 
-.active-pip {
+.active_pip {
   background-color: #707070;
   width: 8px;
   height: 8px;
@@ -32,7 +32,7 @@
   margin: 0px 2px;
 }
 
-.inactive-pip {
+.inactive_pip {
   background-color: #D9D9D9;
   width: 8px;
   height: 8px;
@@ -40,7 +40,7 @@
   margin: 0px 2px;
 }
 
-.arrow-left {
+.arrow_left {
   position: absolute;
   left: 20px;
   top: 50%;
@@ -52,7 +52,7 @@
   z-index: 1;
 }
 
-.arrow-right {
+.arrow_right {
   position: absolute;
   right: 20px;
   top: 50%;

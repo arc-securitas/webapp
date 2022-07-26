@@ -20,7 +20,7 @@
 */
 
 import React from 'react';
-import './Carousel.css';
+import styles from './Carousel.module.css';
 import arrowLeft from '../images/arrow-left.svg';
 import arrowRight from '../images/arrow-right.svg';
 
@@ -42,18 +42,18 @@ class Carousel extends React.Component<{children: any}, {activeItem: number}> {
 
   render() {
     return (
-      <div className="carousel">
-        <img className="arrow-left" src={arrowLeft} onClick={() => this.setActiveItem(this.state.activeItem - 1)} />
-        <img className="arrow-right" src={arrowRight} onClick={() => this.setActiveItem(this.state.activeItem + 1)} />
-        <div className="inner" style={{ transform: `translateX(-${this.state.activeItem * 100}%)` }}>
+      <div className={styles.carousel}>
+        <img className={styles.arrow_left} src={arrowLeft} onClick={() => this.setActiveItem(this.state.activeItem - 1)} />
+        <img className={styles.arrow_right} src={arrowRight} onClick={() => this.setActiveItem(this.state.activeItem + 1)} />
+        <div className={styles.inner} style={{ transform: `translateX(-${this.state.activeItem * 100}%)` }}>
           {React.Children.map(this.props.children, (child, index) => {
             return React.cloneElement(child, { width: "100%" });
           })}
         </div>
-        <div className="pips">
+        <div className={styles.pips}>
           {React.Children.map(this.props.children, (child, index) => {
             return (
-              <div className={`${index === this.state.activeItem ? "active-pip" : "inactive-pip"}`} onClick={() => { this.setActiveItem(index); }} />
+              <div className={`${index === this.state.activeItem ? styles.active_pip : styles.inactive_pip}`} onClick={() => { this.setActiveItem(index); }} />
             );
           })}
         </div>
@@ -81,7 +81,7 @@ export default Carousel;
 // CarouselItem component. Basically just a wrapper with some CSS.
 export const CarouselItem = ({ children, width }) => {
   return (
-    <div className="carousel-item" style={{ width: width }}>
+    <div className={styles.carousel_item} style={{ width: width }}>
       {children}
     </div>
   );
