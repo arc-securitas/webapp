@@ -21,6 +21,8 @@
 
 import React from 'react';
 import './Carousel.css';
+import arrowLeft from '../images/arrow-left.svg';
+import arrowRight from '../images/arrow-right.svg';
 
 /*
   Carousel component. Provides functionality to display current item, update current
@@ -41,8 +43,8 @@ class Carousel extends React.Component<{children: any}, {activeItem: number}> {
   render() {
     return (
       <div className="carousel">
-        <img className="arrow-left" src={"arrow-left.svg"} onClick={() => this.setActiveItem(this.state.activeItem - 1)} />
-        <img className="arrow-right" src={"arrow-right.svg"} onClick={() => this.setActiveItem(this.state.activeItem + 1)} />
+        <img className="arrow-left" src={arrowLeft} onClick={() => this.setActiveItem(this.state.activeItem - 1)} />
+        <img className="arrow-right" src={arrowRight} onClick={() => this.setActiveItem(this.state.activeItem + 1)} />
         <div className="inner" style={{ transform: `translateX(-${this.state.activeItem * 100}%)` }}>
           {React.Children.map(this.props.children, (child, index) => {
             return React.cloneElement(child, { width: "100%" });
