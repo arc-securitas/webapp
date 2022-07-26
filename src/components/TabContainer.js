@@ -51,7 +51,7 @@ class TabContainer extends React.Component {
 
     return (
       <div className="tab-container">
-          <div className="row">
+          <div className="row1">
             {labels}
           </div>
           <div className="pane">

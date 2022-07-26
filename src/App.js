@@ -18,6 +18,7 @@ function App(props) {
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/" element={<Home />} />
         <Route exact path="/about" element={<About />} />
+        <Route exact path="/product" element={<Product />} />
       </Routes>
       <Footer />
     </Router>

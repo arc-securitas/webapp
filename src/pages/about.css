@@ -67,8 +67,8 @@
 
 @media only screen and (min-width: 400px) and (max-width: 440px) {
     .profileImg {
-        width: 150px; 
-        height: 150px; 
+        width: 150px;
+        height: 150px;
         object-fit: cover;
         border: 5px;
         border-radius: 4px;
@@ -80,8 +80,8 @@
 
 @media only screen and (min-width: 342px) and (max-width: 400px) {
     .profileImg {
-        width: 120px; 
-        height: 120px; 
+        width: 120px;
+        height: 120px;
         object-fit: cover;
         border: 5px;
         border-radius: 4px;
@@ -93,7 +93,7 @@
         font-size: smaller;
         padding-top: 3px;
     }
-    
+
     .profileData1 {
         font-size: smaller;
     }
