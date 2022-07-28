@@ -147,7 +147,7 @@ const Home = () => {
                     alignItems: 'center',
                     marginLeft: 'auto',
                     marginRight: 'auto',
-                    marginTop: '1rem',
+                    marginTop: '6rem',
 
                     '&:hover': {
                         backgroundColor: '#fff'
