@@ -147,7 +147,11 @@ const Home = () => {
                     alignItems: 'center',
                     marginLeft: 'auto',
                     marginRight: 'auto',
-                    marginTop: '6rem',
+                    marginTop: '4rem',
+
+                    '@media screen and (min-width: 769px)': {
+                        marginTop: '1rem',
+                    },
 
                     '&:hover': {
                         backgroundColor: '#fff'
