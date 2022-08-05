@@ -26,7 +26,7 @@ const About = () => {
         <>
             <div className='content'>
                 <section className="">
-                    <p className='superhead'>We are <span className='blueStuff'>Arc Security</span>.</p>
+                    <p className='superhead'><div className='surface'>We are</div> <div className='surfaceSlow'><span className='blueStuff'>Arc Security</span>.</div></p>
                 </section>
                 <section>
                     <p className='subtitles'>OUR MISSION</p>
