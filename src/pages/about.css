@@ -4,6 +4,11 @@
     padding-right: 20px;
 }
 
+.superheadSection {
+    margin-top: 20vh;
+    margin-bottom: 20vh;
+}
+
 .superhead {
     font-family: 'Outfit';
     font-style: normal;
@@ -11,49 +16,15 @@
     line-height: 150%;
 }
 
-.typewriter {
-    overflow: hidden;
-    white-space: nowrap;
-    animation: typing 2s ease-in-out;
-}
-
-@keyframes typing {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
-}
-
-.surface {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: surfaceAnimation .5s cubic-bezier(0.5, 0.5, 0.9, 1) 0.2s forwards;
-}
-
-.surfaceSlow {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: surfaceAnimation .5s cubic-bezier(0.5, 0.5, 0.9, 1) 0.8s forwards;
-}
-
-@keyframes surfaceAnimation {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 100%;
-        transform: translateY(0px);
-    }
-}
-
 .subhead {
     font-family: 'Outfit';
     font-style: normal;
     font-weight: 700;
     line-height: 150%;
+}
+
+.subheadSection {
+    margin-top: 20vh;
 }
 
 @media only screen and (max-width: 480px) {
@@ -185,4 +156,8 @@
         padding-left: 30%;
         padding-right: 30%;
     }
+}
+
+.hidden {
+    opacity: 0;
 }
