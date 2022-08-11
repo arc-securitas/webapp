@@ -7,6 +7,7 @@ import img3 from '../images/Group22.svg';
 import img4 from '../images/Group15.svg';
 import img5 from '../images/Group17.svg';
 import ArcWallSvg from '../components/ArcWallSvg.js';
+import HomeMetricsSvg from '../components/HomeMetrics.js';
 
 import JoinModal from "../components/joinModal.js";
 
@@ -98,7 +99,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='left'>
-                            <img className="img3" src={img3} />
+                            <HomeMetricsSvg />
                         </div>
                     </section>
 

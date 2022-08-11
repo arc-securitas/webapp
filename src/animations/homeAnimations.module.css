@@ -47,13 +47,24 @@
     animation: fade-in 0.25s ease-in-out forwards;
     animation-delay: 1.6s;
   }
+
+  .metricsLine {
+    animation: wipe-in 4s ease-in-out forwards;
+  }
 }
 
 @keyframes fade-in {
   from {
     opacity: 20%;
-  }
-  to {
+  } to {
     opacity: 100%;
+  }
+}
+
+@keyframes wipe-in {
+  from {
+    width: 0;
+  } to {
+    width: 100%;
   }
 }
