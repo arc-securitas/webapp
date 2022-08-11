@@ -3,10 +3,10 @@ import './homeMobile.css';
 import './homeTablet.css';
 import './homeLaptop.css';
 import mockup from '../images/mockup.svg';
-import img2 from '../images/Group19.svg';
 import img3 from '../images/Group22.svg';
 import img4 from '../images/Group15.svg';
 import img5 from '../images/Group17.svg';
+import ArcWallSvg from '../components/ArcWallSvg.js';
 
 import JoinModal from "../components/joinModal.js";
 
@@ -86,7 +86,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='right'>
-                            <img className="img2" src={img2} />
+                            <ArcWallSvg />
                         </div>
                     </section>
 
