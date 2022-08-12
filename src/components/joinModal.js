@@ -29,6 +29,9 @@ const JoinModal = (props) => {
 
     const handleClose = () => {
         setOpen(false);
+        setEmail("");
+        setIncorrectEmail(false);
+        setIncorrectEmailMessage("");
     };
 
     const handleUpdateEmail = (e) => {
