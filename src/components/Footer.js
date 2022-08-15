@@ -4,7 +4,7 @@ import { FooterDiv } from "./../styles/style";
 import { FaLinkedinIn, FaFacebookF } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
 
-import logoBlue from "../images/LogoBlueActual.svg";
+import logo from "../images/LogoWhite.svg";
 
 import {
   Link as RouterLink,
@@ -17,7 +17,7 @@ import {
 export default function Footer() {
   return (
     <FooterDiv className='overallFooter' style={{backgroundColor: "Black"}}>
-      <img src={logoBlue} style={{marginBottom:"-0.025px"}}/>
+      <img src={logo} style={{marginBottom:"-0.025px"}}/>
       <ul className="sitemap">
         <li>Product</li>
         <li>About</li>
