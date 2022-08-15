@@ -3,9 +3,6 @@ import './homeMobile.css';
 import './homeTablet.css';
 import './homeLaptop.css';
 import mockup from '../images/mockup.svg';
-import img3 from '../images/Group22.svg';
-import img4 from '../images/Group15.svg';
-import img5 from '../images/Group17.svg';
 import ArcWallSvg from '../animations/ArcWallSvg.js';
 import HomeMetricsSvg from '../animations/HomeMetrics.js';
 import TimelineSvg from '../animations/HomeTimeline.js';
@@ -15,7 +12,6 @@ import CallToAction from '../components/CallToAction.js';
 import JoinModal from "../components/joinModal.js";
 
 import React from "react";
-import HomeTimeline from '../animations/HomeTimeline.js';
 
 const Home = () => {
     return (
