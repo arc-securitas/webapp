@@ -10,6 +10,7 @@ import ArcWallSvg from '../animations/ArcWallSvg.js';
 import HomeMetricsSvg from '../animations/HomeMetrics.js';
 import TimelineSvg from '../animations/HomeTimeline.js';
 import HomeAlertSvg from '../animations/HomeAlert.js';
+import CallToAction from '../components/CallToAction.js';
 
 import JoinModal from "../components/joinModal.js";
 
@@ -131,34 +132,7 @@ const Home = () => {
                     </section>
                 </div>
             </div>
-            {/* TODO: Turn section6 into a component named "CallToAction" */}
-            <div id="section6">
-                <p className="h3s">Step into the future of real estate safety.</p>
-                <JoinModal buttonStyling = {{
-                    display: 'block',
-                    backgroundColor: "#fff",
-                    border: 'none',
-                    borderRadius: '4px',
-                    fontFamily: "Outfit",
-                    fontWeight: '700',
-                    textTransform: 'none',
-                    color: '#3684C9',
-                    padding: '12px 20px',
-                    textAlign: 'center',
-                    gap: '4px',
-                    justifyContent: 'center',
-                    fontWeight: 700,
-                    alignItems: 'center',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    marginTop: '1rem',
-
-                    '&:hover': {
-                        backgroundColor: '#fff'
-                    }
-                }} />
-            </div>
-
+            <CallToAction />
         </>
     )
 }

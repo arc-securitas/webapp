@@ -1,6 +1,7 @@
 import './about.css';
 import animations from '../animations/animations.module.css';
 import useGoogleSheets from 'use-google-sheets';
+import CallToAction from '../components/CallToAction.js';
 
 import React from "react";
 import { useElementOnScreen } from '../animations/animationHooks.js';
@@ -68,6 +69,7 @@ const About = () => {
                     </Row>
                 </section>
             </div>
+            <CallToAction />
         </>
     )
 }
