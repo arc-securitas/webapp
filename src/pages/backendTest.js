@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 const Record = (props) => (
     <tr>
         <td>{props.record._id}</td>
-        <td>{props.record.name}</td>
+        <td>{props.record.firstName}</td>
+        <td>{props.record.middleName}</td>
+        <td>{props.record.lastName}</td>
         <td>{props.record.phoneNumber}</td>
+        <td>{props.record.email}</td>
         <td>{props.record.safetyCode}</td>
         <td>{props.record.status}</td>
-        <td>{props.record.__v}</td>
-        <td>{props.record.location}</td> 
+        <td>{props.record.location}</td>
     </tr>
 );
 
@@ -49,6 +51,45 @@ const BackendTest = () => {
         });
     }
 
+    const [form, setForm] = useState({
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        email: "",
+    });
+    const navigate = useNavigate();
+
+    // These methods will update the state properties.
+    function updateForm(value) {
+        return setForm((prev) => {
+            return { ...prev, ...value };
+        });
+    }
+
+
+    async function onSubmit(e) {
+        e.preventDefault();
+        console.log(form);
+
+        // When a post request is sent to the create url, we'll add a new record to the database.
+        const newAgent = { ...form };
+
+        await fetch("http://localhost:5000/agents/add", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newAgent),
+        })
+            .catch(error => {
+                window.alert(error);
+                return;
+            });
+
+        setForm({ firstName: "", lastName: "", phoneNumber: "", email: "" });
+        navigate("/");
+    }
+
     return (
         <div>
             <h3>Record List</h3>
@@ -56,16 +97,73 @@ const BackendTest = () => {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
                         <th>Phone Number</th>
+                        <th>Email</th>
                         <th>Safety Code</th>
                         <th>Status</th>
-                        <th>__v</th>
                         <th>Location</th>
                     </tr>
                 </thead>
                 <tbody>{recordList()}</tbody>
             </table>
+
+            <h3>Create New Record</h3>
+            <form onSubmit={onSubmit}>
+                <div className="form-group">
+                    <label htmlFor="firstName">First Name</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="firstName"
+                        defaultValue={form.firstName}
+                        onChange={(e) => updateForm({ firstName: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="lastName">Last Name</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="lastName"
+                        defaultValue={form.lastName}
+                        onChange={(e) => updateForm({ lastName: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="phoneNumber">phoneNumber</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="phoneNumber"
+                        defaultValue={form.phoneNumber}
+                        onChange={(e) => updateForm({ phoneNumber: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="email"
+                        defaultValue={form.email}
+                        onChange={(e) => updateForm({ email: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <input
+                        type="submit"
+                        value="Create person"
+                        className="btn btn-primary"
+                    />
+                </div>
+            </form>
         </div>
     );
 }

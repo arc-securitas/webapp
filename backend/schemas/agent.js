@@ -21,7 +21,7 @@ const agentSchema = new Schema({
 
     safetyCode: String, 
     location: String,
-    status: { type: String, enum: ['Active', 'Pending', 'Inactive', 'Other'] },
+    status: { type: String, enum: ['', 'Active', 'Pending', 'Inactive', 'Other'] },
 
     // emergency contacts list
     contacts: [{
@@ -47,7 +47,7 @@ const agentSchema = new Schema({
 
 });
 
-agentSchema.pre(save, function (next) {
+agentSchema.pre("save", function (next) {
     var agent = this;
 
     // only hash the safety code if it is new or has been modified

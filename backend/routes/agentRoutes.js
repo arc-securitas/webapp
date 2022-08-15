@@ -13,7 +13,7 @@ const Agent = require('../schemas/agent.js');
 const ObjectId = require("mongodb").ObjectId;
 
 // Connection to agents collection in database
-let db_connect = mongoose.connection.db.collection("agents");
+let db_connect = mongoose.connection.collection("agents");
 
 // Get a list of all the agent records
 agentRoutes.route("/agents").get(function (req, res) {
@@ -27,7 +27,7 @@ agentRoutes.route("/agents").get(function (req, res) {
 
 
 // Gets a single agent record by id
-recordRoutes.route("/agents/:id").get(function (req, res) {
+agentRoutes.route("/agents/:id").get(function (req, res) {
     let query = Agent.where({ _id: ObjectId(req.params.id) });
     query.findOne(function (err, result) {
         if (err) throw err;
@@ -36,22 +36,22 @@ recordRoutes.route("/agents/:id").get(function (req, res) {
 });
 
 // Create a new agent record.
-recordRoutes.route("/agents/add").post(function (req, res) {
+agentRoutes.route("/agents/add").post(function (req, res) {
     let agent = new Agent();
 
     // Name
     agent.firstName = req.body.firstName;
-    agent.middleName = req.body.middleName;
+    agent.middleName = req.body.middleName == undefined ? "" : req.body.middleName;
     agent.lastName = req.body.lastName;
 
     // Contact info
-    agent.countryCode = req.body.countryCode;
+    agent.countryCode = req.body.countryCode == undefined ? "" : req.body.countryCode;
     agent.phoneNumber = req.body.phoneNumber;
     agent.email = req.body.email;
 
-    agent.safetyCode = req.body.safetyCode;
-    agent.location = req.body.location;
-    agent.status = req.body.status;
+    agent.safetyCode = req.body.safetyCode == undefined ? "" : req.body.safetyCode;
+    agent.location = req.body.location == undefined ? "" : req.body.location;
+    agent.status = req.body.status == undefined ? "" : req.body.status;
 
     agent.save(function (err, result) {
         if (err) throw err;

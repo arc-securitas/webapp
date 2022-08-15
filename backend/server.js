@@ -7,11 +7,10 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use(require("./routes/record"));
 app.use(require("./routes/agentRoutes"));
 
 const dbRoute = process.env.ATLAS_URI;
-const dbName = "arcsecurity_beta";
+const dbName = "web_test";
 mongoose
     .connect(dbRoute, { dbName: dbName, useNewUrlParser: true , useUnifiedTopology: true})
     .then(() => console.log("Successfully connected to MongoDB."))
