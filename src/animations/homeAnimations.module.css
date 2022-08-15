@@ -5,42 +5,36 @@
     animation: fade-in 0.25s ease-in-out forwards;
     animation-delay: 1s;
   }
-
   .arcWallBlue {
     opacity: 20%;
     fill: #3684C9;
     animation: fade-in 0.25s ease-in-out forwards;
     animation-delay: 1.1s;
   }
-
   .arcWallGreen {
     opacity: 20%;
     fill: #82DFB2;
     animation: fade-in 0.25s ease-in-out forwards;
     animation-delay: 1.2s;
   }
-
   .arcWallYellow {
     opacity: 20%;
     fill: #FFBF60;
     animation: fade-in 0.25s ease-in-out forwards;
     animation-delay: 1.3s;
   }
-
   .arcWallTeal {
     opacity: 20%;
     fill: #43BFDA;
     animation: fade-in 0.25s ease-in-out forwards;
     animation-delay: 1.4s;
   }
-
   .arcWallRed {
     opacity: 20%;
     fill: #DD4C80;
     animation: fade-in 0.25s ease-in-out forwards;
     animation-delay: 1.5s;
   }
-
   .arcWallBlack {
     opacity: 20%;
     fill: black;
@@ -50,6 +44,112 @@
 
   .metricsLine {
     animation: wipe-in 4s ease-in-out forwards;
+  }
+
+  .scrub {
+    animation: translate-right 3s linear forwards;
+  }
+  .arcBar {
+    opacity: 0;
+    animation: jump-in 0.25s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 4s;
+  }
+  .checkOne {
+    opacity: 0;
+    animation: jump-in 0.25s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 1s;
+  }
+  .checkTwo {
+    opacity: 0;
+    animation: jump-in 0.25s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 2s;
+  }
+  .checkThree {
+    opacity: 0;
+    animation: jump-in 0.25s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 3s;
+  }
+
+  .alert {
+    transform: scale(0);
+    transform-origin: center;
+    animation: alertAnimation 0.4s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 1s;
+  }
+  .alertGrey {
+    animation: driftLeft 0.5s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 1.3s;
+  }
+  .alertSummerBlue {
+    animation: driftLeft 0.5s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 1.2s;
+  }
+  .alertWhite {
+    animation: driftRight 0.5s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 1.1s;
+  }
+  .alertBlack {
+    animation: driftRight 0.5s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 1.2s;
+  }
+  .alertPink {
+    animation: driftRight 0.5s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 1.35s;
+  }
+  .alertGreen {
+    animation: driftRight 0.5s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 1.125s;
+  }
+  .alertBrilliantBlue {
+    animation: driftLeft 0.5s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 1.1s;
+  }
+  .alertFloridaOrange {
+    animation: driftRight 0.5s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 1.15s;
+  }
+}
+
+@keyframes alertAnimation {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes driftLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(-1%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes driftRight {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(1%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes jump-in {
+  from {
+    opacity: 0%;
+    transform: translateY(10%);
+  } to {
+    opacity: 100%;
+    transform: translateY(0%);
   }
 }
 
@@ -66,5 +166,13 @@
     width: 0;
   } to {
     width: 100%;
+  }
+}
+
+@keyframes translate-right {
+  from {
+    transform: 0;
+  } to {
+    transform: translateX(400px);
   }
 }

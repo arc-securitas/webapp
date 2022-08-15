@@ -1,6 +1,6 @@
 import React from "react";
-import animations from '../animations/homeAnimations.module.css';
-import { useElementOnScreen } from '../animations/animationHooks.js';
+import animations from './homeAnimations.module.css';
+import { useElementOnScreen } from './animationHooks.js';
 
 export default function HomeMetricsSvg() {
   const here = useElementOnScreen();

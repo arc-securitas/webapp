@@ -6,12 +6,15 @@ import mockup from '../images/mockup.svg';
 import img3 from '../images/Group22.svg';
 import img4 from '../images/Group15.svg';
 import img5 from '../images/Group17.svg';
-import ArcWallSvg from '../components/ArcWallSvg.js';
-import HomeMetricsSvg from '../components/HomeMetrics.js';
+import ArcWallSvg from '../animations/ArcWallSvg.js';
+import HomeMetricsSvg from '../animations/HomeMetrics.js';
+import TimelineSvg from '../animations/HomeTimeline.js';
+import HomeAlertSvg from '../animations/HomeAlert.js';
 
 import JoinModal from "../components/joinModal.js";
 
 import React from "react";
+import HomeTimeline from '../animations/HomeTimeline.js';
 
 const Home = () => {
     return (
@@ -111,7 +114,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='right'>
-                            <img className="img4" src={img4} />
+                            <TimelineSvg />
                         </div>
                     </section>
 
@@ -123,7 +126,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='left'>
-                            <img className="img5" src={img5} />
+                            <HomeAlertSvg />
                         </div>
                     </section>
                 </div>
