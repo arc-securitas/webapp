@@ -1,5 +1,5 @@
 import React from "react";
-import animations from './homeAnimations.module.css';
+import animations from './productAnimations.module.css';
 import { useElementOnScreen } from './animationHooks.js';
 
 export default function ProductCalendar() {

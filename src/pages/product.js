@@ -70,7 +70,7 @@ const Product = () => {
                             <div className={styles.graphicNetwork}><ArcNetworkSvg /></div>
                             <p className={styles.story_center}>Update your Safety Network at any time by adding contacts. All you need is a name and a phone number.</p>
                             <div className={styles.graphicAudio}><ArcAudioSvg /></div>
-                            <p className="story-center">Arc can record audio clips in the event of a presumed emergency to help others get a better understanding of the situation.</p>
+                            <p className={styles.story_center}>Arc can record audio clips in the event of a presumed emergency to help others get a better understanding of the situation.</p>
                         </section>
                     </Tab>
                     <Tab label="FOR MANAGERS">
