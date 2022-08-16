@@ -134,6 +134,24 @@
     animation: toPurple 0.25s ease-in-out forwards;
     animation-delay: 0.5s
   }
+
+  .tealNet {
+    transform: translateX(-50%);
+    animation: slideRight 0.5s cubic-bezier(.22,.78,.37,1.2) forwards;
+    animation-delay: 1s;
+  }
+  .blueNet {
+    animation: driftRight 0.25s cubic-bezier(.42,.42,.59,1.51) forwards;
+    animation-delay: 1.25s;
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(-50%);
+  } 100% {
+    transform: translatex(0);
+  }
 }
 
 @keyframes toYellow {
