@@ -34,6 +34,22 @@
     animation: driftRight 0.25s cubic-bezier(.42,.42,.59,1.51) forwards;
     animation-delay: 1.25s;
   }
+
+  .bob1 {
+    animation: bob 0.5s forwards;
+    animation-delay: 0.5s;
+    animation-iteration-count: 5;
+  }
+  .bob2 {
+    animation: bob 0.5s forwards;
+    animation-delay: 0.65s;
+    animation-iteration-count: 5;
+  }
+  .bob3 {
+    animation: bob 0.5s forwards;
+    animation-delay: 0.8s;
+    animation-iteration-count: 5;
+  }
 }
 
 @keyframes slideRight {
@@ -86,4 +102,9 @@
   100% {
     transform: translateX(0%);
   }
+}
+
+@keyframes bob {
+  25% { transform: translateY(-1%); }
+  75% { transform: translateY(1%); }
 }

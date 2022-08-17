@@ -7,27 +7,27 @@ export default function ProductAudio() {
 
   return (
     <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" ref={here.ref}>
-      <g id="Group 66">
-        <circle id="Ellipse 42" cx="64" cy="64" r="62" fill="white" stroke="black" stroke-width="4"/>
-        <rect className={here.isVisible ? animations.rectOne : ""} id="Rectangle 122" x="8" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 123" x="14" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 124" x="20" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 125" x="26" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 126" x="32" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 127" x="38" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 128" x="44" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 129" x="50" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 130" x="56" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 131" x="62" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 132" x="68" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 133" x="74" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 134" x="80" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 135" x="86" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 136" x="92" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 137" x="98" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 138" x="104" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 139" x="110" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
-        <rect id="Rectangle 140" x="116" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
+      <g id="Group 67">
+        <circle id="Ellipse 41" cx="64" cy="64" r="62" fill="white" stroke="black" stroke-width="4"/>
+        <rect className={here.isVisible ? animations.bob1 : ""} id="Rectangle 103" x="8" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob2 : ""} id="Rectangle 105" x="14" y="58" width="4" height="12" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob3 : ""} id="Rectangle 106" x="20" y="52" width="4" height="24" rx="2" fill="#3684C9"/>
+        <rect id="Rectangle 107" x="26" y="60" width="4" height="8" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob2 : ""} id="Rectangle 108" x="32" y="56" width="4" height="16" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob3 : ""}id="Rectangle 109" x="38" y="49" width="4" height="30" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob1 : ""} id="Rectangle 110" x="44" y="52" width="4" height="24" rx="2" fill="#3684C9"/>
+        <rect id="Rectangle 111" x="50" y="41" width="4" height="46" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob3 : ""} id="Rectangle 112" x="74" y="46" width="4" height="36" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob1 : ""} id="Rectangle 113" x="62" y="33" width="4" height="62" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob2 : ""} id="Rectangle 114" x="68" y="56" width="4" height="16" rx="2" fill="#3684C9"/>
+        <rect id="Rectangle 115" x="56" y="52" width="4" height="24" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob1 : ""} id="Rectangle 116" x="80" y="58" width="4" height="12" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob2 : ""} id="Rectangle 117" x="86" y="49" width="4" height="30" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob3 : ""} id="Rectangle 118" x="92" y="54" width="4" height="20" rx="2" fill="#3684C9"/>
+        <rect id="Rectangle 119" x="98" y="58" width="4" height="12" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob2 : ""} id="Rectangle 120" x="104" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob3 : ""} id="Rectangle 121" x="110" y="60" width="4" height="8" rx="2" fill="#3684C9"/>
+        <rect className={here.isVisible ? animations.bob1 : ""} id="Rectangle 104" x="116" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
       </g>
     </svg>
   );
