@@ -20,8 +20,8 @@
 */
 
 import React from "react";
-import './TabContainer.css';
-import './TabLabel.css';
+import styles from './TabContainer.module.css';
+import labelStyles from './TabLabel.module.css';
 
 /*
   TabContainer component. Allows users to navigate bewteen different sets of subcontent
@@ -50,11 +50,11 @@ class TabContainer extends React.Component {
     });
 
     return (
-      <div className="tab-container">
-          <div className="row1">
+      <div className={styles.tab_container}>
+          <div className={styles.row1}>
             {labels}
           </div>
-          <div className="pane">
+          <div className={styles.pane}>
             {activeTab}
           </div>
       </div>
@@ -90,13 +90,13 @@ class TabLabel extends React.Component {
   render () {
     if (this.props.isActive) {
       return (
-        <div className="active" onClick={this.props.handleClick}>
+        <div className={labelStyles.active} onClick={this.props.handleClick}>
           {this.props.label}
         </div>
       );
     } else {
       return (
-        <div className="inactive" onClick={this.props.handleClick}>
+        <div className={labelStyles.inactive} onClick={this.props.handleClick}>
           {this.props.label}
         </div>
       );

@@ -5,10 +5,12 @@
 
 .story {
   background-color: white;
+  padding: 20px;
 }
 
 .highlight {
-  background-color: #F8F8F8;
+  border-top: 1px #f0f0f0 solid;
+  background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,6 +38,10 @@
 .center {
   display: flex;
   justify-content: center;
+}
+
+.forManagers {
+  padding: 20px;
 }
 
 .blue {

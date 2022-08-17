@@ -74,11 +74,13 @@ const Product = () => {
                         </section>
                     </Tab>
                     <Tab label="FOR MANAGERS">
-                        <h3 className={styles.blue}>Arc is a web app that keeps you informed about your agents' safety.</h3>
-                        <div className={styles.center}>
-                            <img className={styles.product_img} src={construction} />
+                        <div className={styles.forManagers}>
+                            <h3 className={styles.blue}>Arc is a web app that keeps you informed about your agents' safety.</h3>
+                            <div className={styles.center}>
+                                <img className={styles.product_img} src={construction} />
+                            </div>
+                            <p>Our Arc-itects are hard at work getting this part of the site up and running.</p>
                         </div>
-                        <p>Our Arc-itects are hard at work getting this part of the site up and running.</p>
                     </Tab>
                 </TabContainer>
             </div>
