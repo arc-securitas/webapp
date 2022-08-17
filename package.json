@@ -60,5 +60,12 @@
   "devDependencies": {
     "file-loader": "^6.2.0",
     "gh-pages": "^4.0.0"
-  }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "build/*"
+  ]
 }
