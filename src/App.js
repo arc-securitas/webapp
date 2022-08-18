@@ -18,6 +18,7 @@ function App(props) {
       <Routes>
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/webapp" element={<Home />} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/product" element={<Product />} />
         <Route exact path="/legal/cookiePolicy" render={() => { window.location.href = "cookiePolicy.html" }} /> 
