@@ -1,0 +1,26 @@
+.active {
+  font-family: 'Outfit';
+  text-align: center;
+  font-weight: bold;
+  color: black;
+
+  background-color: #FFFFFF;
+  padding: 16px 0px;
+  flex-grow: 1;
+}
+
+.inactive {
+  font-family: 'Outfit';
+  font-weight: 400;
+  text-align: center;
+
+  background-color: #DADADA;
+  padding: 16px 0px;
+  flex-grow: 1;
+
+  cursor: pointer;
+}
+
+.inactive:hover {
+  background-color: #DFDFDF;
+}

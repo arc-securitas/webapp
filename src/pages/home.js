@@ -3,15 +3,15 @@ import './homeMobile.css';
 import './homeTablet.css';
 import './homeLaptop.css';
 import mockup from '../images/mockup.svg';
-import img2 from '../images/Group19.svg';
-import img3 from '../images/Group22.svg';
-import img4 from '../images/Group15.svg';
-import img5 from '../images/Group17.svg';
+import ArcWallSvg from '../animations/ArcWallSvg.js';
+import HomeMetricsSvg from '../animations/HomeMetrics.js';
+import TimelineSvg from '../animations/HomeTimeline.js';
+import HomeAlertSvg from '../animations/HomeAlert.js';
+import CallToAction from '../components/CallToAction.js';
 
 import JoinModal from "../components/joinModal.js";
 
 import React from "react";
-import Button from '@mui/material/Button';
 
 const Home = () => {
     return (
@@ -47,23 +47,23 @@ const Home = () => {
                                     marginLeft: 'calc(50% - 374px / 2)'
                                 },
 
-                                '@media screen and (min-width: 768px)': {
-                                    width: '335px',
-                                    marginLeft: 'calc(50% - 335px / 2)'
+                                '@media screen and (min-width: 769px)': {
+                                    width: '95%',
+                                    marginLeft: 'auto'
                                 },
 
-                                '@media screen and (min-width: 820px)': {   //CHECK THIS ONE!!!!!!!!!!!!
-                                    width: '320px',
+                                '@media screen and (min-width: 820px)': {
+                                    width: '95%',
                                     marginLeft: 'auto'
                                 },
 
                                 '@media screen and (min-width: 1024px)': {
-                                    width: '370px',
+                                    width: '95%',
                                     marginLeft: 'auto'
                                 },
 
-                                '@media screen and (min-width: 1440px)': {
-                                    width: '443px',
+                                '@media screen and (min-width: 1441px)': {
+                                    width: '95%',
                                     marginLeft: 'auto'
                                 },
 
@@ -87,7 +87,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='right'>
-                            <img className="img2" src={img2} />
+                            <ArcWallSvg />
                         </div>
                     </section>
 
@@ -99,7 +99,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='left'>
-                            <img className="img3" src={img3} />
+                            <HomeMetricsSvg />
                         </div>
                     </section>
 
@@ -111,7 +111,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='right'>
-                            <img className="img4" src={img4} />
+                            <TimelineSvg />
                         </div>
                     </section>
 
@@ -123,35 +123,12 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='left'>
-                            <img className="img5" src={img5} />
+                            <HomeAlertSvg />
                         </div>
                     </section>
                 </div>
             </div>
-            <div id="section6">
-                <p className="h3s">Step into the future of real estate safety.</p>
-                <JoinModal buttonStyling = {{
-                    display: 'inline',
-                    backgroundColor: "#fff",
-                    border: 'none',
-                    borderRadius: '4px',
-                    fontFamily: "Outfit",
-                    fontWeight: '700',
-                    textTransform: 'none',
-                    color: '#3684C9',
-                    padding: '12px 20px',
-                    textAlign: 'center',
-                    gap: '4px',
-                    justifyContent: 'center',
-                    fontWeight: 700,
-                    marginLeft: 'calc(50% - 48px)',
-
-                    '&:hover': {
-                        backgroundColor: '#fff'
-                    }
-                }} />
-            </div>
-
+            <CallToAction />
         </>
     )
 }

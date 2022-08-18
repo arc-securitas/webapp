@@ -1,0 +1,39 @@
+@media (prefers-reduced-motion: no-preference) {
+  .typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2s ease-in-out;
+  }
+
+  .surface {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: surfaceAnimation .5s cubic-bezier(0.5, 0.5, 0.9, 1) 0.2s forwards;
+  }
+
+  .surfaceSlow {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: surfaceAnimation .5s cubic-bezier(0.5, 0.5, 0.9, 1) 0.8s forwards;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes surfaceAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 100%;
+    transform: translateY(0px);
+  }
+}

@@ -1,13 +1,12 @@
-#overall, #section1 {
-    background-color: #E0F0FF;
-}
-
-#overall, #suboverall{
-    background-color: #3684C9;
-    background-image: linear-gradient(#E0F0FF, #E5E5E5);
+#overall {
+    background-image: linear-gradient(#E0F0FF 0%, #E0F0FF 20%, #FFFFFF 100%);
 }
 
 @media only screen and (min-width: 320px) and (max-width: 480px) {
+    #overall {
+        padding-top: 10px;
+    }
+
     .left {
         display: block;
         width: 100%;
@@ -88,10 +87,10 @@
         font-weight: 400;
         font-size: 14px;
         line-height: 150%;
-        
-        /* text-align: center; */
+
         padding-left: 20px;
         padding-right: 20px;
+        margin-bottom: 0px;
 
         color: #000000;
     }
