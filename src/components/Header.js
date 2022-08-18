@@ -135,7 +135,7 @@ export default function Header(props) {
 
                 <Toolbar>
                     {/* Logo */}
-                    <img id="headerLogo" src={logoPic} alt="Arc Security Logo"/>
+                    <a href="/"><img id="headerLogo" src={logoPic} alt="Arc Security Logo"/></a>
 
                     {/* Arc Security  */}
                     <Typography sx={{

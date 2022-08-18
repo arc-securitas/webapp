@@ -14,24 +14,53 @@ import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import Modal from '@mui/material/Modal';
 
+import axios from "axios";
+import validator from 'validator'; 
+
 const JoinModal = (props) => {
     // Opening and closing modal window
     const [open, setOpen] = React.useState(false);
+    const [email, setEmail] = React.useState("");
+    const [incorrectEmail, setIncorrectEmail] = React.useState(false);
+    const [incorrectEmailMessage, setIncorrectEmailMessage] = React.useState("");
     const handleOpen = () => {
         setOpen(true);
     };
+
     const handleClose = () => {
         setOpen(false);
+        setEmail("");
+        setIncorrectEmail(false);
+        setIncorrectEmailMessage("");
     };
+
+    const handleUpdateEmail = (e) => {
+        e.preventDefault();
+        
+        if (email != "" && validator.isEmail(email)) {
+            setIncorrectEmail(false);
+            setIncorrectEmailMessage("");
+            axios.post(process.env.REACT_APP_GOOGLESHEET_CONNECTION_URL, { email })
+                .then(response => {
+                    console.log(response);
+                })
+
+            handleClose();
+        } else {
+            setIncorrectEmail(true);
+            setIncorrectEmailMessage("Please check your email.");
+        }
+
+    }
 
     return (
         <React.Fragment>
             {/* Get Started Button - Styling passed in from the page that is using the component */}
             <Button onClick={handleOpen} sx={props.buttonStyling} variant="contained" >Get Started</Button>
-            
+
             {/* Join maling list popup window */}
             <Modal
-                disableEnforceFocus 
+                disableEnforceFocus
                 disableAutoFocus
                 disableScrollLock
                 open={open}
@@ -62,29 +91,31 @@ const JoinModal = (props) => {
                     px: 4,
                     pb: 3,
                 }}>
-                    
+
                     {/* Button to close pop up window */}
-                    <IconButton edge="start" sx={{ 
+                    <IconButton edge="start" sx={{
                         color: "#000",
                         '@media screen and (min-width: 320px)': {
-                            marginLeft: '85%', 
+                            marginLeft: '85%',
                             marginTop: '5%',
                         },
-    
+
                         '@media screen and (min-width: 481px)': {
-                            marginLeft: '95%', 
+                            marginLeft: '95%',
                             marginTop: '0%',
-                        }, 
-                         }} onClick={handleClose}><CloseIcon /></IconButton>
-                    
+                        },
+                    }} onClick={handleClose}><CloseIcon /></IconButton>
+
                     <h1 id='joinHeader'>Join our<br />mailing list</h1>
                     <p id='joinParagraph'>to stay up to date on all things Arc.</p>
-                    
+
                     {/* Email input field */}
-                    <input type="text" id="joinInputEmail" name="email" placeholder="Email" /><br />
+                    <input type="email" id="joinInputEmail" name="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email" />
+
+                    {incorrectEmail ? <p style={{"padding-left": "35px", "background": "red", "display": "inline-block", "width": "210px", "padding-top": "15px", "padding-bottom": "15px", "margin-left": "30px", "color": "white", "margin-bottom": "0px", "border-radius": "5px"}}>{incorrectEmailMessage}</p> : <br />}
                     
                     {/* Join button */}
-                    <Button onClick={handleClose} sx={{
+                    <Button onClick={handleUpdateEmail} sx={{
                         display: 'inline',
                         backgroundColor: "#3684C9",
                         border: 'none',
@@ -92,11 +123,11 @@ const JoinModal = (props) => {
                         '@media screen and (min-width: 320px)': {
                             width: '313px',
                         },
-    
+
                         '@media screen and (min-width: 481px)': {
                             width: '365px',
                         },
-                        
+
                         marginLeft: '30px',
                         marginTop: '10px',
                         fontFamily: "Outfit",
