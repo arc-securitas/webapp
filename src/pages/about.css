@@ -4,12 +4,57 @@
     padding-right: 20px;
 }
 
-.subheads {
+.superheadSection {
+    margin-top: 20vh;
+    margin-bottom: 20vh;
+}
+
+.superhead {
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 900;
+    line-height: 150%;
+}
+
+.subhead {
     font-family: 'Outfit';
     font-style: normal;
     font-weight: 700;
-    font-size: 30px;
-    line-height: 38px;
+    line-height: 150%;
+}
+
+.subheadSection {
+    margin-top: 20vh;
+}
+
+@media only screen and (max-width: 480px) {
+    .superhead {
+        font-size: 30px;
+    }
+
+    .subhead {
+        font-size: 30px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    .superhead {
+        font-size: 36px;
+    }
+
+    .subhead {
+        font-size: 36px;
+    }
+}
+
+@media only screen and (min-width: 769px) {
+    .superhead {
+        font-size: 60px;
+    }
+
+    .subhead {
+        font-size: 36px;
+    }
 }
 
 .subtitles {
@@ -111,4 +156,8 @@
         padding-left: 30%;
         padding-right: 30%;
     }
+}
+
+.hidden {
+    opacity: 0;
 }

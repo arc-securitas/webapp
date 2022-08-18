@@ -4,7 +4,7 @@ import { FooterDiv } from "./../styles/style";
 import { FaLinkedinIn, FaFacebookF } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
 
-import logoBlue from "../images/LogoBlueActual.svg";
+import logo from "../images/LogoWhite.svg";
 
 import {
   Link as RouterLink,
@@ -18,8 +18,8 @@ import {
 export default function Footer() {
   const navigate = useNavigate();
   return (
-    <FooterDiv className='overallFooter' style={{ backgroundColor: "Black" }}>
-      <a href="/"><img src={logoBlue} style={{ marginBottom: "-0.025px" }} /></a>
+    <FooterDiv className='overallFooter' style={{backgroundColor: "Black"}}>
+      <img src={logo} style={{marginBottom:"-0.025px"}}/>
       <ul className="sitemap">
           <li><a style={{"textDecoration": "none", "color": "white"}} onClick={() => navigate("/webapp/Product")} href="">Product</a></li>
           <li><a style={{"textDecoration": "none", "color": "white"}} onClick={() => navigate("/webapp/About")} href="">About</a></li>

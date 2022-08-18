@@ -1,9 +1,9 @@
-/** 
+/**
  * Header
  * Uses Material UI's App bar
  * Uses a Hamburger menu when running on mobile and tablet device
  * All styling done through inline styling
- */ 
+ */
 
 import {
     Link as RouterLink,
@@ -46,26 +46,26 @@ export default function Header(props) {
         <Box sx={{ display: 'flex', justifyContent: 'center', height: '100%', backgroundColor: '#3684C9' }}>
             <List>
                 {/* Close Icon Button */}
-                <IconButton edge="start" sx={{ 
-                    color: "#fff", 
-                    '@media screen and (min-width: 320px)': { 
-                        marginLeft: '100%' 
+                <IconButton edge="start" sx={{
+                    color: "#fff",
+                    '@media screen and (min-width: 320px)': {
+                        marginLeft: '100%'
                     },
 
-                    '@media screen and (min-width: 450px)': { 
-                        marginLeft: '120%' 
+                    '@media screen and (min-width: 450px)': {
+                        marginLeft: '120%'
                     },
 
-                    '@media screen and (min-width: 520px)': { 
-                        marginLeft: '140%' 
+                    '@media screen and (min-width: 520px)': {
+                        marginLeft: '140%'
                     },
-                    
-                    '@media screen and (min-width: 620px)': { 
-                        marginLeft: '160%' 
+
+                    '@media screen and (min-width: 620px)': {
+                        marginLeft: '160%'
                     },
 
                      }} onClick={handleDrawerToggle}><CloseIcon /></IconButton>
-                
+
                 {/* Page Links Mapping */}
                 {navItems.map((item) => (
                     <ListItem key={item} disablePadding>
@@ -125,9 +125,9 @@ export default function Header(props) {
                 position: 'sticky',
                 top: 0,
                 width: '100%',
-                backgroundColor: '#E0F0FF',
+                backgroundColor: '#FFFFFF',
 
-                '@media screen and (min-width: 768px)': { 
+                '@media screen and (min-width: 768px)': {
                     alignItems: 'center',
                     justifyContent: 'center',
                 },
@@ -145,10 +145,10 @@ export default function Header(props) {
                         fontWeight: 'bold',
                         fontSize: '32px',
 
-                        '@media screen and (min-width: 320px)': { 
+                        '@media screen and (min-width: 320px)': {
                             marginRight: '1rem'
                         },
-                        '@media screen and (min-width: 331px)': { 
+                        '@media screen and (min-width: 331px)': {
                             marginRight: '2rem'
                         },
                     }}>Arc Security</Typography>
@@ -251,7 +251,7 @@ export default function Header(props) {
                     </IconButton>
                 </Toolbar>
             </AppBar>
-            
+
             {/* Drawer Menu */}
             <Box component="nav">
                 <Drawer

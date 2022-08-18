@@ -4,12 +4,13 @@
   justify-content: stretch;
 }
 
-.tab-container {
+.tab_container {
   background-color: white;
+  border: 1px #f0f0f0 solid;
+  padding-bottom: 20px;
 }
 
 .pane {
   max-width: 1200px;
   margin: auto;
-  padding: 20px;
 }
