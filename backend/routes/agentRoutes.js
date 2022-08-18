@@ -28,35 +28,98 @@ agentRoutes.route("/agents").get(function (req, res) {
 
 // Gets a single agent record by id
 agentRoutes.route("/agents/:id").get(function (req, res) {
-    let query = Agent.where({ _id: ObjectId(req.params.id) });
-    query.findOne(function (err, result) {
+    Agent.findById(ObjectId(req.params.id), function (err, result) {
         if (err) throw err;
         res.json(result);
     });
+
+    // let query = Agent.where({ _id: ObjectId(req.params.id) });
+    // query.findOne(function (err, result) {
+    //     if (err) throw err;
+    //     res.json(result);
+    // });
 });
 
 // Create a new agent record.
 agentRoutes.route("/agents/add").post(function (req, res) {
     let agent = new Agent();
-
-    // Name
-    agent.firstName = req.body.firstName;
-    agent.middleName = req.body.middleName == undefined ? "" : req.body.middleName;
-    agent.lastName = req.body.lastName;
-
-    // Contact info
-    agent.countryCode = req.body.countryCode == undefined ? "" : req.body.countryCode;
-    agent.phoneNumber = req.body.phoneNumber;
-    agent.email = req.body.email;
-
-    agent.safetyCode = req.body.safetyCode == undefined ? "" : req.body.safetyCode;
-    agent.location = req.body.location == undefined ? "" : req.body.location;
-    agent.status = req.body.status == undefined ? "" : req.body.status;
+    assignValues(agent, req.body);
 
     agent.save(function (err, result) {
         if (err) throw err;
         res.json(result);
     });
 });
+
+// Updates a single agent record by id
+agentRoutes.route("/agents/update/:id").post(function (req, res) {
+    Agent.findById(ObjectId(req.params.id), function (err, agent) {
+        if (err) throw err;
+        if (agent != null) {
+            assignValues(agent, req.body);
+            agent.save(function (err, result) {
+                if (err) throw err;
+                res.json(result);
+            });
+        }
+
+    });
+});
+
+// Deletes a single agent record by id
+agentRoutes.route("/agents/delete/:id").delete((req, res) => {
+    Agent.findByIdAndDelete(ObjectId(req.params.id), function (err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+});
+
+// Assigns values to the agent's properties
+function assignValues(agent, values) {
+    // First Name
+    if (values.firstName != undefined) {
+        agent.firstName = values.firstName;
+    }
+
+    // Middle Name
+    if (values.middleName != undefined) {
+        agent.middleName = values.middleName;
+    }
+
+    // Last Name
+    if (values.lastName != undefined) {
+        agent.lastName = values.lastName;
+    }
+
+    // Country Code
+    if (values.countryCode != undefined) {
+        agent.countryCode = values.countryCode;
+    }
+
+    // Phone Number
+    if (values.phoneNumber != undefined) {
+        agent.phoneNumber = values.phoneNumber;
+    }
+
+    // Email
+    if (values.email != undefined) {
+        agent.email = values.email;
+    }
+
+    // Safety Code
+    if (values.safetyCode != undefined) {
+        agent.safetyCode = values.safetyCode;
+    }
+
+    // Location
+    if (values.location != undefined) {
+        agent.location = values.location;
+    }
+
+    // Status
+    if (values.status != undefined) {
+        agent.status = values.status;
+    }
+}
 
 module.exports = agentRoutes;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const Record = (props) => (
     <tr>
@@ -12,6 +13,16 @@ const Record = (props) => (
         <td>{props.record.safetyCode}</td>
         <td>{props.record.status}</td>
         <td>{props.record.location}</td>
+        <td><Link className="btn btn-link" to={`/edit/${props.record._id}`}>Edit</Link></td>
+        <td>
+            <button className="btn btn-link"
+                onClick={() => {
+                    props.deleteRecord(props.record._id);
+                }}
+            >
+                Delete
+            </button>
+        </td>
     </tr>
 );
 
@@ -45,6 +56,7 @@ const BackendTest = () => {
             return (
                 <Record
                     record={record}
+                    deleteRecord={() => deleteRecord(record._id)}
                     key={record._id}
                 />
             );
@@ -66,10 +78,8 @@ const BackendTest = () => {
         });
     }
 
-
     async function onSubmit(e) {
         e.preventDefault();
-        console.log(form);
 
         // When a post request is sent to the create url, we'll add a new record to the database.
         const newAgent = { ...form };
@@ -90,6 +100,17 @@ const BackendTest = () => {
         navigate("/");
     }
 
+    // This method will delete a record
+    async function deleteRecord(id) {
+        await fetch(`http://localhost:5000/agents/delete/${id}`, {
+            method: "DELETE"
+        });
+
+        const newRecords = records.filter((el) => el._id !== id);
+        setRecords(newRecords);
+    }
+
+
     return (
         <div>
             <h3>Record List</h3>
@@ -105,6 +126,8 @@ const BackendTest = () => {
                         <th>Safety Code</th>
                         <th>Status</th>
                         <th>Location</th>
+                        <th>Edit Agent</th>
+                        <th>Delete Agent</th>
                     </tr>
                 </thead>
                 <tbody>{recordList()}</tbody>
@@ -159,7 +182,7 @@ const BackendTest = () => {
                 <div className="form-group">
                     <input
                         type="submit"
-                        value="Create person"
+                        value="Create agent"
                         className="btn btn-primary"
                     />
                 </div>

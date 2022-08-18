@@ -12,6 +12,8 @@ import About from "./pages/about.js";
 import BackendTest from "./pages/backendTest.js";
 import JoinModal from "./components/joinModal.js";
 
+import Edit from "./pages/edit.js";
+
 import logoPic from "./images/Logo-blue.svg";
 
 import * as React from 'react';
@@ -233,6 +235,7 @@ function App(props) {
         <Route exact path="/webapp" element={<Home />} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/backendTest" element={<BackendTest />} />
+        <Route exact path="/edit/:id" element={<Edit />}></Route>
       </Routes>
 
       {/* Footer */}
