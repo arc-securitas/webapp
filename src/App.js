@@ -27,8 +27,10 @@ function App(props) {
         <Route exact path="/legal/terms-and-conditions" render={() => { window.location.href = "terms-and-conditions.html" }} /> 
         <Route exact path="/legal/privacy-policy-web" render={() => { window.location.href = "privacy-policy-web.html" }} /> 
 
+
+        {/* Below links just for testing purposes - Need to remove before deployment */}
         <Route exact path="/backendTest" element={<BackendTest />} />
-        <Route exact path="/edit" element={<Edit />} />
+        <Route exact path="/edit/:id" element={<Edit />} />
       </Routes>
       <Footer />
     </Router>

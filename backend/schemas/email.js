@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const emailSchema = new Schema({
-    email: { type: String, required: true },
+    email: { type: String, unique: true, required: true, lowercase: true },
 });
 
 // export the user schema 

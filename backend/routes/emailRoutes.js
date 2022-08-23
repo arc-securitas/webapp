@@ -8,14 +8,17 @@ const emailRoutes = express.Router();
 const Email = require("../schemas/email.js");
 
 emailRoutes.route("/emails/add").post(function (req, res) {
-    let email = new Email();
+    console.log("Here");
+    let newEmail = new Email();
     if (req.body.email !== undefined) {
-        console.log(req.body.email)
-        email.email = req.body.email;
-        console.log(email.email)
-        email.save(function (err, result) {
+        console.log(req.body.email);
+        newEmail.email = req.body.email;
+        console.log(newEmail.email);
+        newEmail.save(function (err, result) {
             if (err) throw err;
             res.json(result);
         });
     }
 });
+
+module.exports = emailRoutes;
