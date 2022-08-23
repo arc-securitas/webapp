@@ -2,6 +2,7 @@ import './about.css';
 import animations from '../animations/animations.module.css';
 import useGoogleSheets from 'use-google-sheets';
 import CallToAction from '../components/CallToAction.js';
+import Header from "../components/Header.js";
 
 import React from "react";
 import { useElementOnScreen } from '../animations/animationHooks.js';
@@ -31,6 +32,7 @@ const About = () => {
 
     return (
         <>
+            <Header />
             <div className='content'>
                 <section className='superheadSection'>
                     <p className='superhead' ref={titleOnScreen.ref}><div className={titleOnScreen.isVisible ? animations.surface : "hidden"}>We are</div> <div className={titleOnScreen.isVisible ? animations.surfaceSlow : "hidden"}><span className='blueStuff'>Arc Security</span>.</div></p>

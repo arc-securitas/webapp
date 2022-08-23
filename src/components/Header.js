@@ -30,7 +30,7 @@ import JoinModal from "./joinModal.js";
 const drawerWidth = '60%';
 
 // Page Names
-const navItems = ['Home', 'Product', 'About'];
+const navItems = ['Home', 'Product', 'About', 'TempToPortal'];
 
 export default function Header(props) {
     // Opening and closing drawer menu

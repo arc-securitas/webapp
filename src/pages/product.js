@@ -3,6 +3,7 @@ import styles from './product.module.css';
 import TabContainer, { Tab } from '../components/TabContainer.js';
 import Carousel, { CarouselItem } from '../components/Carousel.tsx';
 import CallToAction from '../components/CallToAction.js';
+import Header from "../components/Header.js";
 
 import productGraphic1 from '../images/product-graphic1.svg';
 import productGraphic2 from '../images/product-graphic2.svg';
@@ -20,6 +21,7 @@ import ArcNetworkSvg from '../animations/ArcNetworkSvg.js';
 const Product = () => {
     return (
         <div>
+            <Header />
             <div className={styles.product_page}>
                 <section className={styles.top}>
                     <h1 className={styles.header1}>So, how does Arc work?</h1>
