@@ -9,6 +9,8 @@ import Footer from "./components/Footer.js";
 import Home from "./pages/home.js";
 import About from "./pages/about.js";
 import Product from "./pages/product.js";
+import BackendTest from "./pages/backendTest.js";
+import Edit from "./pages/edit.js";
 // import CookiePolicy from "./pages/cookiePolicy.html";
 
 function App(props) {
@@ -24,6 +26,9 @@ function App(props) {
         <Route exact path="/legal/cookiePolicy" render={() => { window.location.href = "cookiePolicy.html" }} /> 
         <Route exact path="/legal/terms-and-conditions" render={() => { window.location.href = "terms-and-conditions.html" }} /> 
         <Route exact path="/legal/privacy-policy-web" render={() => { window.location.href = "privacy-policy-web.html" }} /> 
+
+        <Route exact path="/backendTest" element={<BackendTest />} />
+        <Route exact path="/edit" element={<Edit />} />
       </Routes>
       <Footer />
     </Router>

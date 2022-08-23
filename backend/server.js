@@ -7,7 +7,8 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use(require("./routes/agentRoutes"));
+app.use(require("./routes/agentRoutes", "./routes/emailRoutes"));
+// app.use(require("./routes/emailRoutes"));
 
 const dbRoute = process.env.REACT_APP_ATLAS_URI;
 const dbName = "web_test";
