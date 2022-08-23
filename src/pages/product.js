@@ -20,6 +20,7 @@ import ArcNetworkSvg from '../animations/ArcNetworkSvg.js';
 const Product = () => {
     return (
         <div>
+            <div style= {{marginTop: '20px'}}></div>
             <div className={styles.product_page}>
                 <section className={styles.top}>
                     <h1 className={styles.header1}>So, how does Arc work?</h1>
