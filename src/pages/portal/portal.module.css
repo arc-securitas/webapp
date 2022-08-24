@@ -1,0 +1,31 @@
+@media screen and (min-width: 769px) {
+  .portal {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .nav {
+    order: 1;
+  }
+
+  .main {
+    order: 2;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .portal {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav {
+    order: 2;
+    position: absolute;
+    bottom: 0px;
+  }
+
+  .main {
+    order: 1;
+  }
+}

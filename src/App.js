@@ -4,15 +4,14 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Footer from "./components/Footer.js";
 import Home from "./pages/home.js";
 import About from "./pages/about.js";
 import Product from "./pages/product.js";
-import Dashboard from "./pages/dashboard.js";
-import Alerts from "./pages/alerts.js";
-import Events from "./pages/events.js";
-import Agents from "./pages/agents.js";
-import Payment from "./pages/payment.js";
+import Dashboard from "./pages/portal/dashboard.js";
+import Alerts from "./pages/portal/alerts.js";
+import Events from "./pages/portal/events.js";
+import Agents from "./pages/portal/agents.js";
+import Payment from "./pages/portal/payment.js";
 
 function App(props) {
   return (
@@ -38,7 +37,6 @@ function App(props) {
         <Route exact path="/portal/agents" element={<Agents />} />
         <Route exact path="/portal/payment" element={<Payment />} />
       </Routes>
-      <Footer />
     </Router>
 
   );

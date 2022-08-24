@@ -6,26 +6,26 @@ import * as React from 'react';
 export default function PortalNav(props) {
   return (
       <div className={styles.portalNav}>
-        <img id="headerLogo" src={logoPic} alt="Arc Security Logo"/>
+        <img id="headerLogo" src={logoPic} alt="Arc Security Logo" className={styles.logo}/>
         <NavLabel link='Dashboard' isActive={props.page === 'Dashboard'}>
           <PieChartSvg color={props.page === 'Dashboard' ? 'white' : 'black'}/>
-          Dashboard
+          <div className={styles.labelText}>Dashboard</div>
         </NavLabel>
         <NavLabel link='Alerts' isActive={props.page === 'Alerts'}>
           <AlertSvg color={props.page === 'Alerts' ? 'white' : 'black'}/>
-          Safety Alerts
+          <div className={styles.labelText}>Safety Alerts</div>
         </NavLabel>
         <NavLabel link='Events' isActive={props.page === 'Events'}>
           <CalendarSvg color={props.page === 'Events' ? 'white' : 'black'}/>
-          Events
+          <div className={styles.labelText}>Events</div>
         </NavLabel>
         <NavLabel link='Agents' isActive={props.page === 'Agents'}>
           <PeopleSvg color={props.page === 'Agents' ? 'white' : 'black'}/>
-          Manage Agents
+          <div className={styles.labelText}>Manage Agents</div>
         </NavLabel>
         <NavLabel link='Payment' isActive={props.page === 'Payment'}>
           <PaymentSvg color={props.page === 'Payment' ? 'white' : 'black'}/>
-          Payment
+          <div className={styles.labelText}>Payment</div>
         </NavLabel>
       </div>
   );
@@ -38,7 +38,7 @@ class NavLabel extends React.Component {
 
   render () {
     return (
-      <Link to={"/portal/" + this.props.link} style={{textDecoration: "none", margin: "0px"}}>
+      <Link to={"/portal/" + this.props.link} className={styles.link}>
         <div className={`${this.props.isActive ? styles.active : styles.inactive} ${styles.label}`}>
           {this.props.children}
         </div>
@@ -62,7 +62,6 @@ class PieChartSvg extends React.Component {
     );
   }
 }
-
 class AlertSvg extends React.Component {
   constructor(props) {
     super(props);
@@ -78,7 +77,6 @@ class AlertSvg extends React.Component {
     );
   }
 }
-
 class CalendarSvg extends React.Component {
   constructor(props) {
     super(props);
@@ -95,7 +93,6 @@ class CalendarSvg extends React.Component {
     );
   }
 }
-
 class PeopleSvg extends React.Component {
   constructor(props) {
     super(props);
@@ -109,7 +106,6 @@ class PeopleSvg extends React.Component {
     );
   }
 }
-
 class PaymentSvg extends React.Component {
   constructor(props) {
     super(props);
@@ -123,4 +119,3 @@ class PaymentSvg extends React.Component {
     );
   }
 }
-

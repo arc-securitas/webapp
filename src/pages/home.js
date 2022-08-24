@@ -8,6 +8,7 @@ import TimelineSvg from '../animations/HomeTimeline.js';
 import HomeAlertSvg from '../animations/HomeAlert.js';
 import CallToAction from '../components/CallToAction.js';
 import Header from "../components/Header.js";
+import Footer from "../components/Footer.js";
 
 import JoinModal from "../components/joinModal.js";
 
@@ -130,6 +131,7 @@ const Home = () => {
                 </div>
             </div>
             <CallToAction />
+            <Footer />
         </>
     )
 }

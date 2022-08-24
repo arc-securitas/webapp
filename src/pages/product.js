@@ -4,6 +4,7 @@ import TabContainer, { Tab } from '../components/TabContainer.js';
 import Carousel, { CarouselItem } from '../components/Carousel.tsx';
 import CallToAction from '../components/CallToAction.js';
 import Header from "../components/Header.js";
+import Footer from "../components/Footer.js";
 
 import productGraphic1 from '../images/product-graphic1.svg';
 import productGraphic2 from '../images/product-graphic2.svg';
@@ -87,6 +88,7 @@ const Product = () => {
                 </TabContainer>
             </div>
             <CallToAction />
+            <Footer />
         </div>
     )
 }
