@@ -39,23 +39,9 @@ const JoinModal = (props) => {
     const handleUpdateEmail = async (e) => {
         e.preventDefault();
 
-        // if (email != "" && validator.isEmail(email)) {
-        //     setIncorrectEmail(false);
-        //     setIncorrectEmailMessage("");
-        //     axios.post(process.env.REACT_APP_GOOGLESHEET_CONNECTION_URL, { email })
-        //         .then(response => {
-        //             console.log(response);
-        //         })
-
-        //     handleClose();
-        // } else {
-        //     setIncorrectEmail(true);
-        //     setIncorrectEmailMessage("Please check your email.");
-        // }
-
         const newEmail = { email };
 
-        // if (email != "" && validator.isEmail(email)) {
+        if (email != "" && validator.isEmail(email)) {
             setIncorrectEmail(false);
             setIncorrectEmailMessage("");
             await fetch("http://localhost:5000/emails/add", {
@@ -71,13 +57,10 @@ const JoinModal = (props) => {
                 });
 
             handleClose();
-        // } else {
-            // setIncorrectEmail(true);
-            // setIncorrectEmailMessage("Please check your email.");
-        // }
-        // navigate("/");
-
-
+        } else {
+            setIncorrectEmail(true);
+            setIncorrectEmailMessage("Please check your email.");
+        }
     }
 
     return (
