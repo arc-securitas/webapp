@@ -14,8 +14,10 @@ import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import Modal from '@mui/material/Modal';
 
+import { useNavigate } from "react-router";
+
 import axios from "axios";
-import validator from 'validator'; 
+import validator from 'validator';
 
 const JoinModal = (props) => {
     // Opening and closing modal window
@@ -34,23 +36,31 @@ const JoinModal = (props) => {
         setIncorrectEmailMessage("");
     };
 
-    const handleUpdateEmail = (e) => {
+    const handleUpdateEmail = async (e) => {
         e.preventDefault();
-        
+
+        const newEmail = { email };
+
         if (email != "" && validator.isEmail(email)) {
             setIncorrectEmail(false);
             setIncorrectEmailMessage("");
-            axios.post(process.env.REACT_APP_GOOGLESHEET_CONNECTION_URL, { email })
-                .then(response => {
-                    console.log(response);
-                })
+            await fetch("http://localhost:5000/emails/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newEmail),
+            })
+                .catch(error => {
+                    window.alert(error);
+                    return;
+                });
 
             handleClose();
         } else {
             setIncorrectEmail(true);
             setIncorrectEmailMessage("Please check your email.");
         }
-
     }
 
     return (
@@ -112,8 +122,8 @@ const JoinModal = (props) => {
                     {/* Email input field */}
                     <input type="email" id="joinInputEmail" name="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email" />
 
-                    {incorrectEmail ? <p style={{"padding-left": "35px", "background": "red", "display": "inline-block", "width": "210px", "padding-top": "15px", "padding-bottom": "15px", "margin-left": "30px", "color": "white", "margin-bottom": "0px", "border-radius": "5px"}}>{incorrectEmailMessage}</p> : <br />}
-                    
+                    {incorrectEmail ? <p style={{ "padding-left": "35px", "background": "red", "display": "inline-block", "width": "210px", "padding-top": "15px", "padding-bottom": "15px", "margin-left": "30px", "color": "white", "margin-bottom": "0px", "border-radius": "5px" }}>{incorrectEmailMessage}</p> : <br />}
+
                     {/* Join button */}
                     <Button onClick={handleUpdateEmail} sx={{
                         display: 'inline',
