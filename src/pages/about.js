@@ -31,7 +31,6 @@ const About = () => {
 
     return (
         <>
-            <div style= {{marginTop: '20px'}}></div>
             <div className='content'>
                 <section className='superheadSection'>
                     <p className='superhead' ref={titleOnScreen.ref}><div className={titleOnScreen.isVisible ? animations.surface : "hidden"}>We are</div> <div className={titleOnScreen.isVisible ? animations.surfaceSlow : "hidden"}><span className='blueStuff'>Arc Security</span>.</div></p>

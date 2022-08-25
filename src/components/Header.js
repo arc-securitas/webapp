@@ -134,8 +134,8 @@ export default function Header(props) {
 
                 <Toolbar>
                     {/* Logo */}
-                    <a href="/"><img id="headerLogo" src={logoPic} alt="Arc Security Logo" style={{ width: '100%'}}/></a>
-                    
+                    <a href="/"><img id="headerLogo" src={logoPic} alt="Arc Security Logo" style={{ marginTop: '-10px', width: '100%'}}/></a>
+
                     {/* Page Links */}
                     <Box sx={{
                         display: 'none',
