@@ -19,10 +19,10 @@ export default function Footer() {
   const navigate = useNavigate();
   return (
     <FooterDiv className='overallFooter' style={{backgroundColor: "Black"}}>
-      <img src={logo} style={{marginBottom:"-0.025px"}}/>
+      <a href="/"><img id="footerLogo" src={logo} style={{marginBottom:"-0.025px"}} alt="Arc Security Logo"/></a>
       <ul className="sitemap">
-          <li><a style={{"textDecoration": "none", "color": "white"}} onClick={() => navigate("/webapp/Product")} href="">Product</a></li>
-          <li><a style={{"textDecoration": "none", "color": "white"}} onClick={() => navigate("/webapp/About")} href="">About</a></li>
+          <li><a style={{"textDecoration": "none", "color": "white"}} onClick={() => navigate("/Product")} href="">Product</a></li>
+          <li><a style={{"textDecoration": "none", "color": "white"}} onClick={() => navigate("/About")} href="">About</a></li>
           {/* <li>Careers</li> */}
           {/* <li>FAQ</li> */}
           <li><a style={{"textDecoration": "none", "color": "white"}} target="_blank" href={process.env.PUBLIC_URL + "/privacy-policy-web.html"}>Privacy Policy</a></li>
