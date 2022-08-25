@@ -74,6 +74,7 @@ export default function Header(props) {
                             fontSize: '16px',
                             display: 'inline-block',
                             color: '#fff',
+                            marginBottom: '0.5rem',
 
                             "&:hover": {
                                 color: '#E0F0FF'
@@ -84,7 +85,11 @@ export default function Header(props) {
                             }
 
                         }} onClick={handleDrawerToggle} underline='none' component={RouterLink} to={"/" + item}>
-                            <ListItemText primary={item} />
+                            <Typography 
+                                sx={{
+                                    fontFamily: "Outfit",
+                            }}>{item}</Typography>
+                            
                         </Link>
                     </ListItem>
                 ))}
