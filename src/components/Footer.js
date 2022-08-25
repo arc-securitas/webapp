@@ -27,7 +27,7 @@ export default function Footer() {
           {/* <li>FAQ</li> */}
           <li><a style={{"textDecoration": "none", "color": "white"}} target="_blank" href={process.env.PUBLIC_URL + "/privacy-policy-web.html"}>Privacy Policy</a></li>
           {/* <li onClick={() => navigate("webapp/legal/privacy-policy-web.html")}>Privacy Policy</li> */}
-          <li><a style={{"textDecoration": "none", "color": "white"}} target="_blank" href={process.env.PUBLIC_URL + "/terms-and-conditions.html"} >Terms &#38; Conditions</a></li>
+          <li><a style={{"textDecoration": "none", "color": "white"}} target="_blank" href={process.env.PUBLIC_URL + "/terms-of-use.html"} >Terms of Use</a></li>
           <li><a style={{"textDecoration": "none", "color": "white"}} target="_blank" href={process.env.PUBLIC_URL + "/cookiePolicy.html"}>Cookie Policy</a></li>
 
       </ul>

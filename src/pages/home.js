@@ -83,7 +83,7 @@ const Home = () => {
                         <div className='left'>
                             <div className='insideContent'>
                                 <p className='h2s'>The best way to stay safe is to stay connected.</p>
-                                <p className='otherContent'>Automatically check in with friends, family, and coworkers when you add them to your safety network!</p>
+                                <p className='otherContent'>Automatically check in with friends, family, and coworkers when you add them to your Safety Network!</p>
                             </div>
                         </div>
                         <div className='right'>
@@ -107,7 +107,7 @@ const Home = () => {
                         <div className='left'>
                             <div className='insideContent'>
                                 <p className='h2s'>Verify that your agents are safe, minute by minute.</p>
-                                <p className='otherContent'>With Arc’s safety timer, agents can periodically check in on their own customized schedule to stay safe without sacrificing productivity. Schedule safety timers easily when you connect your calendar!</p>
+                                <p className='otherContent'>With Arc’s Safety Timer, agents can periodically check in on their own customized schedule to stay safe without sacrificing productivity. Schedule Safety Timers easily when you connect your calendar!</p>
                             </div>
                         </div>
                         <div className='right'>
@@ -119,7 +119,7 @@ const Home = () => {
                         <div className='right'>
                             <div className='insideContent'>
                                 <p className='h2s'>Help your agents the right way, right away.</p>
-                                <p className='otherContent'>If you feel that you might be in danger, send an alert with a single click. Your safety network will be notified with your most recent location, your calendar event details, and a short audio clip to contextualize the situation.</p>
+                                <p className='otherContent'>If you feel that you might be in danger, send an alert with a single click. Your Safety Network will be notified with your most recent location, your calendar event details, and a short audio clip to contextualize the situation.</p>
                             </div>
                         </div>
                         <div className='left'>

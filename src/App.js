@@ -22,7 +22,7 @@ function App(props) {
         <Route exact path="/about" element={<About />} />
         <Route exact path="/product" element={<Product />} />
         <Route exact path="/legal/cookiePolicy" render={() => { window.location.href = "cookiePolicy.html" }} /> 
-        <Route exact path="/legal/terms-and-conditions" render={() => { window.location.href = "terms-and-conditions.html" }} /> 
+        <Route exact path="/legal/terms-of-use" render={() => { window.location.href = "terms-of-use.html" }} /> 
         <Route exact path="/legal/privacy-policy-web" render={() => { window.location.href = "privacy-policy-web.html" }} /> 
       </Routes>
       <Footer />
