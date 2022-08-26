@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.dcaffa2f.css",
-    "main.js": "/static/js/main.50610ddd.js",
+    "main.css": "/static/css/main.87b31356.css",
+    "main.js": "/static/js/main.fd226ad7.js",
     "static/js/787.0522c164.chunk.js": "/static/js/787.0522c164.chunk.js",
     "static/media/callToActionBackground.png": "/static/media/callToActionBackground.5d80df382675e9706a4b.png",
     "static/media/mockup.svg": "/static/media/mockup.c46ccd46579ce9f488667bc9d5f756c2.svg",
@@ -12,17 +12,17 @@
     "static/media/product-graphic1.svg": "/static/media/product-graphic1.688874dd77dd412df27df20ab89f6c2a.svg",
     "static/media/product-graphic3.svg": "/static/media/product-graphic3.28f223e82cc56a9b466af043c29d9fd0.svg",
     "static/media/construction.svg": "/static/media/construction.46a9449e4c21dae78975eee5d5299c7c.svg",
-    "static/media/LogoBlueActual.svg": "/static/media/LogoBlueActual.5453287870ab5a6ce41d5a450731699e.svg",
+    "static/media/ArcLogoName.svg": "/static/media/ArcLogoName.381b4e3f113744e6d0ae92fb4937bf07.svg",
     "static/media/LogoWhite.svg": "/static/media/LogoWhite.c62867cc19f8e79a737ff98ce3dad6ba.svg",
+    "index.html": "/index.html",
     "static/media/arrow-left.svg": "/static/media/arrow-left.b0414807df4d0fc3d78c6b348585368c.svg",
     "static/media/arrow-right.svg": "/static/media/arrow-right.1a8ea3089dcdcc5ab6e8a8aa1c013d94.svg",
-    "index.html": "/index.html",
-    "main.dcaffa2f.css.map": "/static/css/main.dcaffa2f.css.map",
-    "main.50610ddd.js.map": "/static/js/main.50610ddd.js.map",
+    "main.87b31356.css.map": "/static/css/main.87b31356.css.map",
+    "main.fd226ad7.js.map": "/static/js/main.fd226ad7.js.map",
     "787.0522c164.chunk.js.map": "/static/js/787.0522c164.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dcaffa2f.css",
-    "static/js/main.50610ddd.js"
+    "static/css/main.87b31356.css",
+    "static/js/main.fd226ad7.js"
   ]
 }
