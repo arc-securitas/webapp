@@ -9,7 +9,7 @@ import {
     Link as RouterLink,
 } from "react-router-dom";
 
-import logoPic from "../images/LogoBlueActual.svg";
+import logoPic from "../images/ArcLogoName.svg";
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -74,6 +74,7 @@ export default function Header(props) {
                             fontSize: '16px',
                             display: 'inline-block',
                             color: '#fff',
+                            marginBottom: '0.5rem',
 
                             "&:hover": {
                                 color: '#E0F0FF'
@@ -84,7 +85,11 @@ export default function Header(props) {
                             }
 
                         }} onClick={handleDrawerToggle} underline='none' component={RouterLink} to={"/" + item}>
-                            <ListItemText primary={item} />
+                            <Typography 
+                                sx={{
+                                    fontFamily: "Outfit",
+                            }}>{item}</Typography>
+                            
                         </Link>
                     </ListItem>
                 ))}
@@ -119,10 +124,9 @@ export default function Header(props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', marginBottom: '50px' }}>
             {/* Header bar */}
-            <AppBar component="nav" position="sticky" sx={{
-                position: 'sticky',
+            <AppBar component="nav" sx={{
                 top: 0,
                 width: '100%',
                 backgroundColor: '#FFFFFF',
@@ -135,23 +139,7 @@ export default function Header(props) {
 
                 <Toolbar>
                     {/* Logo */}
-                    <a href="/"><img id="headerLogo" src={logoPic} alt="Arc Security Logo"/></a>
-
-                    {/* Arc Security  */}
-                    <Typography sx={{
-                        align: 'center',
-                        color: '#3684C9',
-                        fontFamily: 'Outfit',
-                        fontWeight: 'bold',
-                        fontSize: '32px',
-
-                        '@media screen and (min-width: 320px)': {
-                            marginRight: '1rem'
-                        },
-                        '@media screen and (min-width: 331px)': {
-                            marginRight: '2rem'
-                        },
-                    }}>Arc Security</Typography>
+                    <a href="/"><img id="headerLogo" src={logoPic} alt="Arc Security Logo" style={{ marginTop: '-10px', width: '100%'}}/></a>
 
                     {/* Page Links */}
                     <Box sx={{
@@ -167,7 +155,7 @@ export default function Header(props) {
                                 fontSize: '16px',
                                 marginRight: '1rem',
                                 marginLeft: '1rem',
-                                marginTop: '15px',
+                                marginTop: '10px',
                                 textAlign: 'center',
                                 display: 'inline-block',
                                 color: '#000',
@@ -194,11 +182,11 @@ export default function Header(props) {
                             fontWeight: '700',
                             textTransform: 'none',
                             color: "#fff",
-                            padding: '12px 20px',
+                            padding: '9px 20px',
                             textAlign: 'center',
                             gap: '4px',
                             justifyContent: 'center',
-                            marginTop: '-10px',
+                            marginTop: '-5px',
 
                             '@media screen and (min-width: 768px)': {
                                 marginLeft: '3rem'
