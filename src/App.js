@@ -4,14 +4,14 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Home from "./pages/home.js";
-import About from "./pages/about.js";
-import Product from "./pages/product.js";
-import Dashboard from "./pages/portal/dashboard.js";
-import Alerts from "./pages/portal/alerts.js";
-import Events from "./pages/portal/events.js";
-import Agents from "./pages/portal/agents.js";
-import Payment from "./pages/portal/payment.js";
+import Home from "./_mainSite/pages/home.js";
+import About from "./_mainSite/pages/about.js";
+import Product from "./_mainSite/pages/product.js";
+import Dashboard from "./_portal/pages/dashboard.js";
+import Events from "./_portal/pages/events.js";
+import Alerts from "./_portal/pages/alerts.js";
+import Agents from "./_portal/pages/agents.js";
+import Payment from "./_portal/pages/payment.js";
 
 function App(props) {
   return (

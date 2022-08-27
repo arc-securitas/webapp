@@ -1,6 +1,6 @@
 import React from "react";
-import PortalNav from "../../components/PortalNav.js";
-import PortalHeader from '../../components/PortalHeader.js';
+import PortalNav from "../components/PortalNav.js";
+import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
 
 const Alerts = () => {
