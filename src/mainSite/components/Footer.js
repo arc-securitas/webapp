@@ -1,6 +1,6 @@
 import React from "react";
 import "./Footer.css"
-import { FooterDiv } from "./../styles/style";
+import { FooterDiv } from "../styles/style";
 import { FaLinkedinIn, FaFacebookF } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
 

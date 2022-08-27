@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from './PortalNav.module.css';
-import logoPic from "../../_mainSite/images/LogoBlueActual.svg";
+import logoPic from "../../mainSite/images/LogoBlueActual.svg";
 import * as React from 'react';
 
 export default function PortalNav(props) {
