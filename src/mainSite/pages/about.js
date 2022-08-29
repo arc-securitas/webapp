@@ -1,4 +1,5 @@
 import styles from './about.module.css';
+import './about.css'
 import animations from '../animations/animations.module.css';
 import useGoogleSheets from 'use-google-sheets';
 import CallToAction from '../components/CallToAction.js';
@@ -35,8 +36,8 @@ const About = () => {
         <>
             <Header />
             <div className='content'>
-                <section className='superheadSection'>
-                    <p className='superhead' ref={titleOnScreen.ref}><div className={titleOnScreen.isVisible ? animations.surface : "hidden"}>We are</div> <div className={titleOnScreen.isVisible ? animations.surfaceSlow : "hidden"}><span className='blueStuff'>Arc Security</span>.</div></p>
+                <section className={styles.topSection}>
+                    <p className={styles.h1} ref={titleOnScreen.ref}><div className={titleOnScreen.isVisible ? animations.surface : styles.hidden}>We are</div> <div className={titleOnScreen.isVisible ? animations.surfaceSlow : styles.hidden}><span className={styles.blueStuff}>Arc Security</span>.</div></p>
                 </section>
                 <section className={styles.section}>
                     <p className={styles.h2}>Our Mission</p>
@@ -55,13 +56,13 @@ const About = () => {
                 <section className={styles.section}>
                     <p className={styles.h2}>Meet the Team</p>
                     <Row className={styles.overallPpl1} xs={2} sm={5} ref={pplOnScreen.ref}>
-                    {memdata.map((val, index) => (
-                        <div className={pplOnScreen.isVisible ? `${styles.overallPpl} ${animations.surface}` : styles.hidden} style={{animationDelay: `${index*0.1}s`}}>
-                            <img className={styles.profileImg} src={val["Your professional picture for the Website"].replace("open?", "uc?export=view&")} alt={val["Your Name (As you would like it to appear on the website)"]}></img>
-                            <p className={styles.profileData1}><strong>{val["Your Name (As you would like it to appear on the website)"]}</strong></p>
-                            <p className={styles.profileData}>{val["Role"]}</p>
-                        </div>
-                    ))}
+                        {memdata.map((val, index) => (
+                            <div className={pplOnScreen.isVisible ? `${styles.overallPpl} ${animations.surface}` : styles.hidden} style={{ animationDelay: `${index * 0.1}s` }}>
+                                <img className={styles.profileImg} src={val["Your professional picture for the Website"].replace("open?", "uc?export=view&")} alt={val["Your Name (As you would like it to appear on the website)"]}></img>
+                                <p className={styles.profileData1}><strong>{val["Your Name (As you would like it to appear on the website)"]}</strong></p>
+                                <p className={styles.profileData}>{val["Role"]}</p>
+                            </div>
+                        ))}
                     </Row>
                 </section>
             </div>
