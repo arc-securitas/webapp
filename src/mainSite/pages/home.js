@@ -1,4 +1,3 @@
-// import './home2.css';
 import './homeMobile.css';
 import './homeTablet.css';
 import './homeLaptop.css';
@@ -8,6 +7,8 @@ import HomeMetricsSvg from '../animations/HomeMetrics.js';
 import TimelineSvg from '../animations/HomeTimeline.js';
 import HomeAlertSvg from '../animations/HomeAlert.js';
 import CallToAction from '../components/CallToAction.js';
+import Header from "../components/Header.js";
+import Footer from "../components/Footer.js";
 
 import JoinModal from "../components/joinModal.js";
 
@@ -16,6 +17,7 @@ import React from "react";
 const Home = () => {
     return (
         <>
+            <Header />
             <div id="overall">
                 <section id="section1">
                     <div className='left'>
@@ -129,6 +131,7 @@ const Home = () => {
                 </div>
             </div>
             <CallToAction />
+            <Footer />
         </>
     )
 }

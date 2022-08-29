@@ -9,7 +9,7 @@ import {
     Link as RouterLink,
 } from "react-router-dom";
 
-import logoPic from "../images/ArcLogoName.svg";
+import logoPic from "../../images/ArcLogoName.svg";
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -30,7 +30,7 @@ import JoinModal from "./joinModal.js";
 const drawerWidth = '60%';
 
 // Page Names
-const navItems = ['Home', 'Product', 'About'];
+const navItems = ['Home', 'Product', 'About', 'TempToPortal'];
 
 export default function Header(props) {
     // Opening and closing drawer menu
