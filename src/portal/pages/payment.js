@@ -1,7 +1,11 @@
 import React from "react";
 import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
+import Card from '../components/Card.js';
+import { ReactComponent as Check } from '../images/Check.svg';
+import { ReactComponent as Cross } from '../images/Cross.svg';
 import portalStyles from './portal.module.css';
+import styles from './payment.module.css';
 
 const Payment = () => {
     return (
@@ -13,6 +17,35 @@ const Payment = () => {
                     Payment
                 </PortalHeader>
                 {/* Insert all main content below header here */}
+                <div className={portalStyles.row}>
+                    <div className={portalStyles.column}>
+                        <h1 className={`${styles.leftPad} ${styles.h1}`}>Plan Details</h1>
+                        <Card>
+                            <div className={`${styles.planTitle} ${styles.big}`}>Basic</div>
+                            <div className={`${styles.planDetails} ${styles.normal}`}>
+                                <div className={styles.row}><Check className={styles.icon} />Safety timer for every agent</div>
+                                <div className={styles.row}><Check className={styles.icon} />Calendar synchronization</div>
+                                <div className={styles.row}><Check className={styles.icon} />Audio recording with alerts</div>
+                            </div>
+                            <div className={styles.calculation}>
+                                <div className={styles.row}>
+                                    <div className={`${styles.bold} ${styles.giant}`}>$10.99 </div><div className={`${styles.copy} ${styles.normal}`}>/ agent / month</div>
+                                </div>
+                                <div className={styles.row}>
+                                    <Cross className={styles.icon} /><div className={`${styles.bold} ${styles.giant}`}>14 </div><div className={`${styles.copy} ${styles.normal}`}>agents</div><a className={`${styles.a} ${styles.small}`}>Manage agents</a>
+                                </div>
+                                <hr className={styles.horizontal} />
+                                <div className={styles.row}>
+                                    <div className={`${styles.bold} ${styles.giant}`}>$153.86 </div><div className={`${styles.copy} ${styles.normal}`}>/month</div>
+                                </div>
+                            </div>
+                        </Card>
+                    </div>
+                    <div className={portalStyles.column}>
+                        <h1 className={`${styles.h1}`}>Payment Info</h1>
+                        <div>insert payment stuff here</div>
+                    </div>
+                </div>
             </main>
         </div>
     )

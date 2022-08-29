@@ -2,6 +2,16 @@
   width: 100%;
 }
 
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
 @media screen and (min-width: 769px) {
   .portal {
     display: flex;
@@ -14,6 +24,10 @@
 
   .main {
     order: 2;
+  }
+
+  .row {
+    flex-direction: row;
   }
 }
 
@@ -31,5 +45,9 @@
 
   .main {
     order: 1;
+  }
+
+  .row {
+    flex-direction: column;
   }
 }
