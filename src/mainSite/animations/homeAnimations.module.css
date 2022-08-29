@@ -9,37 +9,37 @@
     opacity: 20%;
     fill: #3684C9;
     animation: fade-in 0.25s ease-in-out forwards;
-    animation-delay: 1.1s;
+    animation-delay: 1.2s;
   }
   .arcWallGreen {
     opacity: 20%;
     fill: #82DFB2;
     animation: fade-in 0.25s ease-in-out forwards;
-    animation-delay: 1.2s;
+    animation-delay: 1.4s;
   }
   .arcWallYellow {
     opacity: 20%;
     fill: #FFBF60;
     animation: fade-in 0.25s ease-in-out forwards;
-    animation-delay: 1.3s;
+    animation-delay: 1.6s;
   }
   .arcWallTeal {
     opacity: 20%;
     fill: #43BFDA;
     animation: fade-in 0.25s ease-in-out forwards;
-    animation-delay: 1.4s;
+    animation-delay: 1.8s;
   }
   .arcWallRed {
     opacity: 20%;
     fill: #DD4C80;
     animation: fade-in 0.25s ease-in-out forwards;
-    animation-delay: 1.5s;
+    animation-delay: 2.0s;
   }
   .arcWallBlack {
     opacity: 20%;
     fill: black;
     animation: fade-in 0.25s ease-in-out forwards;
-    animation-delay: 1.6s;
+    animation-delay: 2.2s;
   }
 
   .metricsLine {
