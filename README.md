@@ -45,10 +45,59 @@ module.exports = mongoose.model('Agent', agentSchema, 'agents');
 The third parameter in the mongoose.model constructor represents the name of the collection associated with the schema. It is not required by mongoose and if not included it will default to a collection name that is the lowercase and pluralized form of the first parameter in the constructor. It is good practice to include the third parameter even if it matches the default collection name to ensure that the schema is associated with the correct collection.
 
 
-
 ## Routes
+This application uses Express for routing frontent requests to the NodeJS server.
+
+### Route Actions
+- Setting up routes file for a table/collection
+  - When a new table/collection is added to the database, a file must be set up to store all the routes associated with the table/collection.
+- Creating a new route
+  - If there is a user request that needs to supported and is not part of the currently supported requests, then create a new route.
+- Modifying a route
+  - If there needs to be change in the way a user request is handled, then modify the route that handles that request
+- Using a route
+  - When the frontend user sends a request, use an existing route to handle the request.
+
+### Routes File Setup for Table/Collection
+1. Create a javascript file in the ```backend/routes``` folder with a name that represents the routes file (Ex. ```agentsRoutes.js```)
+2. Import mongoose and express
+```
+const mongoose = require("mongoose");
+const express = require("express");
+```
+3. Import ObjectID object from MongoDB which will be used to convert strings representing an object's id to the proper ObjectID format
+```
+const ObjectId = require("mongodb").ObjectId;
+```
+4. Create an instance of the express router
+```
+const agentRoutes = express.Router();
+```
+5. Import the schema model associated with routes
+```
+const Agent = require('../schemas/agent.js');
+```
+6. Establish connection with the table/collection in the database. Pass in the name of the collection as a string.
+```
+let db_connect = mongoose.connection.collection("agents");
+```
+7. Export the routes
+```
+module.exports = agentRoutes;
+```
+8. Navigate to the ```backend/server.js``` file and import the routes file using the ```app``` object which represents an Express application
+```
+app.use(require("./routes/agentRoutes"));
+```
+
+### Route Creation
+
+
 
 ## API Calls
+
+
+
 
 ## Helpful Links
 - [Mongoose Documentation](https://mongoosejs.com/docs/guide.html)
