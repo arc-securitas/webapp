@@ -120,6 +120,18 @@ function assignValues(agent, values) {
     if (values.status != undefined) {
         agent.status = values.status;
     }
+
+    // Events
+    if (values.contacts != undefined)
+    {
+        agent.contacts = values.contacts;
+    }
+
+    // Contacts
+    if (values.events != undefined)
+    {
+        agent.events = values.events;
+    }
 }
 
 module.exports = agentRoutes;

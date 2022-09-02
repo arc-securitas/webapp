@@ -19,4 +19,4 @@ const alertSchema = new Schema({
 });
 
 // export the user schema 
-module.exports = mongoose.model("Alert", alertSchema);
+module.exports = mongoose.model("Alert", alertSchema, 'alerts');
