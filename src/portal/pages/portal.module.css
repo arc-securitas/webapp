@@ -1,0 +1,53 @@
+.main {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 769px) {
+  .portal {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .nav {
+    order: 1;
+  }
+
+  .main {
+    order: 2;
+  }
+
+  .row {
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .portal {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav {
+    order: 2;
+    position: absolute;
+    bottom: 0px;
+  }
+
+  .main {
+    order: 1;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+}

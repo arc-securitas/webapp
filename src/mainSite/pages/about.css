@@ -2,21 +2,26 @@
     font-family: 'Outfit';
     padding-left: 20px;
     padding-right: 20px;
+    line-height: 200%;
 }
 
-.superheadSection {
-    margin-top: 20vh;
-    margin-bottom: 20vh;
+.topSection {
+    margin-top: 10vh;
+    margin-bottom: 10vh;
 }
 
-.superhead {
+.section {
+    margin-bottom: 10vh;
+}
+
+.h1 {
     font-family: 'Outfit';
     font-style: normal;
     font-weight: 900;
     line-height: 150%;
 }
 
-.subhead {
+.h2 {
     font-family: 'Outfit';
     font-style: normal;
     font-weight: 700;
@@ -24,36 +29,76 @@
 }
 
 .subheadSection {
-    margin-top: 20vh;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
 }
 
 @media only screen and (max-width: 480px) {
-    .superhead {
-        font-size: 30px;
+    .content {
+        font-size: 14px;
     }
 
-    .subhead {
-        font-size: 30px;
+    .h1 {
+        font-size: 40px;
+    }
+
+    .h2 {
+        font-size: 24px;
+    }
+
+    .h3 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+        padding-left: 20px;
+        border-left: 6px #3684C9 solid;
     }
 }
 
 @media only screen and (min-width: 481px) and (max-width: 768px) {
-    .superhead {
-        font-size: 36px;
+    .content {
+        font-size: 16px;
     }
 
-    .subhead {
-        font-size: 36px;
+    .h1 {
+        font-size: 60px;
+    }
+
+    .h2 {
+        font-size: 30px;
+    }
+
+    .h3 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+        padding-left: 20px;
+        border-left: 6px #3684C9 solid;
     }
 }
 
 @media only screen and (min-width: 769px) {
-    .superhead {
+    .content {
+        font-size: 18px;
+    }
+
+    .h1 {
         font-size: 60px;
     }
 
-    .subhead {
-        font-size: 36px;
+    .h2 {
+        font-size: 30px;
+    }
+
+    .h3 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+        padding-left: 20px;
+        border-left: 6px #3684C9 solid;
     }
 }
 

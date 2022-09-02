@@ -44,7 +44,7 @@ const JoinModal = (props) => {
         if (email != "" && validator.isEmail(email)) {
             setIncorrectEmail(false);
             setIncorrectEmailMessage("");
-            await fetch("http://localhost:5000/emails/add", {
+            await fetch("/emails/add", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

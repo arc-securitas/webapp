@@ -3,6 +3,8 @@ import styles from './product.module.css';
 import TabContainer, { Tab } from '../components/TabContainer.js';
 import Carousel, { CarouselItem } from '../components/Carousel.tsx';
 import CallToAction from '../components/CallToAction.js';
+import Header from "../components/Header.js";
+import Footer from "../components/Footer.js";
 
 import productGraphic1 from '../images/product-graphic1.svg';
 import productGraphic2 from '../images/product-graphic2.svg';
@@ -20,6 +22,7 @@ import ArcNetworkSvg from '../animations/ArcNetworkSvg.js';
 const Product = () => {
     return (
         <div>
+            <Header />
             <div className={styles.product_page}>
                 <section className={styles.top}>
                     <h1 className={styles.header1}>So, how does Arc work?</h1>
@@ -36,7 +39,7 @@ const Product = () => {
                                     <img className={styles.story_img} src={productGraphic1} alt={'Real estate agent getting out of her car in front of a showing, using Arc\'s safety app'} />
                                 </CarouselItem>
                                 <CarouselItem>
-                                    <img className={styles.story_img} src={productScreenshot1} alt={'Screenshot of UI to set a new safety timer and screenshot of active timer'} />
+                                    <img className={styles.story_img} src={productScreenshot1} alt={'Screenshot of UI to set a new Safety Timer and screenshot of active timer'} />
                                 </CarouselItem>
                             </Carousel>
                             <p>Before you get out of the car, you can easily start a timer with the interval of your choice. This is just how often you want the app to check in with you!</p>
@@ -53,7 +56,7 @@ const Product = () => {
                             </Carousel>
                             <p>When your timer reaches zero, the app will send you a check-in notification. Simply enter your 4-digit safety code and the app will automatically restart the timer.</p>
                             <h3>Step 3:</h3>
-                            <p>If you ever feel unsafe, simply let the check-in timer run out or tap the Early Alert button to  instantly notify everyone in your safety network that you may be in danger.</p>
+                            <p>If you ever feel unsafe, simply let the check-in timer run out or tap the Early Alert button to  instantly notify everyone in your Safety Network that you may be in danger.</p>
                                 <Carousel>
                                     <CarouselItem>
                                         <img className={styles.story_img} src={productGraphic3} alt={'Real estate agent attacked by client'} />
@@ -62,7 +65,7 @@ const Product = () => {
                                         <img className={styles.story_img} src={productScreenshot3} alt={'Screenshot of UI showing danger notification'} />
                                     </CarouselItem>
                                 </Carousel>
-                            <p>Your safety network will receive your current location, a short audio clip, and the details of any ongoing calendar events.</p>
+                            <p>Your Safety Network will receive your current location, a short audio clip, and the details of any ongoing calendar events.</p>
                         </section>
                         <section className={styles.highlight}>
                             <div className={styles.graphicCal}><ArcCalendarSvg /> </div>
@@ -85,6 +88,7 @@ const Product = () => {
                 </TabContainer>
             </div>
             <CallToAction />
+            <Footer />
         </div>
     )
 }

@@ -47,7 +47,7 @@ export const FooterDiv = styled.div`
 export const HeaderDiv = styled.div`
   display: inline-flex;
   position: sticky;
-  top: 0; 
+  top: 0;
   background-color: ${COLORS.light_blue};
   width: 100%;
   align-items: center;
@@ -142,7 +142,7 @@ export const StyledMenu = styled.nav`
     color: ${({ open }) => open ? COLORS.white : COLORS.blue_primary};
     text-decoration: none;
     transition: color 0.3s linear;
-    
+
     &:hover {
       color: ${COLORS.light_blue};
     }
