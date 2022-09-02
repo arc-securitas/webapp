@@ -9,11 +9,14 @@ import Footer from "../components/Footer.js";
 import React from "react";
 import { useElementOnScreen } from '../animations/animationHooks.js';
 import Row from 'react-bootstrap/Row';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const About = () => {
     const titleOnScreen = useElementOnScreen();
     const subtitleOnScreen = useElementOnScreen();
     const pplOnScreen = useElementOnScreen();
+
+    const { user, isAuthenticated, isLoading } = useAuth0();
 
     const { data, loading, error } = useGoogleSheets({
         apiKey: process.env.REACT_APP_API_KEY,
