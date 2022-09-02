@@ -24,8 +24,16 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import CloseIcon from '@mui/icons-material/Close';
+import LoginButton from "../Auth/LoginButton";
+import LogoutButton from "../Auth/LogoutButton";
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state'
 
 import JoinModal from "./joinModal.js";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const drawerWidth = '60%';
 
@@ -36,6 +44,13 @@ export default function Header(props) {
     // Opening and closing drawer menu
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+
+    const { user, isAuthenticated, isLoading } = useAuth0();
+    console.log(user)
+
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -64,7 +79,7 @@ export default function Header(props) {
                         marginLeft: '160%'
                     },
 
-                     }} onClick={handleDrawerToggle}><CloseIcon /></IconButton>
+                }} onClick={handleDrawerToggle}><CloseIcon /></IconButton>
 
                 {/* Page Links Mapping */}
                 {navItems.map((item) => (
@@ -89,8 +104,61 @@ export default function Header(props) {
                     </ListItem>
                 ))}
 
+                {isAuthenticated ? <PopupState variant="popover" popupId="demo-popup-menu">
+                    {(popupState) => (
+                        <React.Fragment>
+                            <Button variant="contained" {...bindTrigger(popupState)} sx={{
+                                display: 'inline',
+                                backgroundColor: "#fff",
+                                border: 'none',
+                                borderRadius: '4px',
+                                fontFamily: "Outfit",
+                                fontWeight: '700',
+                                textTransform: 'none',
+                                color: "#3684C9",
+                                padding: '12px 20px',
+                                textAlign: 'center',
+                                gap: '4px',
+                                justifyContent: 'center',
+                                marginTop: '10px',
+
+                                '@media screen and (min-width: 768px)': {
+                                    marginLeft: '3rem',
+                                    marginTop: '-10px',
+                                },
+
+                                '@media screen and (min-width: 850px)': {
+                                    marginLeft: '10rem',
+                                    marginTop: '-10px',
+                                },
+
+                                '@media screen and (min-width: 1024px)': {
+                                    marginLeft: '15rem',
+                                    marginTop: '-10px',
+                                },
+
+                                '@media screen and (min-width: 1440px)': {
+                                    marginLeft: '20rem',
+                                    marginTop: '-10px',
+                                },
+
+                                '&:hover': {
+                                    backgroundColor: '#fff'
+                                }
+                            }}>
+                                My Account
+                            </Button>
+                            <Menu {...bindMenu(popupState)}>
+                                <MenuItem onClick={popupState.close}>Profile</MenuItem>
+                                <MenuItem onClick={popupState.close}>Manager Portal</MenuItem>
+                                <LogoutButton onClick={popupState.close} />
+                            </Menu>
+                        </React.Fragment>
+                    )}
+                </PopupState> : <LoginButton />}
+
                 {/* Get Started Button and pop up menu */}
-                <JoinModal buttonStyling={{
+                {/* <JoinModal buttonStyling={{
                     display: 'inline',
                     backgroundColor: "#fff",
                     border: 'none',
@@ -109,7 +177,7 @@ export default function Header(props) {
                     '&:hover': {
                         backgroundColor: '#fff'
                     }
-                }} />
+                }} /> */}
             </List>
         </Box>
 
@@ -135,7 +203,7 @@ export default function Header(props) {
 
                 <Toolbar>
                     {/* Logo */}
-                    <a href="/"><img id="headerLogo" src={logoPic} alt="Arc Security Logo"/></a>
+                    <a href="/"><img id="headerLogo" src={logoPic} alt="Arc Security Logo" /></a>
 
                     {/* Arc Security  */}
                     <Typography sx={{
@@ -184,8 +252,61 @@ export default function Header(props) {
                             </Link>
                         ))}
 
+                        {isAuthenticated ? <PopupState variant="popover" popupId="demo-popup-menu">
+                            {(popupState) => (
+                                <React.Fragment>
+                                    <Button variant="contained" {...bindTrigger(popupState)} sx={{
+                                        display: 'inline',
+                                        backgroundColor: "#3684C9",
+                                        border: 'none',
+                                        borderRadius: '4px',
+                                        fontFamily: "Outfit",
+                                        fontWeight: '700',
+                                        textTransform: 'none',
+                                        color: "#fff",
+                                        padding: '12px 20px',
+                                        textAlign: 'center',
+                                        gap: '4px',
+                                        justifyContent: 'center',
+                                        marginTop: '10px',
+
+                                        '@media screen and (min-width: 768px)': {
+                                            marginLeft: '3rem',
+                                            marginTop: '-10px',
+                                        },
+
+                                        '@media screen and (min-width: 850px)': {
+                                            marginLeft: '10rem',
+                                            marginTop: '-10px',
+                                        },
+
+                                        '@media screen and (min-width: 1024px)': {
+                                            marginLeft: '15rem',
+                                            marginTop: '-10px',
+                                        },
+
+                                        '@media screen and (min-width: 1440px)': {
+                                            marginLeft: '20rem',
+                                            marginTop: '-10px',
+                                        },
+
+                                        '&:hover': {
+                                            backgroundColor: '#3684C9'
+                                        }
+                                    }}>
+                                        My Account
+                                    </Button>
+                                    <Menu {...bindMenu(popupState)}>
+                                        <MenuItem onClick={popupState.close}>Profile</MenuItem>
+                                        <MenuItem onClick={popupState.close}>Manager Portal</MenuItem>
+                                        <LogoutButton onClick={popupState.close} />
+                                    </Menu>
+                                </React.Fragment>
+                            )}
+                        </PopupState> : <LoginButton />}
+
                         {/* Get Started Button and pop up window */}
-                        <JoinModal onClick={handleDrawerToggle} buttonStyling={{
+                        {/* <JoinModal onClick={handleDrawerToggle} buttonStyling={{
                             display: 'inline',
                             backgroundColor: "#3684C9",
                             border: 'none',
@@ -220,7 +341,7 @@ export default function Header(props) {
                                 backgroundColor: '#3684C9'
                             }
 
-                        }} />
+                        }} /> */}
                     </Box>
 
                     {/* Drawer Menu Icon */}

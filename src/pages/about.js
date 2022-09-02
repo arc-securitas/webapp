@@ -6,11 +6,14 @@ import CallToAction from '../components/CallToAction.js';
 import React from "react";
 import { useElementOnScreen } from '../animations/animationHooks.js';
 import Row from 'react-bootstrap/Row';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const About = () => {
     const titleOnScreen = useElementOnScreen();
     const subtitleOnScreen = useElementOnScreen();
     const pplOnScreen = useElementOnScreen();
+
+    const { user, isAuthenticated, isLoading } = useAuth0();
 
     const { data, loading, error } = useGoogleSheets({
         apiKey: process.env.REACT_APP_API_KEY,
@@ -59,13 +62,13 @@ const About = () => {
                 <section>
                     <p className='subhead'>Meet the Team</p>
                     <Row className='overallPpl1' xs={2} sm={5} ref={pplOnScreen.ref}>
-                    {memdata.map((val, index) => (
-                        <div className={pplOnScreen.isVisible ? `overallPpl ${animations.surface}` : 'hidden'} style={{animationDelay: `${index*0.1}s`}}>
-                            <img class="profileImg" src={val["Your professional picture for the Website"].replace("open?", "uc?export=view&")} alt={val["Your Name (As you would like it to appear on the website)"]}></img>
-                            <p className='profileData1'><strong>{val["Your Name (As you would like it to appear on the website)"]}</strong></p>
-                            <p className='profileData'>{val["Role"]}</p>
-                        </div>
-                    ))}
+                        {memdata.map((val, index) => (
+                            <div className={pplOnScreen.isVisible ? `overallPpl ${animations.surface}` : 'hidden'} style={{ animationDelay: `${index * 0.1}s` }}>
+                                <img class="profileImg" src={val["Your professional picture for the Website"].replace("open?", "uc?export=view&")} alt={val["Your Name (As you would like it to appear on the website)"]}></img>
+                                <p className='profileData1'><strong>{val["Your Name (As you would like it to appear on the website)"]}</strong></p>
+                                <p className='profileData'>{val["Role"]}</p>
+                            </div>
+                        ))}
                     </Row>
                 </section>
             </div>
