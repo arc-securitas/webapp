@@ -4,7 +4,7 @@ The backend of this application is based on the **MERN** (**M**ongoDB, **E**xpre
 ## Schema
 This application uses schemas for each table in the MongoDB database even though MongoDB does not require them. The schemas provide a blueprint or structure of the data that is stored in each table.
 
-Schema Actions:
+### Schema Actions
 - Creating a schema
   - When adding a table/collection to the database for this application, it is highly reccomended to create a corresponding schema.
   
