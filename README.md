@@ -91,7 +91,79 @@ app.use(require("./routes/agentRoutes"));
 ```
 
 ### Route Creation
+This includes creating a new route, developing the functionality to interact with data, and assigning that new route to the new functionality.
 
+1. Navigate to the routes file that corresponds to the desired data in the ```backend/routes``` folder.
+2. Create the route before the export line of code in the file.
+3. Inside the route, create a functions with a request parameter and a response parameter
+4. Inside the function, perform the data interactions using mongoose (refer to the mongoose documentation for more information of syntax)
+5. Assign the response variable to the final result of the data interaction using the following line: ```res.json(result);```
+6. Catch any potential error and throw it
+
+There are four main types of routes: get, post, update, and delete.
+
+Get Route Example:
+```
+// Get a list of all the agent records
+agentRoutes.route("/agents").get(function (req, res) {
+    db_connect
+        .find({})
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
+});    
+```
+
+Post Route Example:
+```
+// Create a new agent record.
+agentRoutes.route("/agents/add").post(function (req, res) {
+    let agent = new Agent();
+    
+    // assignValues method is defined in backend/routes/agentRoutes.js
+    // Assigns the values from the client request to the agent model
+    assignValues(agent, req.body);  
+
+    agent.save(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+});
+```
+
+Update Route Example:
+```
+// Updates a single agent record by id
+agentRoutes.route("/agents/update/:id").post(function (req, res) {
+    Agent.findById(ObjectId(req.params.id), function (err, agent) {
+        if (err) throw err;
+        if (agent != null) {
+        
+            // assignValues method is defined in backend/routes/agentRoutes.js
+            // Assigns the values from the client request to the agent model
+            assignValues(agent, req.body);
+            
+            agent.save(function (err, result) {
+                if (err) throw err;
+                res.json(result);
+            });
+        }
+
+    });
+});
+```
+
+Delete Route Example:
+```
+// Deletes a single agent record by id
+agentRoutes.route("/agents/delete/:id").delete((req, res) => {
+    Agent.findByIdAndDelete(ObjectId(req.params.id), function (err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+});
+```
 
 
 ## API Calls
