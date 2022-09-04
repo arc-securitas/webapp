@@ -94,7 +94,7 @@ app.use(require("./routes/agentRoutes"));
 This includes creating a new route, developing the functionality to interact with data, and assigning that new route to the new functionality.
 
 1. Navigate to the routes file that corresponds to the desired data in the ```backend/routes``` folder.
-2. Create the route before the export line of code in the file. Use the following template: ```<EXPRESS-ROUTER>.<METHOD>(<PATH>, <HANDLER>);```
+2. Create the route before the export line of code in the file. Use the following template: ```<EXPRESS-ROUTER>.route(<PATH>).<METHOD>(<HANDLER>);```
 3. Inside the route, create a handler function with a request parameter and a response parameter.
 4. Inside the handler function, perform the data interactions using mongoose (refer to the mongoose documentation for more information of syntax).
 5. Catch any potential error and throw it.
