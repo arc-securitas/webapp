@@ -42,7 +42,7 @@ const agentSchema = new Schema({
 ```
 module.exports = mongoose.model('Agent', agentSchema, 'agents');
 ```
-The third parameter in the mongoose.model constructor represents the name of the collection associated with the schema. It is not required by mongoose and if not included it will default to a collection name that is the lowercase and pluralized form of the first parameter in the constructor. It is good practice to include the third parameter even if it matches the default collection name to ensure that the schema is associated with the correct collection.
+The third argument in the mongoose.model constructor represents the name of the collection associated with the schema. It is not required by mongoose and if not included it will default to a collection name that is the lowercase and pluralized form of the first argument in the constructor. It is good practice to include the third argument even if it matches the default collection name to ensure that the schema is associated with the correct collection.
 
 
 ## Routes
@@ -94,13 +94,13 @@ app.use(require("./routes/agentRoutes"));
 This includes creating a new route, developing the functionality to interact with data, and assigning that new route to the new functionality.
 
 1. Navigate to the routes file that corresponds to the desired data in the ```backend/routes``` folder.
-2. Create the route before the export line of code in the file.
-3. Inside the route, create a functions with a request parameter and a response parameter
-4. Inside the function, perform the data interactions using mongoose (refer to the mongoose documentation for more information of syntax)
-5. Assign the response variable to the final result of the data interaction using the following line: ```res.json(result);```
-6. Catch any potential error and throw it
+2. Create the route before the export line of code in the file. Use the following template: ```<EXPRESS-ROUTER>.<METHOD>(<PATH>, <HANDLER>);```
+3. Inside the route, create a handler function with a request parameter and a response parameter.
+4. Inside the handler function, perform the data interactions using mongoose (refer to the mongoose documentation for more information of syntax).
+5. Catch any potential error and throw it.
+5. Send the final result of the data interaction as a JSON response using the following line: ```res.json(result);```.
 
-There are four main types of routes: get, post, update, and delete.
+There are four main types of route handlers: get, post, update, and delete. There are other handlers that might be useful and they can be found in the Express documentation
 
 Get Route Example:
 ```
@@ -167,13 +167,103 @@ agentRoutes.route("/agents/delete/:id").delete((req, res) => {
 
 
 ## API Calls
+HTTP requests are used by the frontend to communicate with the backend. The results of the HTTP requests as a state in the frontend.
+1. Import the state hook. Import any other hooks such as the effect, params, and navigate based on the need.
+```
+import React, { useState } from 'react';
+```
+2. Set up the state variable using the state hook and define the structure as a argument within the ``useState()``` function
+```
+const [records, setRecords] = useState(/** Structure */);
+```
+3. Create an ```async``` function and within the function, add an ```await fetch```, and pass in the route path with the rest of the HTTP request into the fetch
+4. Check if the HTTP request threw an error using ```!response.ok``` and if so, output an error message and return. 
+5. Otherwise, if using a GET request, convert the response from JSON format into javascript object format and assign it to the state variable. If using a POST request, it might be necessary to reset the state variable back to default values.
+```
+// For GET request
+const records = await response.json();
+setRecords(records);
+```
+```
+// For POST request
+// form is the state variable in this example
+setForm({ firstName: "", lastName: "", phoneNumber: "", email: "" });
+```
 
+6. Call the async function from the desired spot in the frontend. This async function can be called after a button click, after the page loads, etc.
+7. Display the results of the HTTP request using the state variable, if needed.
 
+The four most common requests are GET, POST, PUT, and DELETE.
+
+GET request example:
+```
+// Gets all agent records from database
+async function getRecords() {
+  const response = await fetch(`/agents/`);
+
+  if (!response.ok) {
+    const message = `An error occurred: ${response.statusText}`;
+    window.alert(message);
+    return;
+  }
+
+  const records = await response.json();
+  setRecords(records);
+}
+```
+
+POST Request example:
+```
+// Adds an agent when the "Submit" button is clicked
+async function onSubmit(e) {
+  // preventDefault() is specific to the onSubmit() function
+  // it is not required for the POST request
+  e.preventDefault(); 
+  
+  // form is the state variable in this example
+  const newAgent = { ...form }; 
+
+  await fetch("/agents/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    
+    // convert from javascript object to JSON format
+    body: JSON.stringify(newAgent), 
+  })
+    .catch(error => {
+      window.alert(error);
+      return;
+    });
+  
+  // form is the state variable in this example
+  setForm({ firstName: "", lastName: "", phoneNumber: "", email: "" });
+}
+```
+
+DELETE Request example:
+```
+// Deletes an agent record based on id
+async function deleteRecord(id) {
+  // ${id} adds the passed in id value into route path
+  await fetch(`/agents/delete/${id}`, {
+    method: "DELETE"
+  });
+  
+  // Removes the corresponding record from state variable
+  const newRecords = records.filter((el) => el._id !== id);
+  setRecords(newRecords);
+}
+```
 
 
 ## Helpful Links
 - [Mongoose Documentation](https://mongoosejs.com/docs/guide.html)
   - Official Mongoose library documentation. Please refer to this for any questions regarding the Mongoose library.
+
+- [Express Routing Guide](http://expressjs.com/en/guide/routing.html)
+  - Official Express guide for routing. Please refer to this and the rest of the Express website for any questions regarding Express.
 
 - [Express Tutorial Part 3: Using a Database (with Mongoose)](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose#defining_the_locallibrary_schema)
   - This is part 3 of an Express tutorial. Other parts of this tutorial may also be useful to reference
