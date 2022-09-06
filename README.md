@@ -1,5 +1,5 @@
 # Backend
-The backend of this application is based on the **MERN** (**M**ongoDB, **E**xpress, **R**eact, and **N**odeJS) Stack. MongoDB serves as the database and use NodeJS to manage the web server. Mongoose is used to connect the MongoDB database to the NodeJS server. Express is the framework that is the middleware between the frontend and the NodeJS server and is useful for routing client requests.
+The backend of this application is based on the **MERN** (**M**ongoDB, **E**xpress, **R**eact, and **N**odeJS) Stack. MongoDB serves as the database and ==use== NodeJS to manage the web server. Mongoose is used to connect the MongoDB database to the NodeJS server. Express is the framework that is the middleware between the frontend and the NodeJS server and is useful for routing client requests.
 
 ## Schema
 This application uses schemas for each table in the MongoDB database even though MongoDB does not require them. The schemas provide a blueprint or structure of the data that is stored in each table.
@@ -46,15 +46,15 @@ The third argument in the mongoose.model constructor represents the name of the 
 
 
 ## Routes
-This application uses Express for routing frontent requests to the NodeJS server.
+This application uses Express for routing frontend requests to the NodeJS server.
 
 ### Route Actions
 - Setting up routes file for a table/collection
   - When a new table/collection is added to the database, a file must be set up to store all the routes associated with the table/collection.
 - Creating a new route
-  - If there is a user request that needs to supported and is not part of the currently supported requests, then create a new route.
+  - If there is a user request that needs to be supported and is not part of the currently supported requests, then create a new route.
 - Modifying a route
-  - If there needs to be change in the way a user request is handled, then modify the route that handles that request
+  - If there needs to be a change in the way a user request is handled, then modify the route that handles that request
 - Using a route
   - When the frontend user sends a request, use an existing route to handle the request.
 
@@ -100,7 +100,7 @@ This includes creating a new route, developing the functionality to interact wit
 5. Catch any potential error and throw it.
 5. Send the final result of the data interaction as a JSON response using the following line: ```res.json(result);```.
 
-There are four main types of route handlers: get, post, update, and delete. There are other handlers that might be useful and they can be found in the Express documentation
+There are four main types of route handlers: get, post, update, and delete. There are other handlers that might be useful and they can be found in the Express documentation.
 
 Get Route Example:
 ```
@@ -167,12 +167,12 @@ agentRoutes.route("/agents/delete/:id").delete((req, res) => {
 
 
 ## API Calls
-HTTP requests are used by the frontend to communicate with the backend. The results of the HTTP requests as a state in the frontend.
+HTTP requests are used by the frontend to communicate with the backend. ==The results of the HTTP requests as a state in the frontend.==
 1. Import the state hook. Import any other hooks such as the effect, params, and navigate based on the need.
 ```
 import React, { useState } from 'react';
 ```
-2. Set up the state variable using the state hook and define the structure as a argument within the ``useState()``` function
+2. Set up the state variable using the state hook and define the structure as a argument within the ```useState()``` function
 ```
 const [records, setRecords] = useState(/** Structure */);
 ```
