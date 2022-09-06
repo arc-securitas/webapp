@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 
-export default function Edit() {
+export default function AddEvent() {
+    let agent = null;
     const [form, setForm] = useState({
-        firstName: "",
-        lastName: "",
-        phoneNumber: "",
-        email: "",
-        records: [],
+        name: "",
+        client: "",
+        location: "",
+        startTime: new Date(),
+        endTime: new Date(),
+        eventType: "Other"
     });
     const params = useParams();
     const navigate = useNavigate();
@@ -30,7 +32,7 @@ export default function Edit() {
                 return;
             }
 
-            setForm(record);
+            agent = record;
         }
 
         fetchData();
@@ -47,18 +49,19 @@ export default function Edit() {
 
     async function onSubmit(e) {
         e.preventDefault();
-        const editedPerson = {
-            firstName: form.firstName,
-            middleName: form.middleName,
-            lastName: form.lastName,
-            phoneNumber: form.phoneNumber,
-            email: form.email,
-        };
+        const newEvent = { ...form };
+
+        if (agent.events == null)
+        {
+            agent.events = [];
+        }
+        
+        agent.events.push(newEvent);
 
         // This will send a post request to update the data in the database.
         await fetch(`/agents/update/${params.id}`, {
             method: "POST",
-            body: JSON.stringify(editedPerson),
+            body: JSON.stringify(agent),
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -70,56 +73,76 @@ export default function Edit() {
     // This following section will display the form that takes input from the user to update the data.
     return (
         <div>
-            <h3>Update Record</h3>
+            <h3>Add Event</h3>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
+                    <label htmlFor="name">Event Name</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="firstName"
-                        defaultValue={form.firstName}
-                        onChange={(e) => updateForm({ firstName: e.target.value })}
+                        id="name"
+                        defaultValue={form.name}
+                        onChange={(e) => updateForm({ name: e.target.value })}
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
+                    <label htmlFor="client">Client</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="lastName"
-                        defaultValue={form.lastName}
-                        onChange={(e) => updateForm({ lastName: e.target.value })}
+                        id="client"
+                        defaultValue={form.client}
+                        onChange={(e) => updateForm({ client: e.target.value })}
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="phoneNumber">phoneNumber</label>
+                    <label htmlFor="location">Location</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="phoneNumber"
-                        defaultValue={form.phoneNumber}
-                        onChange={(e) => updateForm({ phoneNumber: e.target.value })}
+                        id="location"
+                        defaultValue={form.location}
+                        onChange={(e) => updateForm({ location: e.target.value })}
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="startTime">Start Date and Time</label>
                     <input
-                        type="text"
+                        type="datetime-local"
                         className="form-control"
-                        id="email"
-                        defaultValue={form.email}
-                        onChange={(e) => updateForm({ email: e.target.value })}
+                        id="startTime"
+                        defaultValue={form.startTime}
+                        onChange={(e) => updateForm({ startTime: e.target.value })}
                     />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="endTime">End Date and Time</label>
+                    <input
+                        type="datetime-local"
+                        className="form-control"
+                        id="endTime"
+                        defaultValue={form.endTime}
+                        onChange={(e) => updateForm({ endTime: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="eventType">Event Type</label>
+                    <select id="eventType" name="eventType" onChange={(e) => updateForm({ eventType: e.target.value })}>
+                        <option value="Showing">Showing</option>
+                        <option value="Open House">Open House</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
 
                 <div className="form-group">
                     <input
                         type="submit"
-                        value="Update agent"
+                        value="Add agent event"
                         className="btn btn-primary"
                     />
                 </div>

@@ -1,0 +1,71 @@
+.agentName {
+    color: #000000;
+    font-weight: bold;
+    font-family: 'Lato';
+}
+
+.details {
+    font-family: 'Lato';
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.leftPad {
+    margin-left: 20px;
+}
+
+@media screen and (min-width: 769px) {
+    .big {
+        font-size: 24px;
+    }
+
+    .giant {
+        font-size: 32px;
+    }
+
+    .normal {
+        font-size: 20px;
+    }
+
+    .small {
+        font-size: 16px;
+    }
+
+    .icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .big {
+        font-size: 20px;
+    }
+
+    .giant {
+        font-size: 28px;
+    }
+
+    .normal {
+        font-size: 16px;
+    }
+
+    .small {
+        font-size: 14px;
+    }
+
+    .icon {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.h1 {
+    font-family: 'Outfit';
+}

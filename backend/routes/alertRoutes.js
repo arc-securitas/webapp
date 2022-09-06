@@ -31,7 +31,8 @@ alertRoutes.route("/alerts/:startDate/:endDate").get(function (req, res) {
     let endDate = new Date(req.params.endDate)
     
     db_connect
-        .find({ dateTime: { $gte: startDate, $lte: endDate } })
+        .find({ dateTime: { $gte: startDate, $lt: endDate } })
+        .sort({dateTime: -1})
         .toArray(function (err, result) {
             if (err) throw err;
             res.json(result);
