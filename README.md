@@ -1,5 +1,5 @@
 # Backend
-The backend of this application is based on the **MERN** (**M**ongoDB, **E**xpress, **R**eact, and **N**odeJS) Stack. MongoDB serves as the database and ==use== NodeJS to manage the web server. Mongoose is used to connect the MongoDB database to the NodeJS server. Express is the framework that is the middleware between the frontend and the NodeJS server and is useful for routing client requests.
+The backend of this application is based on the **MERN** (**M**ongoDB, **E**xpress, **R**eact, and **N**odeJS) Stack. MongoDB serves as the database and uses NodeJS to manage the web server. Mongoose is used to connect the MongoDB database to the NodeJS server. Express is the framework that is the middleware between the frontend and the NodeJS server and is useful for routing client requests.
 
 ## Schema
 This application uses schemas for each table in the MongoDB database even though MongoDB does not require them. The schemas provide a blueprint or structure of the data that is stored in each table.
@@ -98,7 +98,7 @@ This includes creating a new route, developing the functionality to interact wit
 3. Inside the route, create a handler function with a request parameter and a response parameter.
 4. Inside the handler function, perform the data interactions using mongoose (refer to the mongoose documentation for more information of syntax).
 5. Catch any potential error and throw it.
-5. Send the final result of the data interaction as a JSON response using the following line: ```res.json(result);```.
+6. Send the final result of the data interaction as a JSON response using the following line: ```res.json(result);```.
 
 There are four main types of route handlers: get, post, update, and delete. There are other handlers that might be useful and they can be found in the Express documentation.
 
@@ -167,7 +167,7 @@ agentRoutes.route("/agents/delete/:id").delete((req, res) => {
 
 
 ## API Calls
-HTTP requests are used by the frontend to communicate with the backend. ==The results of the HTTP requests as a state in the frontend.==
+HTTP requests are used by the frontend to communicate with the backend. The results of the HTTP requests are stored as a state in the frontend.
 1. Import the state hook. Import any other hooks such as the effect, params, and navigate based on the need.
 ```
 import React, { useState } from 'react';
