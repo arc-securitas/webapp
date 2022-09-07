@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
 
 const Events = () => {
+    const [records, setRecords] = useState([]);
+
+    async function getRecords(date) {
+        // const response = await fetch(`/events/${date.toISOString().split('T')[0]}`);
+        const response = await fetch(`/events/2022-07-15`);
+
+        if (!response.ok) {
+            const message = `An error occurred: ${response.statusText}`;
+            window.alert(message);
+            return;
+        }
+
+        const records = await response.json();
+        setRecords(records);
+    }
+
+    useEffect(() => {
+        getRecords(new Date());
+    }, []);
+
     return (
         <div className={portalStyles.portal}>
             <div className={portalStyles.nav}><PortalNav page="Events"/></div>
@@ -13,6 +33,9 @@ const Events = () => {
                     Events
                 </PortalHeader>
                 {/* Insert all main content below header here */}
+                <p>
+                    {records.length === 0 ? "" : records[0]["eventName"]}
+                </p>
             </main>
         </div>
     )

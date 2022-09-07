@@ -41,7 +41,7 @@ agentRoutes.route("/agents/:id").get(function (req, res) {
 });
 
 // Create a new agent record.
-agentRoutes.route("/agents/add").post(function (req, res) {
+agentRoutes.route("/agents/add/").post(function (req, res) {
     let agent = new Agent();
     assignValues(agent, req.body);
 

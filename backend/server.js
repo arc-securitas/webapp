@@ -10,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(require("./routes/agentRoutes"));
 app.use(require("./routes/emailRoutes"));
+app.use(require("./routes/eventRoutes"));
 
 const dbRoute = process.env.REACT_APP_ATLAS_URI;
 const dbName = "web_test";
