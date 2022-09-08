@@ -3,29 +3,33 @@ import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
 import Card from '../components/Card.js';
+import { ReactComponent as Map_Pin } from '../images/Map_Pin.svg';
+import { ReactComponent as Calendar } from '../images/Calendar.svg';
+import { ReactComponent as RedDot } from '../images/RedDot.svg';
+import { ReactComponent as GrayDot } from '../images/GrayDot.svg';
+import { ReactComponent as Clock } from '../images/Clock.svg';
 import styles from './dashboard.module.css';
 
 const Dashboard = () => {
+    const [loading, SetLoading] = useState(true);
+
     const [newAlerts, setNewAlerts] = useState([]);
 
     const [olderAlerts, setOlderAlerts] = useState([]);
 
-    let agentsMap = new Map();
-    let eventsMap = new Map();
+    const [agentsMap, setAgentsMap] = useState(new Map());
 
     useEffect(() => {
         fetchNewAlerts();
-        console.log(newAlerts);
         getAgents(newAlerts);
-
         fetchOlderAlerts();
-        console.log(olderAlerts);
         getAgents(olderAlerts);
 
-        console.log(agentsMap);
+        SetLoading(false);
+        return;
 
 
-    }, [newAlerts.length, olderAlerts.length]);
+    }, [newAlerts.length, olderAlerts.length, agentsMap.size]);
 
     async function fetchNewAlerts() {
         const today = new Date();
@@ -68,17 +72,21 @@ const Dashboard = () => {
     }
 
     async function getAgents(alertsArray) {
-        alertsArray.forEach(async (safetyAlert) => {
+        alertsArray.map(async (safetyAlert) => {
             let agentID = safetyAlert.agent;
-            let eventID = safetyAlert.event;
-
-            if (!agentsMap.has(agentID)) {
+            if (!agentsMap.has(agentID.toString())) {
                 let agent = await fetchAgent(agentID);
                 if (agent != null) {
-                    agentsMap.set(agentID, agent);
+                    let temp = new Map(agentsMap);
+                    temp.set(agentID.toString(), agent);
+                    setAgentsMap(temp);
+                    console.log("Inserting in map" + agentID);
                 }
+                console.log("Size:" + agentsMap.size);
+                console.log(agentsMap);
             }
         });
+
     }
 
     async function fetchAgent(agentID) {
@@ -100,6 +108,54 @@ const Dashboard = () => {
     }
 
 
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    function alertsList(alerts, dotType) {
+        console.log(agentsMap);
+        return alerts.map((safetyAlert) => {
+            let agent = agentsMap.get(safetyAlert.agent.toString());
+            let date = new Date(safetyAlert.dateTime).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
+            let time = new Date(safetyAlert.dateTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })
+
+            if (agent != null) {
+                console.log("here too");
+                let agentName = agent.firstName + " " + agent.lastName;
+                console.log(agentName);
+                return (
+                    <Card>
+                        <div >
+                            <span className={`${styles.agentName} ${styles.big} ${styles.tabRight}`}>
+                                {displayDot(dotType)}
+                                {" " + agentName}
+                            </span>
+                            <span className={`${styles.planDetails} ${styles.small} ${styles.rightPad}`}>
+                                <Map_Pin className={styles.icon} />{safetyAlert.location}
+                            </span>
+
+                            <span className={`${styles.planDetails} ${styles.small} ${styles.rightPad}`}>
+                                <Calendar className={styles.icon} /> {date}
+                            </span>
+
+                            <span className={`${styles.planDetails} ${styles.small} ${styles.rightPad}`}>
+                                <Clock className={styles.icon} /> {time}
+                            </span>
+                        </div>
+                    </Card>
+                );
+            }
+        });
+    }
+
+    function displayDot(dotType) {
+        if (dotType.localeCompare("GrayDot") === 0) {
+            return (<GrayDot className={styles.icon} />)
+        }
+        else {
+            return (<RedDot className={styles.icon} />)
+        }
+    }
 
     return (
         <div className={portalStyles.portal}>
@@ -119,13 +175,9 @@ const Dashboard = () => {
                     </div>
                     <div className={portalStyles.column}>
                         <h1 className={`${styles.leftPad} ${styles.h1}`}>New Alerts</h1>
-                        <Card>
-                            Recent Alerts
-                        </Card>
+                        <div>{alertsList(newAlerts, "RedDot")}</div>
                         <h1 className={`${styles.leftPad} ${styles.h1}`}>Alerts from the Week</h1>
-                        <Card>
-                            Older Alerts
-                        </Card>
+                        <div>{alertsList(olderAlerts, "GrayDot")}</div>
                     </div>
                 </div>
             </main>

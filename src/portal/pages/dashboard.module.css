@@ -6,6 +6,7 @@
 
 .details {
     font-family: 'Lato';
+    line-height: 100px;
 }
 
 .row {
@@ -19,10 +20,17 @@
 .leftPad {
     margin-left: 20px;
 }
+.rightPad {
+    margin-right: 25px;
+}
+
+.tabRight {
+    padding-right: 1rem;
+}
 
 @media screen and (min-width: 769px) {
     .big {
-        font-size: 24px;
+        font-size: 30px;
     }
 
     .giant {
@@ -34,12 +42,12 @@
     }
 
     .small {
-        font-size: 16px;
+        font-size: 18px;
     }
 
     .icon {
-        width: 30px;
-        height: 30px;
+        width: 15px;
+        height: 15px;
     }
 }
 
