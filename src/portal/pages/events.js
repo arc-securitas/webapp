@@ -2,22 +2,45 @@ import React, { useState, useEffect } from "react";
 import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
+import Card from '../components/Card.js';
+import styles from './events.module.css'
 
 const Events = () => {
     const [records, setRecords] = useState([]);
 
-    async function getRecords(date) {
-        // const response = await fetch(`/events/${date.toISOString().split('T')[0]}`);
-        const response = await fetch(`/events/2022-07-15`);
+    // Gets records from |startDate| plus the upcoming 7 days (hardcoded atm).
+    async function getRecords(startDate) {
+        // |records| has one row per day. Each row is an array w/ the events of that day.
+        let records = [];
+        for (let i = 0; i < 7; i++) {
+            let date = new Date(startDate);
+            date.setDate(date.getDate() + i);
+            // Fetches the events corresponding to a single day
+            const response = await fetch(`/events/${date.toISOString().split('T')[0]}`);
 
-        if (!response.ok) {
-            const message = `An error occurred: ${response.statusText}`;
-            window.alert(message);
-            return;
+            if (!response.ok) {
+                const message = `An error occurred: ${response.statusText}`;
+                window.alert(message);
+                return;
+            }
+
+            // Adds the events of the day to |records|
+            records.push(await response.json());
         }
 
-        const records = await response.json();
-        setRecords(records);
+        // Finally, maps the records to cards w/ the corresponding data in them.
+        setRecords(records.map((day) =>
+            <div>
+                {/* TODO: Make this cleaner... breaks if that day doesn't have any events. */}
+                <div>{day[0]["startTime"].split("T")[0]}</div>
+                <div className={styles.row}>
+                    {day.map((showing) =>
+                        <Card>
+                            {showing["eventName"]}
+                        </Card>)}
+                </div>
+            </div>
+        ));
     }
 
     useEffect(() => {
@@ -33,9 +56,7 @@ const Events = () => {
                     Events
                 </PortalHeader>
                 {/* Insert all main content below header here */}
-                <p>
-                    {records.length === 0 ? "" : records[0]["eventName"]}
-                </p>
+                {records.length === 0 ? "loading..." : records}
             </main>
         </div>
     )
