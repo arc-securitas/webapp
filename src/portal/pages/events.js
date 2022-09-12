@@ -4,16 +4,19 @@ import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
 import Card from '../components/Card.js';
 import styles from './events.module.css'
+import { ReactComponent as Calendar } from '../images/Calendar.svg';
+import { ReactComponent as Map_Pin } from '../images/Map_Pin.svg';
+import { ReactComponent as Clock } from '../images/Clock.svg';
 
 const Events = () => {
     const [records, setRecords] = useState([]);
 
-    // Gets records from |startDate| plus the upcoming 7 days (hardcoded atm).
-    async function getRecords(startDate) {
+    // Gets records from |date| plus the upcoming 7 days (hardcoded atm).
+    async function getRecords(d) {
         // |records| has one row per day. Each row is an array w/ the events of that day.
         let records = [];
         for (let i = 0; i < 7; i++) {
-            let date = new Date(startDate);
+            let date = new Date(d);
             date.setDate(date.getDate() + i);
             // Fetches the events corresponding to a single day
             const response = await fetch(`/events/${date.toISOString().split('T')[0]}`);
@@ -32,12 +35,30 @@ const Events = () => {
         setRecords(records.map((day) =>
             <div>
                 {/* TODO: Make this cleaner... breaks if that day doesn't have any events. */}
-                <div>{day[0]["startTime"].split("T")[0]}</div>
+                <div className={styles.title}>{day[0]["date"].split("T")[0]}</div>
                 <div className={styles.row}>
-                    {day.map((showing) =>
-                        <Card>
-                            {showing["eventName"]}
-                        </Card>)}
+                    {day.map((showing) => {
+                            return (
+                                <Card>
+                                    <div className={styles.miniRow}>
+                                        {showing["agents"].map((agent) => <div className={styles.bold}>{agent["firstName"]} {agent["lastName"]}</div>)}
+                                    </div>
+                                    <div className={styles.miniRow}>
+                                        <Map_Pin />
+                                        {showing["location"]}
+                                    </div>
+                                    <div className={styles.miniRow}>
+                                        <Clock />
+                                        {showing["startTime"]} - {showing["endTime"]}
+                                    </div>
+                                    <div className={styles.miniRow}>
+                                        <Calendar />
+                                        {showing["eventType"]}
+                                    </div>
+                                </Card>
+                            );
+                        }
+                    )}
                 </div>
             </div>
         ));
@@ -56,7 +77,9 @@ const Events = () => {
                     Events
                 </PortalHeader>
                 {/* Insert all main content below header here */}
-                {records.length === 0 ? "loading..." : records}
+                <div className={portalStyles.mainPad}>
+                    {records.length === 0 ? "loading..." : records}
+                </div>
             </main>
         </div>
     )

@@ -8,7 +8,8 @@ let db_connect = mongoose.connection.collection("events");
 
 eventRoutes.route("/events/:date").get(function (req, res) {
   db_connect
-    .find({ startTime: new Date(req.params.date) })
+    // .find ( {startTime: {$gte: new Date(req.params.date), $lte: new Date(req.params.date)}} )
+    .find ( {date: new Date(req.params.date) } )
     .toArray(function (err, result) {
       if (err) throw err;
       res.json(result);
@@ -36,6 +37,8 @@ function assignValues(event, values) {
     event.eventType = values.eventType;
   if (values.location != undefined)
     event.location = values.location;
+  if (values.date != undefined)
+    event.date = values.date;
   if (values.startTime != undefined)
     event.startTime = values.startTime;
   if (values.endTime != undefined)
