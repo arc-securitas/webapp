@@ -31,37 +31,80 @@ const Events = () => {
             records.push(await response.json());
         }
 
+        let date = new Date(d);
         // Finally, maps the records to cards w/ the corresponding data in them.
-        setRecords(records.map((day) =>
-            <div>
-                {/* TODO: Make this cleaner... breaks if that day doesn't have any events. */}
-                <div className={styles.title}>{day[0]["date"].split("T")[0]}</div>
-                <div className={styles.row}>
-                    {day.map((showing) => {
-                            return (
-                                <Card>
-                                    <div className={styles.miniRow}>
-                                        {showing["agents"].map((agent) => <div className={styles.bold}>{agent["firstName"]} {agent["lastName"]}</div>)}
+        setRecords(records.map((day) => {
+            let result = (
+                <div>
+                    <div className={styles.title}>{dayOfWeek(date.getDay())}, {date.toISOString().split("T")[0]}</div>
+                    <div className={styles.row}>
+                        {day.map((showing) => {
+                                return (
+                                    <div className={styles.card}>
+                                        <Card>
+                                            <div className={styles.miniRow}>
+                                                <div className={styles.bold}>{agentsString(showing["agents"])}</div>
+                                            </div>
+                                            <div className={styles.miniRow}>
+                                                <Map_Pin className={styles.icon}/>
+                                                {showing["location"]}
+                                            </div>
+                                            <div className={styles.miniRow}>
+                                                <Clock className={styles.icon}/>
+                                                {showing["startTime"]} - {showing["endTime"]}
+                                            </div>
+                                            <div className={styles.miniRow}>
+                                                <Calendar className={styles.icon}/>
+                                                {showing["eventType"]}
+                                            </div>
+                                        </Card>
                                     </div>
-                                    <div className={styles.miniRow}>
-                                        <Map_Pin />
-                                        {showing["location"]}
-                                    </div>
-                                    <div className={styles.miniRow}>
-                                        <Clock />
-                                        {showing["startTime"]} - {showing["endTime"]}
-                                    </div>
-                                    <div className={styles.miniRow}>
-                                        <Calendar />
-                                        {showing["eventType"]}
-                                    </div>
-                                </Card>
-                            );
-                        }
-                    )}
+                                );
+                            }
+                        )}
+                    </div>
                 </div>
-            </div>
+            );
+            date.setDate(date.getDate() + 1);
+            return result;
+        }
         ));
+    }
+
+    function dayOfWeek(d) {
+        switch(d) {
+            case 0:
+                return "Sunday"
+            case 1:
+                return "Monday"
+            case 2:
+                return "Tuesday"
+            case 3:
+                return "Wednesday"
+            case 4:
+                return "Thursday"
+            case 5:
+                return "Friday"
+            case 6:
+                return "Saturday"
+        }
+    }
+
+    function agentsString(agents) {
+        if (agents.length === 0) {
+            return "no agent"
+        }
+        if (agents.length === 1) {
+            let agent = agents[0];
+            return `${agent["firstName"]} ${agent["lastName"]}`;
+        } else if (agents.length === 2) {
+            return `${agents[0]["firstName"]} ${agents[0]["lastName"]} and ${agents[1]["firstName"]} ${agents[1]["lastName"]}`;
+        } else if (agents.length === 3) {
+            return `${agents[0]["firstName"]} ${agents[0]["lastName"]}, ${agents[1]["firstName"]} ${agents[1]["lastName"]}, and 1 other`;
+        } else {
+            let remaining = agents.length - 2;
+            return `${agents[0]["firstName"]} ${agents[0]["lastName"]}, ${agents[1]["firstName"]} ${agents[1]["lastName"]}, and ${remaining} others`;
+        }
     }
 
     useEffect(() => {
@@ -69,7 +112,7 @@ const Events = () => {
     }, []);
 
     return (
-        <div className={portalStyles.portal}>
+        <div className={`${portalStyles.portal} ${styles.eventsPage}`}>
             <div className={portalStyles.nav}><PortalNav page="Events"/></div>
             <main className={portalStyles.main}>
                 <PortalHeader>
@@ -79,6 +122,7 @@ const Events = () => {
                 {/* Insert all main content below header here */}
                 <div className={portalStyles.mainPad}>
                     {records.length === 0 ? "loading..." : records}
+                    <div className={styles.bottomSpacer}/>
                 </div>
             </main>
         </div>

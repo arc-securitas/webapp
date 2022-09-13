@@ -8,7 +8,6 @@ let db_connect = mongoose.connection.collection("events");
 
 eventRoutes.route("/events/:date").get(function (req, res) {
   db_connect
-    // .find ( {startTime: {$gte: new Date(req.params.date), $lte: new Date(req.params.date)}} )
     .find ( {date: new Date(req.params.date) } )
     .toArray(function (err, result) {
       if (err) throw err;
