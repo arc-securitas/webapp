@@ -13,25 +13,21 @@ import styles from './dashboard.module.css';
 const Dashboard = () => {
     const [loading, SetLoading] = useState(true);
 
-    const [newAlerts, setNewAlerts] = useState([]);
-
-    const [olderAlerts, setOlderAlerts] = useState([]);
+    const [safetyAlerts, setSafetyAlerts] = useState([]);
 
     const [agentsMap, setAgentsMap] = useState(new Map());
 
     useEffect(() => {
-        fetchNewAlerts();
-        getAgents(newAlerts);
-        fetchOlderAlerts();
-        getAgents(olderAlerts);
+        fetchSafetyAlerts();
+        getAgents();
 
         SetLoading(false);
         return;
 
 
-    }, [newAlerts.length, olderAlerts.length, agentsMap.size]);
+    }, [safetyAlerts.length, agentsMap.size]);
 
-    async function fetchNewAlerts() {
+    async function fetchSafetyAlerts() {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
@@ -39,27 +35,11 @@ const Dashboard = () => {
         tmrw.setDate(today.getDate() + 1);
         tmrw.setHours(0, 0, 0, 0);
 
-        const response = await fetch(`/alerts/${today}/${tmrw}`);
-
-        if (!response.ok) {
-            const message = `An error occurred: ${response.statusText}`;
-            window.alert(message);
-            return;
-        }
-
-        const newAlerts = await response.json();
-        setNewAlerts(newAlerts);
-    }
-
-    async function fetchOlderAlerts() {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
         const startOfWeek = new Date();
         startOfWeek.setDate(today.getDate() - today.getDay());
         startOfWeek.setHours(0, 0, 0, 0);
 
-        const response = await fetch(`/alerts/${startOfWeek}/${today}`);
+        const response = await fetch(`/alerts/${startOfWeek}/${tmrw}`);
 
         if (!response.ok) {
             const message = `An error occurred: ${response.statusText}`;
@@ -67,12 +47,12 @@ const Dashboard = () => {
             return;
         }
 
-        const olderAlerts = await response.json();
-        setOlderAlerts(olderAlerts);
+        const safetyAlerts = await response.json();
+        setSafetyAlerts(safetyAlerts);
     }
 
-    async function getAgents(alertsArray) {
-        alertsArray.map(async (safetyAlert) => {
+    async function getAgents() {
+        safetyAlerts.map(async (safetyAlert) => {
             let agentID = safetyAlert.agent;
             if (!agentsMap.has(agentID.toString())) {
                 let agent = await fetchAgent(agentID);
@@ -112,27 +92,32 @@ const Dashboard = () => {
         return <div>Loading...</div>;
     }
 
-    function alertsList(alerts, dotType) {
-        console.log(agentsMap);
-        return alerts.map((safetyAlert) => {
+    function alertsList() {
+        if (safetyAlerts.length === 0)
+        {
+            return (<p className={`${styles.normal} ${styles.leftPad}`}>No alerts to display</p>);
+        }
+        return safetyAlerts.map((safetyAlert) => {
             let agent = agentsMap.get(safetyAlert.agent.toString());
             let date = new Date(safetyAlert.dateTime).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
             let time = new Date(safetyAlert.dateTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })
 
             if (agent != null) {
-                console.log("here too");
                 let agentName = agent.firstName + " " + agent.lastName;
                 console.log(agentName);
                 return (
                     <Card>
+                        
                         <div >
+                        <span>
+                        {displayDot(safetyAlert.viewed ? "GrayDot" : "RedDot")}
+                        </span>
                             <span className={`${styles.agentName} ${styles.big} ${styles.tabRight}`}>
-                                {displayDot(dotType)}
                                 {" " + agentName}
                             </span>
                             <span className={`${styles.planDetails} ${styles.small} ${styles.rightPad}`}>
                                 <Map_Pin className={styles.icon} />{safetyAlert.location}
-                            </span>
+                            </span><br/>
 
                             <span className={`${styles.planDetails} ${styles.small} ${styles.rightPad}`}>
                                 <Calendar className={styles.icon} /> {date}
@@ -168,16 +153,14 @@ const Dashboard = () => {
                 {/* Insert all main content below header here */}
                 <div className={portalStyles.row}>
                     <div className={portalStyles.column}>
-                        <h1 className={`${styles.leftPad} ${styles.h1}`}>Today's Events</h1>
-                        <Card>
+                        <h1 className={`${styles.leftPad} ${styles.h1} ${styles.lessBottomPad}`}>Today's Events</h1>
+                        <Card width="300px">
                             Agents' Events
                         </Card>
                     </div>
                     <div className={portalStyles.column}>
-                        <h1 className={`${styles.leftPad} ${styles.h1}`}>New Alerts</h1>
-                        <div>{alertsList(newAlerts, "RedDot")}</div>
-                        <h1 className={`${styles.leftPad} ${styles.h1}`}>Alerts from the Week</h1>
-                        <div>{alertsList(olderAlerts, "GrayDot")}</div>
+                        <h1 className={`${styles.leftPad} ${styles.h1} ${styles.lessBottomPad}`}>Alerts from the Week</h1>
+                        <div>{alertsList()}</div>
                     </div>
                 </div>
             </main>

@@ -28,9 +28,13 @@
     padding-right: 1rem;
 }
 
+.lessBottomPad {
+    margin-bottom: -5px;
+}
+
 @media screen and (min-width: 769px) {
     .big {
-        font-size: 30px;
+        font-size: 24px;
     }
 
     .giant {
@@ -69,8 +73,8 @@
     }
 
     .icon {
-        width: 24px;
-        height: 24px;
+        width: 10px;
+        height: 10px;
     }
 }
 
