@@ -20,7 +20,8 @@ const Payment = () => {
                 <div className={portalStyles.row}>
                     <div className={portalStyles.column}>
                         <h1 className={`${styles.leftPad} ${styles.h1}`}>Plan Details</h1>
-                        <Card>
+                        <div className={`${styles.leftPad}`}>
+                        <Card className={styles.leftPad}>
                             <div className={`${styles.planTitle} ${styles.big}`}>Basic</div>
                             <div className={`${styles.planDetails} ${styles.normal}`}>
                                 <div className={styles.row}><Check className={styles.icon} />Safety timer for every agent</div>
@@ -40,6 +41,7 @@ const Payment = () => {
                                 </div>
                             </div>
                         </Card>
+                        </div>
                     </div>
                     <div className={portalStyles.column}>
                         <h1 className={`${styles.h1}`}>Payment Info</h1>

@@ -20,6 +20,7 @@
 .leftPad {
     margin-left: 20px;
 }
+
 .rightPad {
     margin-right: 25px;
 }
@@ -33,6 +34,31 @@
 }
 
 @media screen and (min-width: 769px) {
+    .eventCard {
+        width: 350px;
+        font-size: 16px;
+        flex-grow: 1;
+        max-width: 500px;
+        margin-bottom: 10px;
+    }
+
+    .alertCard {
+        width: 600px;
+        font-size: 16px;
+        flex-grow: 1;
+        max-width: 1000px;
+        margin-bottom: 10px;
+    }
+
+    .miniRow {
+        gap: 10px;
+    }
+
+    .bold {
+        font-size: 18px;
+    }
+
+
     .big {
         font-size: 24px;
     }
@@ -56,6 +82,24 @@
 }
 
 @media screen and (max-width: 768px) {
+    .eventCard {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .alertCard {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .miniRow {
+        gap: 10px;
+    }
+
+    .bold {
+        font-size: 14px;
+    }
+
     .big {
         font-size: 20px;
     }

@@ -15,10 +15,13 @@ const Dashboard = () => {
 
     const [safetyAlerts, setSafetyAlerts] = useState([]);
 
+    const [events, setEvents] = useState([]);
+
     const [agentsMap, setAgentsMap] = useState(new Map());
 
     useEffect(() => {
         fetchSafetyAlerts();
+        fetchEvents();
         getAgents();
 
         SetLoading(false);
@@ -27,6 +30,7 @@ const Dashboard = () => {
 
     }, [safetyAlerts.length, agentsMap.size]);
 
+    // fetches all the safety alerts from this week
     async function fetchSafetyAlerts() {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -51,6 +55,22 @@ const Dashboard = () => {
         setSafetyAlerts(safetyAlerts);
     }
 
+    async function fetchEvents() {
+        const today = new Date();
+
+        const response = await fetch(`/events/${today.toISOString().split('T')[0]}`);
+
+        if (!response.ok) {
+            const message = `An error occurred: ${response.statusText}`;
+            window.alert(message);
+            return;
+        }
+
+        const events = await response.json();
+        setEvents(events);
+    }
+
+    // Gets agents associated with the safety alerts
     async function getAgents() {
         safetyAlerts.map(async (safetyAlert) => {
             let agentID = safetyAlert.agent;
@@ -69,6 +89,7 @@ const Dashboard = () => {
 
     }
 
+    // Fetches an agent based on their unique ID
     async function fetchAgent(agentID) {
         const response = await fetch(`/agents/${agentID}`);
 
@@ -87,15 +108,15 @@ const Dashboard = () => {
         return agent;
     }
 
-
+    // Loading message
     if (loading) {
         return <div>Loading...</div>;
     }
 
+    // Displays a the list of alerts
     function alertsList() {
-        if (safetyAlerts.length === 0)
-        {
-            return (<p className={`${styles.normal} ${styles.leftPad}`}>No alerts to display</p>);
+        if (safetyAlerts.length === 0) {
+            return (<p className={`${styles.normal}`}>No alerts to display</p>);
         }
         return safetyAlerts.map((safetyAlert) => {
             let agent = agentsMap.get(safetyAlert.agent.toString());
@@ -104,20 +125,18 @@ const Dashboard = () => {
 
             if (agent != null) {
                 let agentName = agent.firstName + " " + agent.lastName;
-                console.log(agentName);
                 return (
-                    <Card>
-                        
-                        <div >
-                        <span>
-                        {displayDot(safetyAlert.viewed ? "GrayDot" : "RedDot")}
-                        </span>
+                    <div className={styles.alertCard}>
+                        <Card>
+                            <span>
+                                {displayDot(safetyAlert.viewed ? "GrayDot" : "RedDot")}
+                            </span>
                             <span className={`${styles.agentName} ${styles.big} ${styles.tabRight}`}>
                                 {" " + agentName}
                             </span>
                             <span className={`${styles.planDetails} ${styles.small} ${styles.rightPad}`}>
                                 <Map_Pin className={styles.icon} />{safetyAlert.location}
-                            </span><br/>
+                            </span><br />
 
                             <span className={`${styles.planDetails} ${styles.small} ${styles.rightPad}`}>
                                 <Calendar className={styles.icon} /> {date}
@@ -126,13 +145,68 @@ const Dashboard = () => {
                             <span className={`${styles.planDetails} ${styles.small} ${styles.rightPad}`}>
                                 <Clock className={styles.icon} /> {time}
                             </span>
-                        </div>
-                    </Card>
+                        </Card>
+                    </div>
                 );
             }
         });
     }
 
+    function eventsList() {
+
+        if (events.length === 0) {
+            return (
+                <div>
+                    <p className={`${styles.normal}`}>You have no events today.</p>
+                    <a>See all events</a>
+                </div>
+            );
+        }
+
+        return events.map((showing) => {
+            return (
+                <div className={styles.eventCard}>
+                    <Card>
+                        <div className={styles.miniRow}>
+                            <div className={styles.agentName}>{agentsString(showing.agents)}</div>
+                        </div>
+                        <div className={styles.miniRow}>
+                            <Map_Pin className={styles.icon} />
+                            {" " + showing.location}
+                        </div>
+                        <div className={styles.miniRow}>
+                            <Clock className={styles.icon} />
+                            {" " + showing.startTime} - {showing.endTime}
+                        </div>
+                        <div className={styles.miniRow}>
+                            <Calendar className={styles.icon} />
+                            {" " + showing.eventType}
+                        </div>
+                    </Card>
+                </div>
+            )
+        });
+    }
+
+    function agentsString(agents) {
+        if (agents.length === 0) {
+            return "no agent"
+        }
+        if (agents.length === 1) {
+            let agent = agents[0];
+            return `${agent.firstName} ${agent.lastName}`;
+        } else if (agents.length === 2) {
+            return `${agents[0].firstName} ${agents[0].lastName} and ${agents[1].firstName} ${agents[1].lastName}`;
+        } else if (agents.length === 3) {
+            return `${agents[0].firstName} ${agents[0].lastName}, ${agents[1].firstName} ${agents[1].lastName}, and 1 other`;
+        } else {
+            let remaining = agents.length - 2;
+            return `${agents[0].firstName} ${agents[0].lastName}, ${agents[1].firstName} ${agents[1].lastName}, and ${remaining} others`;
+        }
+    }
+
+
+    // Renders the alert's dot
     function displayDot(dotType) {
         if (dotType.localeCompare("GrayDot") === 0) {
             return (<GrayDot className={styles.icon} />)
@@ -152,14 +226,12 @@ const Dashboard = () => {
                 </PortalHeader>
                 {/* Insert all main content below header here */}
                 <div className={portalStyles.row}>
-                    <div className={portalStyles.column}>
-                        <h1 className={`${styles.leftPad} ${styles.h1} ${styles.lessBottomPad}`}>Today's Events</h1>
-                        <Card width="300px">
-                            Agents' Events
-                        </Card>
+                    <div className={`${portalStyles.column} ${styles.leftPad}`}>
+                        <h1 className={` ${styles.h1} `}>Today's Events</h1>
+                        <div>{eventsList()}</div>
                     </div>
-                    <div className={portalStyles.column}>
-                        <h1 className={`${styles.leftPad} ${styles.h1} ${styles.lessBottomPad}`}>Alerts from the Week</h1>
+                    <div className={`${portalStyles.column} ${styles.leftPad}`}>
+                        <h1 className={`${styles.h1}`}>Alerts from the Week</h1>
                         <div>{alertsList()}</div>
                     </div>
                 </div>
