@@ -8,6 +8,9 @@ import { ReactComponent as Calendar } from '../images/Calendar.svg';
 import { ReactComponent as RedDot } from '../images/RedDot.svg';
 import { ReactComponent as GrayDot } from '../images/GrayDot.svg';
 import { ReactComponent as Clock } from '../images/Clock.svg';
+import { ReactComponent as Black_Clock } from '../images/Black_Clock.svg';
+import { ReactComponent as Black_Map_Pin } from '../images/Black_Map_Pin.svg';
+import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
 import styles from './dashboard.module.css';
 
 const Dashboard = () => {
@@ -128,22 +131,22 @@ const Dashboard = () => {
                 return (
                     <div className={styles.alertCard}>
                         <Card>
-                            <span>
+                            <span className={styles.miniRow}>
                                 {displayDot(safetyAlert.viewed ? "GrayDot" : "RedDot")}
                             </span>
-                            <span className={`${styles.agentName} ${styles.big} ${styles.tabRight}`}>
+                            <span className={`${styles.agentName} ${styles.normal} `}>
                                 {" " + agentName}
                             </span>
-                            <span className={`${styles.planDetails} ${styles.small} ${styles.rightPad}`}>
-                                <Map_Pin className={styles.icon} />{safetyAlert.location}
-                            </span><br />
-
-                            <span className={`${styles.planDetails} ${styles.small} ${styles.rightPad}`}>
-                                <Calendar className={styles.icon} /> {date}
+                            <span className={` ${styles.leftPad}`}>
+                                <Black_Map_Pin className={styles.icon} />{safetyAlert.location} <br/>
                             </span>
 
-                            <span className={`${styles.planDetails} ${styles.small} ${styles.rightPad}`}>
-                                <Clock className={styles.icon} /> {time}
+                            <span className={` `}>
+                                <Black_Calendar className={styles.icon} /> {date}
+                            </span>
+
+                            <span className={`  ${styles.leftPad}`}>
+                                <Black_Clock className={styles.icon} /> {time}
                             </span>
                         </Card>
                     </div>
@@ -168,7 +171,7 @@ const Dashboard = () => {
                 <div className={styles.eventCard}>
                     <Card>
                         <div className={styles.miniRow}>
-                            <div className={styles.agentName}>{agentsString(showing.agents)}</div>
+                            <div className={`${styles.agentName} ${styles.normal}`}>{agentsString(showing.agents)}</div>
                         </div>
                         <div className={styles.miniRow}>
                             <Map_Pin className={styles.icon} />
@@ -209,15 +212,15 @@ const Dashboard = () => {
     // Renders the alert's dot
     function displayDot(dotType) {
         if (dotType.localeCompare("GrayDot") === 0) {
-            return (<GrayDot className={styles.icon} />)
+            return (<GrayDot className={styles.alertIcon} />)
         }
         else {
-            return (<RedDot className={styles.icon} />)
+            return (<RedDot className={styles.alertIcon} />)
         }
     }
 
     return (
-        <div className={portalStyles.portal}>
+        <div className={`${portalStyles.portal} `}>
             <div className={portalStyles.nav}><PortalNav page="Dashboard" /></div>
             <main className={portalStyles.main}>
                 <PortalHeader>
@@ -225,14 +228,15 @@ const Dashboard = () => {
                     Dashboard
                 </PortalHeader>
                 {/* Insert all main content below header here */}
-                <div className={portalStyles.row}>
-                    <div className={`${portalStyles.column} ${styles.leftPad}`}>
-                        <h1 className={` ${styles.h1} `}>Today's Events</h1>
-                        <div>{eventsList()}</div>
+                <div className={`${portalStyles.row} ${portalStyles.mainPad}`} >
+                    <div className={` ${portalStyles.column} `}>
+                        <h1 className={` ${styles.title} ${styles.leftPad} `}>Today's Events</h1>
+                        <div className={`${portalStyles.mainPad} `}>{eventsList()}</div>
                     </div>
-                    <div className={`${portalStyles.column} ${styles.leftPad}`}>
-                        <h1 className={`${styles.h1}`}>Alerts from the Week</h1>
-                        <div>{alertsList()}</div>
+                    
+                    <div className={` ${portalStyles.column} `}>
+                        <h1 className={`${styles.title} ${styles.leftPad}`}>Alerts from the Week</h1>
+                        <div className={`${portalStyles.mainPad}`}>{alertsList()}</div>
                     </div>
                 </div>
             </main>
