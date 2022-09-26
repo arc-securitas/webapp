@@ -1,0 +1,19 @@
+.window {
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 769px) {
+  .window {
+    width: calc(50vw - 150px);
+    height: calc(50vw - 150px);
+    max-height: 500px;
+    max-width: 500px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .window {
+    width: calc(100vw - 40px);
+    height: 45vw;
+  }
+}

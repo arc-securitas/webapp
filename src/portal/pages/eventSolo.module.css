@@ -1,0 +1,34 @@
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.backArrow {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.sectionTitle {
+  font-size: 28px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 769px) {
+  .row {
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+}

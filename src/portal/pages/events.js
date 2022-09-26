@@ -5,11 +5,14 @@ import portalStyles from './portal.module.css';
 import Card from '../components/Card.js';
 import styles from './events.module.css'
 import { ReactComponent as Calendar } from '../images/Calendar.svg';
-import { ReactComponent as Map_Pin } from '../images/Map_Pin.svg';
+import { ReactComponent as MapPin } from '../images/Map_Pin.svg';
 import { ReactComponent as Clock } from '../images/Clock.svg';
+import EventSolo from './eventSolo.js';
+import { agentsToString } from '../util.js';
 
 const Events = () => {
     const [records, setRecords] = useState([]);
+    const [activeEvent, setActiveEvent] = useState("");
 
     // Gets records from |date| plus the upcoming 7 days (hardcoded atm).
     async function getRecords(d) {
@@ -19,7 +22,7 @@ const Events = () => {
             let date = new Date(d);
             date.setDate(date.getDate() + i);
             // Fetches the events corresponding to a single day
-            const response = await fetch(`/events/${date.toISOString().split('T')[0]}`);
+            const response = await fetch(`/events/getByDate/${date.toISOString().split('T')[0]}`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
@@ -40,13 +43,13 @@ const Events = () => {
                     <div className={styles.row}>
                         {day.map((showing) => {
                                 return (
-                                    <div className={styles.card}>
+                                    <div className={styles.card} onClick={() => setActiveEvent(showing["_id"])}>
                                         <Card>
                                             <div className={styles.miniRow}>
-                                                <div className={styles.bold}>{agentsString(showing["agents"])}</div>
+                                                <div className={styles.bold}>{agentsToString(showing["agents"])}</div>
                                             </div>
                                             <div className={styles.miniRow}>
-                                                <Map_Pin className={styles.icon}/>
+                                                <MapPin className={styles.icon}/>
                                                 {showing["location"]}
                                             </div>
                                             <div className={styles.miniRow}>
@@ -87,29 +90,32 @@ const Events = () => {
                 return "Friday"
             case 6:
                 return "Saturday"
+            default:
+                return "Error"
         }
     }
 
-    function agentsString(agents) {
-        if (agents.length === 0) {
-            return "no agent"
-        }
-        if (agents.length === 1) {
-            let agent = agents[0];
-            return `${agent["firstName"]} ${agent["lastName"]}`;
-        } else if (agents.length === 2) {
-            return `${agents[0]["firstName"]} ${agents[0]["lastName"]} and ${agents[1]["firstName"]} ${agents[1]["lastName"]}`;
-        } else if (agents.length === 3) {
-            return `${agents[0]["firstName"]} ${agents[0]["lastName"]}, ${agents[1]["firstName"]} ${agents[1]["lastName"]}, and 1 other`;
+    function displayActive() {
+        if (activeEvent === "") {
+            return (
+                <>
+                    {records.length === 0 ? "loading..." : records}
+                    <div className={styles.bottomSpacer}/>
+                </>
+            );
         } else {
-            let remaining = agents.length - 2;
-            return `${agents[0]["firstName"]} ${agents[0]["lastName"]}, ${agents[1]["firstName"]} ${agents[1]["lastName"]}, and ${remaining} others`;
+            return (
+                <>
+                    <EventSolo activeEvent={activeEvent} callback={() => setActiveEvent("")}/>
+                    <div className={styles.bottomSpacer}/>
+                </>
+            );
         }
     }
 
     useEffect(() => {
         getRecords(new Date());
-    }, []);
+    });
 
     return (
         <div className={`${portalStyles.portal} ${styles.eventsPage}`}>
@@ -121,12 +127,11 @@ const Events = () => {
                 </PortalHeader>
                 {/* Insert all main content below header here */}
                 <div className={portalStyles.mainPad}>
-                    {records.length === 0 ? "loading..." : records}
-                    <div className={styles.bottomSpacer}/>
+                    {displayActive()}
                 </div>
             </main>
         </div>
-    )
+    );
 }
 
 export default Events;
