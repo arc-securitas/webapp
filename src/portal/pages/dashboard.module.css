@@ -47,11 +47,13 @@
     .eventCard {
         width: 100%;
         font-size: 16px;
+        margin-bottom: 10px;
     }
 
     .alertCard {
         width: 100%;
         font-size: 16px;
+        margin-bottom: 10px;
     }
 
     .title {
@@ -94,6 +96,7 @@
         margin-top: -20px;
         margin-left: -15px;
     }
+
 }
 
 @media screen and (min-width: 769px) {
@@ -111,6 +114,12 @@
         flex-grow: 1;
         max-width: 1000px;
         margin-bottom: 10px;
+    }
+
+    .sectionScroll {
+        padding: 20px;
+        overflow-y: scroll;
+        height: calc(100% - 74px - 66px);
     }
 }
 

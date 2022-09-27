@@ -60,8 +60,13 @@ const Dashboard = () => {
 
     async function fetchEvents() {
         const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-        const response = await fetch(`/events/${today.toISOString().split('T')[0]}`);
+        const tmrw = new Date();
+        tmrw.setDate(today.getDate() + 1);
+        tmrw.setHours(0, 0, 0, 0);
+
+        const response = await fetch(`/events/${today}/${tmrw}`);
 
         if (!response.ok) {
             const message = `An error occurred: ${response.statusText}`;
@@ -83,10 +88,7 @@ const Dashboard = () => {
                     let temp = new Map(agentsMap);
                     temp.set(agentID.toString(), agent);
                     setAgentsMap(temp);
-                    console.log("Inserting in map" + agentID);
                 }
-                console.log("Size:" + agentsMap.size);
-                console.log(agentsMap);
             }
         });
 
@@ -231,12 +233,12 @@ const Dashboard = () => {
                 <div className={`${portalStyles.row} ${portalStyles.mainPad}`} >
                     <div className={` ${portalStyles.column} `}>
                         <h1 className={` ${styles.title} ${styles.leftPad} `}>Today's Events</h1>
-                        <div className={`${portalStyles.mainPad} `}>{eventsList()}</div>
+                        <div className={`${styles.sectionScroll} `}>{eventsList()}</div>
                     </div>
                     
                     <div className={` ${portalStyles.column} `}>
                         <h1 className={`${styles.title} ${styles.leftPad}`}>Alerts from the Week</h1>
-                        <div className={`${portalStyles.mainPad}`}>{alertsList()}</div>
+                        <div className={`${styles.sectionScroll}`}>{alertsList()}</div>
                     </div>
                 </div>
             </main>

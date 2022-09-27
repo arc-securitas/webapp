@@ -29,10 +29,9 @@ alertRoutes.route("/alerts").get(function (req, res) {
 alertRoutes.route("/alerts/:startDate/:endDate").get(function (req, res) {
     let startDate = new Date(req.params.startDate);
     let endDate = new Date(req.params.endDate)
-    
     db_connect
         .find({ dateTime: { $gte: startDate, $lt: endDate } })
-        .sort({dateTime: -1})
+        .sort({ dateTime: -1 })
         .toArray(function (err, result) {
             if (err) throw err;
             res.json(result);
@@ -53,23 +52,19 @@ alertRoutes.route("/alerts/add").post(function (req, res) {
 
 // Assigns values to the agent's properties
 function assignValues(alert, values) {
-    if (values.agent != undefined)
-    {
+    if (values.agent != undefined) {
         alert.agent = values.agent;
     }
-    
-    if (values.event != undefined)
-    {
+
+    if (values.event != undefined) {
         alert.event = values.event;
     }
 
-    if (values.dateTime != undefined)
-    {
+    if (values.dateTime != undefined) {
         alert.dateTime = values.dateTime;
     }
 
-    if (values.audioTranscription != undefined)
-    {
+    if (values.audioTranscription != undefined) {
         alert.audioTranscription = values.audioTranscription;
     }
 }

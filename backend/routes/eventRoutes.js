@@ -15,6 +15,17 @@ eventRoutes.route("/events/:date").get(function (req, res) {
     });
 });
 
+eventRoutes.route("/events/:startDate/:endDate").get(function (req, res) {
+  let startDate = new Date(req.params.startDate);
+  let endDate = new Date(req.params.endDate)
+  db_connect
+      .find({ date: { $gte: startDate, $lt: endDate } })
+      .toArray(function (err, result) {
+          if (err) throw err;
+          res.json(result);
+      });
+});
+
 eventRoutes.route("/events/add").post(function (req, res) {
   let event = new Event();
   assignValues(event, req.body);
