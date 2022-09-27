@@ -8,11 +8,22 @@ let db_connect = mongoose.connection.collection("events");
 
 eventRoutes.route("/events/:date").get(function (req, res) {
   db_connect
-    .find ( {date: new Date(req.params.date) } )
+    .find({ date: new Date(req.params.date) })
     .toArray(function (err, result) {
       if (err) throw err;
       res.json(result);
     });
+});
+
+eventRoutes.route("/events/:startDate/:endDate").get(function (req, res) {
+  let startDate = new Date(req.params.startDate);
+  let endDate = new Date(req.params.endDate)
+  db_connect
+      .find({ date: { $gte: startDate, $lt: endDate } })
+      .toArray(function (err, result) {
+          if (err) throw err;
+          res.json(result);
+      });
 });
 
 eventRoutes.route("/events/add").post(function (req, res) {
