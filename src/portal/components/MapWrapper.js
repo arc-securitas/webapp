@@ -11,11 +11,13 @@ import VectorSource from 'ol/source/Vector'
 import XYZ from 'ol/source/XYZ'
 import {transform} from 'ol/proj'
 import {toStringXY} from 'ol/coordinate';
+import {useGeographic} from 'ol/proj';
 
 function MapWrapper(props) {
 
   // set intial state
   const [ map, setMap ] = useState()
+  const [ coord, setCoord ] = useState();
   const [ featuresLayer, setFeaturesLayer ] = useState()
   const [ selectedCoord , setSelectedCoord ] = useState()
 
@@ -27,51 +29,58 @@ function MapWrapper(props) {
   const mapRef = useRef()
   mapRef.current = map
 
+  useGeographic();
+
   // initialize map on first render - logic formerly put into componentDidMount
   useEffect( () => {
+    async function geocodeForward(address) {
+      const response = await fetch(`http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_POSITION_STACK_TEMP}&query=${address}`);
 
-    // create and add vector source layer
-    const initalFeaturesLayer = new VectorLayer({
-      source: new VectorSource()
-    })
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
 
-    // create map
-    const initialMap = new Map({
-      target: mapElement.current,
-      layers: [
+      let result = await response.json();
+      const coord = [result["data"][0]['longitude'], result["data"][0]['latitude']];
 
-        // USGS Topo
-        new TileLayer({
-          source: new XYZ({
-            url: 'https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',
-          })
+      // create and add vector source layer
+      const initalFeaturesLayer = new VectorLayer({
+        source: new VectorSource()
+      })
+
+      // create map
+      const initialMap = new Map({
+        target: mapElement.current,
+        layers: [
+          // Google Maps Terrain
+          new TileLayer({
+            source: new XYZ({
+              url: 'http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}',
+            })
+          }),
+
+          initalFeaturesLayer
+
+        ],
+        view: new View({
+          projection: 'EPSG:3857',
+          center: coord,
+          zoom: 18
         }),
+        controls: []
+      })
 
-        // Google Maps Terrain
-        new TileLayer({
-          source: new XYZ({
-            url: 'http://mt0.google.com/vt/lyrs=p&hl=en&x={x}&y={y}&z={z}',
-          })
-        }),
+      // set map onclick handler
+      initialMap.on('click', handleMapClick)
 
-        initalFeaturesLayer
+      // save map and vector layer references to state
+      setMap(initialMap)
+      setFeaturesLayer(initalFeaturesLayer)
+    }
 
-      ],
-      view: new View({
-        projection: 'EPSG:3857',
-        center: [0, 0],
-        zoom: 2
-      }),
-      controls: []
-    })
-
-    // set map onclick handler
-    initialMap.on('click', handleMapClick)
-
-    // save map and vector layer references to state
-    setMap(initialMap)
-    setFeaturesLayer(initalFeaturesLayer)
-
+    geocodeForward(props.address);
   },[])
 
   // update map if features prop changes - logic formerly put into componentDidUpdate
@@ -113,7 +122,6 @@ function MapWrapper(props) {
   return (
     <div ref={mapElement} className={styles.wrapper}></div>
   )
-
 }
 
 export default MapWrapper

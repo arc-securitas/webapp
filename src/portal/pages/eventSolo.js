@@ -20,7 +20,7 @@ const EventSolo = (props) => {
       </div>
       <div>
         <h1 className={styles.sectionTitle}>Location</h1>
-        <MapWrapper features={[]}/>
+        <MapWrapper features={[]} address={records[0]["location"]}/>
         {records[0]["location"]}
       </div>
       <div>
