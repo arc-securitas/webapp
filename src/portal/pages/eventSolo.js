@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Map from "../components/Map.js";
+import MapWrapper from "../components/MapWrapper.js";
 import { ReactComponent as BackArrow } from '../images/BackArrow.svg';
 import styles from './eventSolo.module.css';
 import { agentsToString } from '../util.js';
@@ -20,7 +20,7 @@ const EventSolo = (props) => {
       </div>
       <div>
         <h1 className={styles.sectionTitle}>Location</h1>
-        {/* <Map /> */}
+        <MapWrapper features={[]}/>
         {records[0]["location"]}
       </div>
       <div>
