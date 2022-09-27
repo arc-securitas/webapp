@@ -10,14 +10,23 @@ import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import XYZ from 'ol/source/XYZ'
 import {transform} from 'ol/proj'
-import {toStringXY} from 'ol/coordinate';
 import {useGeographic} from 'ol/proj';
+
+/*
+  Dear future friends,
+  This MapWrapper component works by combining the OpenLayers library with PositionStack's
+  Geocoding API. OpenLayers lets us draw the google-maps style map to the screen,
+  while PositionStack lets us translate an english address into lat-long coordinates.
+  This coordinate is passed into OpenLayers to set the map to the correct place!
+
+  I used this article for OpenLayers: https://taylor.callsen.me/using-openlayers-with-react-functional-components/
+  and this one for understanding PositionStack's API: https://positionstack.com/documentation
+*/
 
 function MapWrapper(props) {
 
   // set intial state
   const [ map, setMap ] = useState()
-  const [ coord, setCoord ] = useState();
   const [ featuresLayer, setFeaturesLayer ] = useState()
   const [ selectedCoord , setSelectedCoord ] = useState()
 
@@ -29,10 +38,14 @@ function MapWrapper(props) {
   const mapRef = useRef()
   mapRef.current = map
 
+  // Sets openlayers to the correct coordinate system for latitude-longitude
   useGeographic();
 
   // initialize map on first render - logic formerly put into componentDidMount
   useEffect( () => {
+    /**
+     * Converts the given |address| into lat-long coordinates, then initializes the OpenLayers Map to that location
+     */
     async function geocodeForward(address) {
       const response = await fetch(`http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_POSITION_STACK_TEMP}&query=${address}`);
 
