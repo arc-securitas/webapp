@@ -14,6 +14,7 @@ const Record = (props) => (
         <td>{props.record.status}</td>
         <td>{props.record.location}</td>
         <td><Link className="btn btn-link" to={`/edit/${props.record._id}`}>Edit</Link></td>
+        <td><Link className="btn btn-link" to={`/addEvent/${props.record._id}`}>Add Event</Link></td>
         <td>
             <button className="btn btn-link"
                 onClick={() => {
@@ -127,6 +128,7 @@ const BackendTest = () => {
                         <th>Status</th>
                         <th>Location</th>
                         <th>Edit Agent</th>
+                        <th>Add Event</th>
                         <th>Delete Agent</th>
                     </tr>
                 </thead>

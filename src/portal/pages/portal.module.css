@@ -34,7 +34,7 @@
 
   .mainPad {
     padding: 20px;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: calc(100% - 74px);
   }
 }
