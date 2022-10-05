@@ -11,6 +11,10 @@ import VectorSource from 'ol/source/Vector'
 import XYZ from 'ol/source/XYZ'
 import {transform} from 'ol/proj'
 import {useGeographic} from 'ol/proj';
+import { Feature } from 'ol';
+import { Point } from 'ol/geom';
+import { Style } from '@mui/icons-material';
+import {Circle, Fill, Stroke, Style as OLStyle} from 'ol/style';
 
 /*
   Dear future friends,
@@ -58,9 +62,32 @@ function MapWrapper(props) {
       let result = await response.json();
       const coord = [result["data"][0]['longitude'], result["data"][0]['latitude']];
 
+      // Create marker
+      const fill = new Fill({color: 'rgba(54, 132, 201, 0.4)'});
+      const stroke = new Stroke({color: '#3684C9', width: 2});
+
+      const markerFeature = new Feature({
+        geometry: new Point([coord[0], coord[1]]),
+        name: props.address,
+      });
+
+      const iconStyle = new OLStyle({
+        image: new Circle({
+          fill: fill,
+          stroke: stroke,
+          radius: 50,
+        }),
+        fill: fill,
+        stroke: stroke,
+      });
+
+      markerFeature.setStyle(iconStyle);
+
       // create and add vector source layer
       const initalFeaturesLayer = new VectorLayer({
-        source: new VectorSource()
+        source: new VectorSource({
+          features: [markerFeature],
+        })
       })
 
       // create map
