@@ -13,6 +13,8 @@ import { ReactComponent as Black_Map_Pin } from '../images/Black_Map_Pin.svg';
 import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
 import styles from './dashboard.module.css';
 
+import { useAuth0 } from "@auth0/auth0-react";
+
 const Dashboard = () => {
     const [loading, SetLoading] = useState(true);
 
@@ -22,7 +24,15 @@ const Dashboard = () => {
 
     const [agentsMap, setAgentsMap] = useState(new Map());
 
+    const { user, isAuthenticated, isLoading } = useAuth0();
+
     useEffect(() => {
+        // if (!isAuthenticated)
+        // {
+        //     SetLoading(false);
+        //     return;
+        // }
+
         fetchSafetyAlerts();
         fetchEvents();
         getAgents();
@@ -46,7 +56,7 @@ const Dashboard = () => {
         startOfWeek.setDate(today.getDate() - today.getDay());
         startOfWeek.setHours(0, 0, 0, 0);
 
-        const response = await fetch(`/alerts/${startOfWeek}/${tmrw}`);
+        const response = await fetch(`/alerts/${user.email}/${startOfWeek}/${tmrw}`);
 
         if (!response.ok) {
             const message = `An error occurred: ${response.statusText}`;
@@ -116,6 +126,11 @@ const Dashboard = () => {
     // Loading message
     if (loading) {
         return <div>Loading...</div>;
+    }
+
+    if (!isAuthenticated)
+    {
+        return <div>Error: Unauthorized Acess - Please log in</div>;
     }
 
     // Displays a the list of alerts
