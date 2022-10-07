@@ -42,7 +42,6 @@ alertRoutes.route("/alerts/:managerEmail/:startDate/:endDate").get(function (req
     let startDate = new Date(req.params.startDate);
     let endDate = new Date(req.params.endDate);
     let managerEmail = req.params.managerEmail;
-    console.log(managerEmail);
     db_connect
         .find({ managerEmail: managerEmail, dateTime: { $gte: startDate, $lt: endDate } })
         .sort({ dateTime: -1 })
@@ -80,6 +79,11 @@ function assignValues(alert, values) {
 
     if (values.audioTranscription != undefined) {
         alert.audioTranscription = values.audioTranscription;
+    }
+
+    if (values.managerEmail != undefined)
+    {
+        alert.managerEmail = values.managerEmail;
     }
 }
 

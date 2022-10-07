@@ -21,6 +21,7 @@ const eventSchema = new Schema({
   startTime: String,
   endTime: String,
 
+  managerEmail: String,
   // TODO: Related Alerts-
 });
 
