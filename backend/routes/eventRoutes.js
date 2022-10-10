@@ -15,7 +15,20 @@ eventRoutes.route("/events/getByDate/:date").get(function (req, res) {
     });
 });
 
+eventRoutes.route("/events/getById/:id").get(function (req, res) {
+  var ObjectId = (require('mongoose').Types.ObjectId);
+  var query = { _id: new ObjectId(req.params.id) };
+
+  db_connect
+    .find ( query )
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
+});
+
 eventRoutes.route("/events/:startDate/:endDate").get(function (req, res) {
+  console.log("events/startDate: " + req.params.startDate);
   let startDate = new Date(req.params.startDate);
   let endDate = new Date(req.params.endDate)
   db_connect
@@ -34,18 +47,6 @@ eventRoutes.route("/events/add").post(function (req, res) {
     if (err) throw err;
     res.json(result);
   });
-});
-
-eventRoutes.route("/events/getById/:id").get(function (req, res) {
-  var ObjectId = (require('mongoose').Types.ObjectId);
-  var query = { _id: new ObjectId(req.params.id) };
-
-  db_connect
-    .find ( query )
-    .toArray(function (err, result) {
-      if (err) throw err;
-      res.json(result);
-    });
 });
 
 function assignValues(event, values) {
