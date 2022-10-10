@@ -115,7 +115,7 @@ const Events = () => {
 
     useEffect(() => {
         getRecords(new Date());
-    });
+    }, []);
 
     return (
         <div className={`${portalStyles.portal} ${styles.eventsPage}`}>
