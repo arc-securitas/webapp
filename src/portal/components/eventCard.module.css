@@ -1,0 +1,55 @@
+.bold {
+  font-weight: bold;
+}
+
+.miniRow {
+  display: flex;
+  align-items: center;
+}
+
+.miniRow + .miniRow {
+  margin-top: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 100%;
+    font-size: 12px;
+    align-items: center;
+  }
+
+  .miniRow {
+    gap: 10px;
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .bold {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .card {
+    width: fit-content;
+    font-size: 16px;
+    flex-grow: 1;
+    max-width: 500px;
+  }
+
+  .miniRow {
+    gap: 10px;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .bold {
+    font-size: 18px;
+  }
+}
