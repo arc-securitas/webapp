@@ -28,7 +28,6 @@ eventRoutes.route("/events/getById/:id").get(function (req, res) {
 });
 
 eventRoutes.route("/events/:startDate/:endDate").get(function (req, res) {
-  console.log("events/startDate: " + req.params.startDate);
   let startDate = new Date(req.params.startDate);
   let endDate = new Date(req.params.endDate)
   db_connect
