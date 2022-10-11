@@ -2,13 +2,9 @@ import React, { useState, useEffect } from "react";
 import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
-import Card from '../components/Card.js';
 import styles from './events.module.css'
-import { ReactComponent as Calendar } from '../images/Calendar.svg';
-import { ReactComponent as MapPin } from '../images/Map_Pin.svg';
-import { ReactComponent as Clock } from '../images/Clock.svg';
 import EventSolo from './eventSolo.js';
-import { agentsToString } from '../util.js';
+import EventCard from '../components/EventCard.js';
 
 const Events = () => {
     const [records, setRecords] = useState([]);
@@ -43,25 +39,7 @@ const Events = () => {
                     <div className={styles.row}>
                         {day.map((showing) => {
                                 return (
-                                    <div className={styles.card} onClick={() => setActiveEvent(showing["_id"])}>
-                                        <Card>
-                                            <div className={styles.miniRow}>
-                                                <div className={styles.bold}>{agentsToString(showing["agents"])}</div>
-                                            </div>
-                                            <div className={styles.miniRow}>
-                                                <MapPin className={styles.icon}/>
-                                                {showing["location"]}
-                                            </div>
-                                            <div className={styles.miniRow}>
-                                                <Clock className={styles.icon}/>
-                                                {showing["startTime"]} - {showing["endTime"]}
-                                            </div>
-                                            <div className={styles.miniRow}>
-                                                <Calendar className={styles.icon}/>
-                                                {showing["eventType"]}
-                                            </div>
-                                        </Card>
-                                    </div>
+                                    <EventCard showing={showing} clickHandler={() => setActiveEvent(showing["_id"])}/>
                                 );
                             }
                         )}
