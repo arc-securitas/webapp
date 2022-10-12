@@ -76,7 +76,7 @@ const Dashboard = () => {
         tmrw.setDate(today.getDate() + 1);
         tmrw.setHours(0, 0, 0, 0);
 
-        const response = await fetch(`/events/${today}/${tmrw}`);
+        const response = await fetch(`/events/${user.email}/${today}/${tmrw}`);
 
         if (!response.ok) {
             const message = `An error occurred: ${response.statusText}`;
@@ -106,7 +106,7 @@ const Dashboard = () => {
 
     // Fetches an agent based on their unique ID
     async function fetchAgent(agentID) {
-        const response = await fetch(`/agents/${agentID}`);
+        const response = await fetch(`/agents/${user.email}/${agentID}`);
 
         if (!response.ok) {
             const message = `An error has occurred: ${response.statusText}`;
