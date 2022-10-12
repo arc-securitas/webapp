@@ -5,13 +5,14 @@ import styles from './eventSolo.module.css';
 import { agentsToString } from '../util.js';
 
 const EventSolo = (props) => {
-  const [records, setRecords] = useState([]);
+  const [eventData, setEventData] = useState([]);
+  const [alertData, setAlertData] = useState([]);
 
   useEffect(() => {
-      getRecords(props.activeEvent);
+      getEventData(props.activeEvent);
   }, [props.activeEvent]);
 
-  if (records.length === 0) return (<div>Loading...</div>);
+  if (eventData.length === 0) return (<div>Loading...</div>);
 
   return (
     <div className={styles.row}>
@@ -20,33 +21,33 @@ const EventSolo = (props) => {
       </div>
       <div>
         <h1 className={styles.sectionTitle}>Location</h1>
-        <MapWrapper features={[]} address={records[0]["location"]}/>
-        {records[0]["location"]}
+        <MapWrapper features={[]} address={eventData[0]["location"]}/>
+        {eventData[0]["location"]}
       </div>
       <div>
         <div className={styles.column}>
           <div>
             <h1 className={styles.sectionTitle}>Time</h1>
-            {records[0]["startTime"]} - {records[0]["endTime"]}
+            {eventData[0]["startTime"]} - {eventData[0]["endTime"]}
           </div>
           <div>
             <h1 className={styles.sectionTitle}>Agents</h1>
-            {agentsToString(records[0]["agents"])}
+            {agentsToString(eventData[0]["agents"])}
           </div>
           <div>
             <h1 className={styles.sectionTitle}>Event Type</h1>
-            {records[0]["eventType"]}
+            {eventData[0]["eventType"]}
           </div>
           <div>
             <h1 className={styles.sectionTitle}>Alerts</h1>
-            [Insert alerts here]
+            {displayAlerts()}
           </div>
         </div>
       </div>
     </div>
   );
 
-  async function getRecords(id) {
+  async function getEventData(id) {
     const response = await fetch(`/events/getById/${id}`);
 
     if (!response.ok) {
@@ -56,7 +57,51 @@ const EventSolo = (props) => {
     }
 
     let result = await response.json();
-    setRecords(result);
+    setEventData(result);
+
+    let alerts = [];
+    const populateAlerts = async () => {
+      if (result[0]["alerts"] !== undefined) {
+        for (const alertId of result[0]["alerts"]) {
+          const alertResponse = await getAlertData(alertId);
+          alerts.push(alertResponse);
+        }
+      }
+    }
+
+    await populateAlerts();
+    setAlertData(alerts);
+  }
+
+  async function getAlertData(id) {
+    const response = await fetch(`/alerts/getById/${id}`);
+
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
+    let result = await response.json();
+    return result;
+  }
+
+  function displayAlerts() {
+    if (alertData.length === 0) {
+      return (
+        <div>
+          No alerts for this event.
+        </div>
+      )
+    } else {
+      return alertData.map((alert) => {
+        return(
+          <div>
+            {alert[0]["_id"]}
+          </div>
+        );
+      })
+    }
   }
 }
 
