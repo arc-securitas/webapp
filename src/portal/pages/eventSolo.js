@@ -3,6 +3,10 @@ import MapWrapper from "../components/MapWrapper.js";
 import { ReactComponent as BackArrow } from '../images/BackArrow.svg';
 import styles from './eventSolo.module.css';
 import { agentsToString } from '../util.js';
+import Card from '../components/Card.js';
+import { ReactComponent as Black_Clock } from '../images/Black_Clock.svg';
+import { ReactComponent as Black_Map_Pin } from '../images/Black_Map_Pin.svg';
+import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
 
 const EventSolo = (props) => {
   const [eventData, setEventData] = useState([]);
@@ -97,11 +101,50 @@ const EventSolo = (props) => {
       return alertData.map((alert) => {
         return(
           <div>
-            {alert[0]["_id"]}
+            <AlertCard alert={alert[0]}/>
           </div>
         );
       })
     }
+  }
+}
+
+class AlertCard extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    let date = new Date(this.props.alert.dateTime).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
+    let time = new Date(this.props.alert.dateTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })
+
+    return (
+      <div>
+        <Card>
+          <span className={` ${styles.leftPad}`}>
+            <Black_Map_Pin className={styles.icon} />
+            {this.props.alert.location}
+            <br/>
+          </span>
+
+          <span className={` `}>
+            <Black_Calendar className={styles.icon} /> {date}
+          </span>
+
+          <span className={`  ${styles.leftPad}`}>
+            <Black_Clock className={styles.icon} /> {time}
+          </span>
+
+          <br />
+
+          <span>
+            Transcription:
+            <br />
+            {this.props.alert.audioTranscription}
+          </span>
+        </Card>
+    </div>
+    );
   }
 }
 

@@ -21,6 +21,11 @@
   margin-bottom: 10px;
 }
 
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
 @media screen and (min-width: 769px) {
   .row {
     flex-direction: row;
