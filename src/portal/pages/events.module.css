@@ -11,6 +11,16 @@
   flex-wrap: wrap;
 }
 
+.link {
+  color: #3684C9;
+  cursor: pointer;
+  display: inline;
+}
+
+.flexGrow {
+  flex-grow: 1;
+}
+
 @media screen and (max-width: 768px) {
   .title {
     margin-bottom: 12px;
