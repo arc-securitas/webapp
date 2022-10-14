@@ -118,9 +118,15 @@ const Events = () => {
                     <CalendarSvg />
                     Events
                     <div className={styles.flexGrow}/>
-                    <Seesaw leftHandler={() => changeWeek(-7)} rightHandler={() => changeWeek(7)}>
-                        {startDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})} - {endDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})}
-                    </Seesaw>
+                    {
+                        activeEvent === ""
+                        ?
+                        <Seesaw leftHandler={() => changeWeek(-7)} rightHandler={() => changeWeek(7)}>
+                            {startDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})} - {endDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})}
+                        </Seesaw>
+                        :
+                        <></>
+                    }
                 </PortalHeader>
                 {/* Insert all main content below header here */}
                 <div className={portalStyles.mainPad}>
