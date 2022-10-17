@@ -33,7 +33,6 @@ const About = () => {
     }
 
     const memdata = data[0].data;
-    console.log(memdata);
 
     return (
         <>

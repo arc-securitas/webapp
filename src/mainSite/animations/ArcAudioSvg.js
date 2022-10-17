@@ -8,7 +8,7 @@ export default function ProductAudio() {
   return (
     <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" ref={here.ref}>
       <g id="Group 67">
-        <circle id="Ellipse 41" cx="64" cy="64" r="62" fill="white" stroke="black" stroke-width="4"/>
+        <circle id="Ellipse 41" cx="64" cy="64" r="62" fill="white" stroke="black" strokeWidth="4"/>
         <rect className={here.isVisible ? animations.bob1 : ""} id="Rectangle 103" x="8" y="62" width="4" height="4" rx="2" fill="#3684C9"/>
         <rect className={here.isVisible ? animations.bob2 : ""} id="Rectangle 105" x="14" y="58" width="4" height="12" rx="2" fill="#3684C9"/>
         <rect className={here.isVisible ? animations.bob3 : ""} id="Rectangle 106" x="20" y="52" width="4" height="24" rx="2" fill="#3684C9"/>

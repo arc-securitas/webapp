@@ -7,8 +7,6 @@ import { agentsToString } from '../util.js';
 import styles from './eventCard.module.css'
 
 const EventCard = (props) => {
-    console.log(props.clickHandler);
-
   return (
       <div className={`${styles.card} ${props.clickHandler === undefined ? "" : styles.clickable}`} onClick={props.clickHandler}>
           <Card>

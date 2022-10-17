@@ -46,7 +46,6 @@ export default function Header(props) {
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
     const { user, isAuthenticated, isLoading } = useAuth0();
-    console.log(user)
 
     if (isLoading) {
         return <p>Loading...</p>
@@ -100,11 +99,11 @@ export default function Header(props) {
                             }
 
                         }} onClick={handleDrawerToggle} underline='none' component={RouterLink} to={"/" + item}>
-                            <Typography 
+                            <Typography
                                 sx={{
                                     fontFamily: "Outfit",
                             }}>{item}</Typography>
-                            
+
                         </Link>
                     </ListItem>
                 ))}

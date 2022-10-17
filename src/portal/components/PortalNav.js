@@ -55,9 +55,9 @@ class PieChartSvg extends React.Component {
   render() {
     return (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke={this.props.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M18 18.5L12 12V3" stroke={this.props.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M12 12H21" stroke={this.props.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke={this.props.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M18 18.5L12 12V3" stroke={this.props.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M12 12H21" stroke={this.props.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     );
   }
@@ -70,9 +70,9 @@ class AlertSvg extends React.Component {
   render() {
     return (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21.5264 18.5L12.8661 3.5C12.4812 2.83333 11.519 2.83333 11.1341 3.5L2.47385 18.5C2.08895 19.1667 2.57007 20 3.33987 20H20.6604C21.4302 20 21.9113 19.1667 21.5264 18.5Z" stroke={this.props.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M11.9502 16H12.0502V16.1H11.9502V16Z" stroke={this.props.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M12 9V13" stroke={this.props.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M21.5264 18.5L12.8661 3.5C12.4812 2.83333 11.519 2.83333 11.1341 3.5L2.47385 18.5C2.08895 19.1667 2.57007 20 3.33987 20H20.6604C21.4302 20 21.9113 19.1667 21.5264 18.5Z" stroke={this.props.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M11.9502 16H12.0502V16.1H11.9502V16Z" stroke={this.props.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M12 9V13" stroke={this.props.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     );
   }
@@ -85,10 +85,10 @@ class CalendarSvg extends React.Component {
   render() {
     return (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 8H20" stroke={this.props.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M19 4H5C4.44772 4 4 4.44772 4 5V19C4 19.5523 4.44772 20 5 20H19C19.5523 20 20 19.5523 20 19V5C20 4.44772 19.5523 4 19 4Z" stroke={this.props.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M16 2V4" stroke={this.props.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M8 2V4" stroke={this.props.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M4 8H20" stroke={this.props.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M19 4H5C4.44772 4 4 4.44772 4 5V19C4 19.5523 4.44772 20 5 20H19C19.5523 20 20 19.5523 20 19V5C20 4.44772 19.5523 4 19 4Z" stroke={this.props.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M16 2V4" stroke={this.props.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M8 2V4" stroke={this.props.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     );
   }

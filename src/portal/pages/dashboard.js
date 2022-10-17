@@ -235,7 +235,7 @@ const Dashboard = () => {
                         <h1 className={` ${styles.title} ${styles.leftPad} `}>Today's Events</h1>
                         <div className={`${styles.sectionScroll} `}>{eventsList()}</div>
                     </div>
-                    
+
                     <div className={` ${portalStyles.column} `}>
                         <h1 className={`${styles.title} ${styles.leftPad}`}>Alerts from the Week</h1>
                         <div className={`${styles.sectionScroll}`}>{alertsList()}</div>
@@ -252,9 +252,9 @@ class PieChartSvg extends React.Component {
     render() {
         return (
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M18 18.5L12 12V3" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M12 12H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M18 18.5L12 12V3" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M12 12H21" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
         );
     }
