@@ -38,6 +38,19 @@ alertRoutes.route("/alerts/:startDate/:endDate").get(function (req, res) {
         });
 });
 
+alertRoutes.route("/alerts/:managerEmail/:startDate/:endDate").get(function (req, res) {
+    let startDate = new Date(req.params.startDate);
+    let endDate = new Date(req.params.endDate);
+    let managerEmail = req.params.managerEmail;
+    db_connect
+        .find({ managerEmail: managerEmail, dateTime: { $gte: startDate, $lt: endDate } })
+        .sort({ dateTime: -1 })
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
+});
+
 // Create a new alert record.
 alertRoutes.route("/alerts/add").post(function (req, res) {
     let alert = new Alert();
@@ -66,6 +79,11 @@ function assignValues(alert, values) {
 
     if (values.audioTranscription != undefined) {
         alert.audioTranscription = values.audioTranscription;
+    }
+
+    if (values.managerEmail != undefined)
+    {
+        alert.managerEmail = values.managerEmail;
     }
 }
 
