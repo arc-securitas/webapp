@@ -27,111 +27,97 @@ const Dashboard = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
 
     useEffect(() => {
-        // if (!isAuthenticated)
-        // {
-        //     SetLoading(false);
-        //     return;
-        // }
+        // fetches all the safety alerts from this week
+        async function fetchSafetyAlerts() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const tmrw = new Date();
+            tmrw.setDate(today.getDate() + 1);
+            tmrw.setHours(0, 0, 0, 0);
+
+            const startOfWeek = new Date();
+            startOfWeek.setDate(today.getDate() - today.getDay());
+            startOfWeek.setHours(0, 0, 0, 0);
+
+            const response = await fetch(`/alerts/${user.email}/${startOfWeek}/${tmrw}`);
+
+            if (!response.ok) {
+                const message = `An error occurred: ${response.statusText}`;
+                window.alert(message);
+                return;
+            }
+
+            const safetyAlerts = await response.json();
+            setSafetyAlerts(safetyAlerts);
+            console.log("Here1");
+        }
+
+        async function fetchEvents() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const tmrw = new Date();
+            tmrw.setDate(today.getDate() + 1);
+            tmrw.setHours(0, 0, 0, 0);
+
+            const response = await fetch(`/events/${user.email}/${today}/${tmrw}`);
+
+            if (!response.ok) {
+                const message = `An error occurred: ${response.statusText}`;
+                window.alert(message);
+                return;
+            }
+
+            const events = await response.json();
+            setEvents(events);
+        }
+
+        // Gets agents associated with the safety alerts
+        async function getAgents() {
+            safetyAlerts.map(async (safetyAlert) => {
+                let agentID = safetyAlert.agent;
+                if (!agentsMap.has(agentID.toString())) {
+                    let agent = await fetchAgent(agentID);
+                    if (agent != null) {
+                        let temp = new Map(agentsMap);
+                        temp.set(agentID.toString(), agent);
+                        setAgentsMap(temp);
+                    }
+                }
+            });
+            console.log("Here1");
+        }
+
+        // Fetches an agent based on their unique ID
+        async function fetchAgent(agentID) {
+            const response = await fetch(`/agents/${user.email}/${agentID}`);
+
+            if (!response.ok) {
+                const message = `An error has occurred: ${response.statusText}`;
+                window.alert(message);
+                return null;
+            }
+
+            const agent = await response.json();
+            if (!agent) {
+                window.alert(`Record with id ${agentID} not found`);
+                return null;
+            }
+
+            return agent;
+        }
 
         fetchSafetyAlerts();
         fetchEvents();
         getAgents();
 
+        console.log("Here2");
+
         SetLoading(false);
         return;
 
-
     }, [safetyAlerts.length, agentsMap.size]);
-
-    // fetches all the safety alerts from this week
-    async function fetchSafetyAlerts() {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        const tmrw = new Date();
-        tmrw.setDate(today.getDate() + 1);
-        tmrw.setHours(0, 0, 0, 0);
-
-        const startOfWeek = new Date();
-        startOfWeek.setDate(today.getDate() - today.getDay());
-        startOfWeek.setHours(0, 0, 0, 0);
-
-        const response = await fetch(`/alerts/${user.email}/${startOfWeek}/${tmrw}`);
-
-        if (!response.ok) {
-            const message = `An error occurred: ${response.statusText}`;
-            window.alert(message);
-            return;
-        }
-
-        const safetyAlerts = await response.json();
-        setSafetyAlerts(safetyAlerts);
-    }
-
-    async function fetchEvents() {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        const tmrw = new Date();
-        tmrw.setDate(today.getDate() + 1);
-        tmrw.setHours(0, 0, 0, 0);
-
-        const response = await fetch(`/events/${user.email}/${today}/${tmrw}`);
-
-        if (!response.ok) {
-            const message = `An error occurred: ${response.statusText}`;
-            window.alert(message);
-            return;
-        }
-
-        const events = await response.json();
-        setEvents(events);
-    }
-
-    // Gets agents associated with the safety alerts
-    async function getAgents() {
-        safetyAlerts.map(async (safetyAlert) => {
-            let agentID = safetyAlert.agent;
-            if (!agentsMap.has(agentID.toString())) {
-                let agent = await fetchAgent(agentID);
-                if (agent != null) {
-                    let temp = new Map(agentsMap);
-                    temp.set(agentID.toString(), agent);
-                    setAgentsMap(temp);
-                }
-            }
-        });
-
-    }
-
-    // Fetches an agent based on their unique ID
-    async function fetchAgent(agentID) {
-        const response = await fetch(`/agents/${user.email}/${agentID}`);
-
-        if (!response.ok) {
-            const message = `An error has occurred: ${response.statusText}`;
-            window.alert(message);
-            return null;
-        }
-
-        const agent = await response.json();
-        if (!agent) {
-            window.alert(`Record with id ${agentID} not found`);
-            return null;
-        }
-
-        return agent;
-    }
-
-    // Loading message
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (!isAuthenticated)
-    {
-        return <div>Error: Unauthorized Acess - Please log in</div>;
-    }
 
     // Displays a the list of alerts
     function alertsList() {
@@ -155,7 +141,7 @@ const Dashboard = () => {
                                 {" " + agentName}
                             </span>
                             <span className={` ${styles.leftPad}`}>
-                                <Black_Map_Pin className={styles.icon} />{safetyAlert.location} <br/>
+                                <Black_Map_Pin className={styles.icon} />{safetyAlert.location} <br />
                             </span>
 
                             <span className={` `}>
@@ -236,27 +222,44 @@ const Dashboard = () => {
         }
     }
 
-    return (
-        <div className={`${portalStyles.portal} `}>
-            <div className={portalStyles.nav}><PortalNav page="Dashboard" /></div>
-            <main className={portalStyles.main}>
-                <PortalHeader>
-                    <PieChartSvg />
-                    Dashboard
-                </PortalHeader>
-                {/* Insert all main content below header here */}
-                <div className={`${portalStyles.row} ${portalStyles.mainPad}`} >
-                    <div className={` ${portalStyles.column} `}>
-                        <h1 className={` ${styles.title} ${styles.leftPad} `}>Today's Events</h1>
-                        <div className={`${styles.sectionScroll} `}>{eventsList()}</div>
-                    </div>
-                    
-                    <div className={` ${portalStyles.column} `}>
-                        <h1 className={`${styles.title} ${styles.leftPad}`}>Alerts from the Week</h1>
-                        <div className={`${styles.sectionScroll}`}>{alertsList()}</div>
-                    </div>
+    function displayPage() {
+        if (loading || isLoading) {  // Loading message
+            return <div>Loading...</div>;
+        }
+
+        if (isAuthenticated) {
+            return (
+                <div className={`${portalStyles.portal} `}>
+                    <div className={portalStyles.nav}><PortalNav page="Dashboard" /></div>
+                    <main className={portalStyles.main}>
+                        <PortalHeader>
+                            <PieChartSvg />
+                            Dashboard
+                        </PortalHeader>
+                        {/* Insert all main content below header here */}
+                        <div className={`${portalStyles.row} ${portalStyles.mainPad}`} >
+                            <div className={` ${portalStyles.column} `}>
+                                <h1 className={` ${styles.title} ${styles.leftPad} `}>Today's Events</h1>
+                                <div className={`${styles.sectionScroll} `}>{eventsList()}</div>
+                            </div>
+
+                            <div className={` ${portalStyles.column} `}>
+                                <h1 className={`${styles.title} ${styles.leftPad}`}>Alerts from the Week</h1>
+                                <div className={`${styles.sectionScroll}`}>{alertsList()}</div>
+                            </div>
+                        </div>
+                    </main>
                 </div>
-            </main>
+            )
+        }
+        else {
+            return <div>Error: Unauthorized Acess - Please log in</div>;
+        }
+    }
+
+    return (
+        <div >
+            {displayPage()}
         </div>
     )
 }

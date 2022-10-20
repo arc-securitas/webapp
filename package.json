@@ -35,11 +35,11 @@
     "validator": "^13.7.0",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "http://localhost:5000/",
+  "proxy": "http://localhost:5001/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "concurrently \"cd backend && nodemon server.js\" \"react-scripts start\"",
+    "start": "concurrently \"cd backend && npm start\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
