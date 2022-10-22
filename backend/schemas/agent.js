@@ -43,8 +43,9 @@ const agentSchema = new Schema({
         startTime: Date, 
         endTime: Date,
         eventType: { type: String, enum: ['Showing', 'Open House', 'Other'] }
-    }]
+    }],
 
+    managerEmail: String,
 });
 
 agentSchema.pre("save", function (next) {

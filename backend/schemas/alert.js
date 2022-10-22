@@ -15,7 +15,9 @@ const alertSchema = new Schema({
 
     // alert audio
     // audio: ???    ---> GridFS????
-    audioTranscription: String
+    audioTranscription: String,
+
+    managerEmail: String,
 });
 
 // export the user schema 

@@ -38,6 +38,18 @@ eventRoutes.route("/events/:startDate/:endDate").get(function (req, res) {
       });
 });
 
+eventRoutes.route("/events/:managerEmail/:startDate/:endDate").get(function (req, res) {
+  let startDate = new Date(req.params.startDate);
+  let endDate = new Date(req.params.endDate);
+  let managerEmail = req.params.managerEmail;
+  db_connect
+      .find({ managerEmail: managerEmail, date: { $gte: startDate, $lt: endDate } })
+      .toArray(function (err, result) {
+          if (err) throw err;
+          res.json(result);
+      });
+});
+
 eventRoutes.route("/events/add").post(function (req, res) {
   let event = new Event();
   assignValues(event, req.body);
@@ -65,6 +77,8 @@ function assignValues(event, values) {
     event.startTime = values.startTime;
   if (values.endTime != undefined)
     event.endTime = values.endTime;
+  if (values.managerEmail != undefined)
+    event.managerEmail = values.managerEmail;
 }
 
 module.exports = eventRoutes;
