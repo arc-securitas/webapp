@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
-import Card from '../components/Card.js';
 import styles from './events.module.css'
-import { ReactComponent as Calendar } from '../images/Calendar.svg';
-import { ReactComponent as Map_Pin } from '../images/Map_Pin.svg';
-import { ReactComponent as Clock } from '../images/Clock.svg';
+import EventSolo from './eventSolo.js';
+import EventCard from '../components/EventCard.js';
+import Seesaw from '../components/Seesaw.js';
 
 const Events = () => {
     const [records, setRecords] = useState([]);
+    const [activeEvent, setActiveEvent] = useState("");
+    const [startDay, setStartDay] = useState(new Date());
+    const [endDay, setEndDay] = useState(new Date(new Date().setDate(new Date().getDate() + 6)));
 
     // Gets records from |date| plus the upcoming 7 days (hardcoded atm).
     async function getRecords(d) {
@@ -19,7 +21,7 @@ const Events = () => {
             let date = new Date(d);
             date.setDate(date.getDate() + i);
             // Fetches the events corresponding to a single day
-            const response = await fetch(`/events/${date.toISOString().split('T')[0]}`);
+            const response = await fetch(`/events/getByDate/${date.toISOString().split('T')[0]}`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
@@ -38,30 +40,12 @@ const Events = () => {
                 <div>
                     <div className={styles.title}>{dayOfWeek(date.getDay())}, {date.toISOString().split("T")[0]}</div>
                     <div className={styles.row}>
-                        {day.map((showing) => {
+                        {day.length !== 0 ? day.map((showing) => {
                                 return (
-                                    <div className={styles.card}>
-                                        <Card>
-                                            <div className={styles.miniRow}>
-                                                <div className={styles.bold}>{agentsString(showing["agents"])}</div>
-                                            </div>
-                                            <div className={styles.miniRow}>
-                                                <Map_Pin className={styles.icon}/>
-                                                {showing["location"]}
-                                            </div>
-                                            <div className={styles.miniRow}>
-                                                <Clock className={styles.icon}/>
-                                                {showing["startTime"]} - {showing["endTime"]}
-                                            </div>
-                                            <div className={styles.miniRow}>
-                                                <Calendar className={styles.icon}/>
-                                                {showing["eventType"]}
-                                            </div>
-                                        </Card>
-                                    </div>
+                                    <EventCard showing={showing} clickHandler={() => setActiveEvent(showing["_id"])}/>
                                 );
                             }
-                        )}
+                        ) : "No events"}
                     </div>
                 </div>
             );
@@ -87,29 +71,44 @@ const Events = () => {
                 return "Friday"
             case 6:
                 return "Saturday"
+            default:
+                return "Error"
         }
     }
 
-    function agentsString(agents) {
-        if (agents.length === 0) {
-            return "no agent"
-        }
-        if (agents.length === 1) {
-            let agent = agents[0];
-            return `${agent["firstName"]} ${agent["lastName"]}`;
-        } else if (agents.length === 2) {
-            return `${agents[0]["firstName"]} ${agents[0]["lastName"]} and ${agents[1]["firstName"]} ${agents[1]["lastName"]}`;
-        } else if (agents.length === 3) {
-            return `${agents[0]["firstName"]} ${agents[0]["lastName"]}, ${agents[1]["firstName"]} ${agents[1]["lastName"]}, and 1 other`;
+    function displayActive() {
+        if (activeEvent === "") {
+            return (
+                <>
+                    {records.length === 0 ? "loading..." : records}
+                    <div className={styles.bottomSpacer}/>
+                </>
+            );
         } else {
-            let remaining = agents.length - 2;
-            return `${agents[0]["firstName"]} ${agents[0]["lastName"]}, ${agents[1]["firstName"]} ${agents[1]["lastName"]}, and ${remaining} others`;
+            return (
+                <>
+                    <EventSolo activeEvent={activeEvent} callback={() => setActiveEvent("")}/>
+                    <div className={styles.bottomSpacer}/>
+                </>
+            );
         }
     }
 
     useEffect(() => {
-        getRecords(new Date());
+        getRecords(startDay);
     }, []);
+
+    function changeWeek(change) {
+        setRecords([]);
+        const newStart = new Date(startDay.getTime());
+        newStart.setDate(newStart.getDate() + change);
+        setStartDay(newStart);
+
+        const newEnd = new Date(newStart.getTime());
+        newEnd.setDate(newEnd.getDate() + 6);
+        setEndDay(newEnd);
+        getRecords(newStart);
+    }
 
     return (
         <div className={`${portalStyles.portal} ${styles.eventsPage}`}>
@@ -118,15 +117,24 @@ const Events = () => {
                 <PortalHeader>
                     <CalendarSvg />
                     Events
+                    <div className={styles.flexGrow}/>
+                    {
+                        activeEvent === ""
+                        ?
+                        <Seesaw leftHandler={() => changeWeek(-7)} rightHandler={() => changeWeek(7)}>
+                            {startDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})} - {endDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})}
+                        </Seesaw>
+                        :
+                        <></>
+                    }
                 </PortalHeader>
                 {/* Insert all main content below header here */}
                 <div className={portalStyles.mainPad}>
-                    {records.length === 0 ? "loading..." : records}
-                    <div className={styles.bottomSpacer}/>
+                    {displayActive()}
                 </div>
             </main>
         </div>
-    )
+    );
 }
 
 export default Events;
@@ -135,10 +143,10 @@ class CalendarSvg extends React.Component {
     render() {
         return (
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 8H20" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M19 4H5C4.44772 4 4 4.44772 4 5V19C4 19.5523 4.44772 20 5 20H19C19.5523 20 20 19.5523 20 19V5C20 4.44772 19.5523 4 19 4Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M16 2V4" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M8 2V4" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 8H20" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M19 4H5C4.44772 4 4 4.44772 4 5V19C4 19.5523 4.44772 20 5 20H19C19.5523 20 20 19.5523 20 19V5C20 4.44772 19.5523 4 19 4Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M16 2V4" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M8 2V4" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
         );
     }

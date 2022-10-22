@@ -6,9 +6,21 @@ const eventRoutes = express.Router();
 const Event = require('../schemas/event.js');
 let db_connect = mongoose.connection.collection("events");
 
-eventRoutes.route("/events/:date").get(function (req, res) {
+eventRoutes.route("/events/getByDate/:date").get(function (req, res) {
   db_connect
     .find({ date: new Date(req.params.date) })
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
+});
+
+eventRoutes.route("/events/getById/:id").get(function (req, res) {
+  var ObjectId = (require('mongoose').Types.ObjectId);
+  var query = { _id: new ObjectId(req.params.id) };
+
+  db_connect
+    .find ( query )
     .toArray(function (err, result) {
       if (err) throw err;
       res.json(result);

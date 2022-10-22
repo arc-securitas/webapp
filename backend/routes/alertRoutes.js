@@ -25,17 +25,16 @@ alertRoutes.route("/alerts").get(function (req, res) {
         });
 });
 
+alertRoutes.route("/alerts/getById/:id").get(function (req, res) {
+    var ObjectId = (require('mongoose').Types.ObjectId);
+    var query = { _id: new ObjectId(req.params.id) };
 
-alertRoutes.route("/alerts/:startDate/:endDate").get(function (req, res) {
-    let startDate = new Date(req.params.startDate);
-    let endDate = new Date(req.params.endDate)
     db_connect
-        .find({ dateTime: { $gte: startDate, $lt: endDate } })
-        .sort({ dateTime: -1 })
-        .toArray(function (err, result) {
-            if (err) throw err;
-            res.json(result);
-        });
+      .find ( query )
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
 });
 
 alertRoutes.route("/alerts/:managerEmail/:startDate/:endDate").get(function (req, res) {
@@ -62,6 +61,17 @@ alertRoutes.route("/alerts/add").post(function (req, res) {
     });
 });
 
+alertRoutes.route("/alerts/:startDate/:endDate").get(function (req, res) {
+    let startDate = new Date(req.params.startDate);
+    let endDate = new Date(req.params.endDate)
+    db_connect
+        .find({ dateTime: { $gte: startDate, $lt: endDate } })
+        .sort({ dateTime: -1 })
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
+});
 
 // Assigns values to the agent's properties
 function assignValues(alert, values) {
