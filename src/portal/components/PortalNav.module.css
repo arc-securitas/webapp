@@ -1,3 +1,21 @@
+.gap {
+  flex-grow: 1;
+}
+
+.inactive:hover, .active:hover {
+  filter: brightness(95%);
+}
+
+.inactive:active, .active:active {
+  filter: brightness(90%);
+}
+
+.logo {
+  padding: 23.5px 20px;
+  width: calc(100% - 40px);
+  border-bottom: 2px #E5E5E5 solid
+}
+
 @media screen and (min-width: 769px) {
   .portalNav {
     background-color: white;
@@ -71,10 +89,6 @@
   .inactive {
     background-color: white;
     color: black;
-  }
-
-  .logo {
-    display: none;
   }
 
   .labelText {
