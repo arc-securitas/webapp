@@ -50,7 +50,6 @@ const Dashboard = () => {
 
             const safetyAlerts = await response.json();
             setSafetyAlerts(safetyAlerts);
-            console.log("Here1");
         }
 
         async function fetchEvents() {
@@ -86,7 +85,6 @@ const Dashboard = () => {
                     }
                 }
             });
-            console.log("Here1");
         }
 
         // Fetches an agent based on their unique ID
@@ -107,17 +105,16 @@ const Dashboard = () => {
 
             return agent;
         }
+        if (!isLoading && isAuthenticated) {
+            fetchSafetyAlerts();
+            fetchEvents();
+            getAgents();
 
-        fetchSafetyAlerts();
-        fetchEvents();
-        getAgents();
-
-        console.log("Here2");
-
-        SetLoading(false);
+            SetLoading(false);
+        }
         return;
 
-    }, [safetyAlerts.length, agentsMap.size]);
+    }, [safetyAlerts.length, agentsMap.size, isLoading, isAuthenticated]);
 
     // Displays a the list of alerts
     function alertsList() {
