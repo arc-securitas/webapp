@@ -1,31 +1,37 @@
 import { Link } from "react-router-dom";
 import styles from './PortalNav.module.css';
-import logoPic from "../../mainSite/images/LogoBlueActual.svg";
+import logoPic from "../../images/ArcLogoName.svg";
 import * as React from 'react';
+import { ReactComponent as ExitIcon } from '../images/Exit.svg';
 
 export default function PortalNav(props) {
   return (
       <div className={styles.portalNav}>
-        <img id="headerLogo" src={logoPic} alt="Arc Security Logo" className={styles.logo}/>
-        <NavLabel link='Dashboard' isActive={props.page === 'Dashboard'}>
+        <img src={logoPic} alt="Arc Security Logo" className={styles.logo}/>
+        <NavLabel link={"/portal/Dashboard"} isActive={props.page === 'Dashboard'}>
           <PieChartSvg color={props.page === 'Dashboard' ? 'white' : 'black'}/>
           <div className={styles.labelText}>Dashboard</div>
         </NavLabel>
-        <NavLabel link='Alerts' isActive={props.page === 'Alerts'}>
+        <NavLabel link={"/portal/Alerts"} isActive={props.page === 'Alerts'}>
           <AlertSvg color={props.page === 'Alerts' ? 'white' : 'black'}/>
           <div className={styles.labelText}>Safety Alerts</div>
         </NavLabel>
-        <NavLabel link='Events' isActive={props.page === 'Events'}>
+        <NavLabel link={"/portal/Events"} isActive={props.page === 'Events'}>
           <CalendarSvg color={props.page === 'Events' ? 'white' : 'black'}/>
           <div className={styles.labelText}>Events</div>
         </NavLabel>
-        <NavLabel link='Agents' isActive={props.page === 'Agents'}>
+        <NavLabel link={"/portal/Agents"} isActive={props.page === 'Agents'}>
           <PeopleSvg color={props.page === 'Agents' ? 'white' : 'black'}/>
           <div className={styles.labelText}>Manage Agents</div>
         </NavLabel>
-        <NavLabel link='Payment' isActive={props.page === 'Payment'}>
+        <NavLabel link={"/portal/Payment"} isActive={props.page === 'Payment'}>
           <PaymentSvg color={props.page === 'Payment' ? 'white' : 'black'}/>
           <div className={styles.labelText}>Payment</div>
+        </NavLabel>
+        <div className={styles.gap}/>
+        <NavLabel link={"/"} isActive={false}>
+          <ExitIcon />
+          <div className={styles.labelText}>Exit Portal</div>
         </NavLabel>
       </div>
   );
@@ -38,7 +44,7 @@ class NavLabel extends React.Component {
 
   render () {
     return (
-      <Link to={"/portal/" + this.props.link} className={styles.link}>
+      <Link to={this.props.link} className={styles.link}>
         <div className={`${this.props.isActive ? styles.active : styles.inactive} ${styles.label}`}>
           {this.props.children}
         </div>

@@ -37,6 +37,8 @@
 @media screen and (min-width: 769px) {
   .seesaw {
     font-size: 18px;
+    margin-top: -12px;
+    margin-bottom: -12px;
   }
 
   .arrow {
