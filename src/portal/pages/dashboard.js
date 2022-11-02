@@ -18,14 +18,21 @@ import { useAuth0 } from "@auth0/auth0-react";
 const Dashboard = () => {
     const [loading, SetLoading] = useState(true);
 
+    // safety alerts from the week
     const [safetyAlerts, setSafetyAlerts] = useState([]);
 
+    // today's events
     const [events, setEvents] = useState([]);
 
+    // map of agent objects
     const [agentsMap, setAgentsMap] = useState(new Map());
 
-    const { user, isAuthenticated, isLoading } = useAuth0();
+    // Auth0 info
+    const { user, isAuthenticated, isLoading} = useAuth0();
 
+    // Use Effect called on refresh and changes to the following: 
+    //      safetyAlerts array length, agentsMap map size, and
+    //      Auth0's isLoading & isAuthenticated boolean values
     useEffect(() => {
         // fetches all the safety alerts from this week
         async function fetchSafetyAlerts() {
@@ -52,6 +59,7 @@ const Dashboard = () => {
             setSafetyAlerts(safetyAlerts);
         }
 
+        // fetches all events sechedule today
         async function fetchEvents() {
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -105,11 +113,13 @@ const Dashboard = () => {
 
             return agent;
         }
+
+        // Check if Auth0 is loading or authenticated
+        // Then, run queries
         if (!isLoading && isAuthenticated) {
             fetchSafetyAlerts();
             fetchEvents();
             getAgents();
-
             SetLoading(false);
         }
         return;
@@ -155,9 +165,9 @@ const Dashboard = () => {
         });
     }
 
+    // Renders the list of events occuring today
     function eventsList() {
-
-        if (events.length === 0) {
+        if (events.length === 0) { // if no events scheduled for today
             return (
                 <div>
                     <p className={`${styles.normal}`}>You have no events today.</p>
@@ -166,6 +176,7 @@ const Dashboard = () => {
             );
         }
 
+        // Render all of today's events and their details
         return events.map((showing) => {
             return (
                 <div className={styles.eventCard}>
@@ -191,6 +202,7 @@ const Dashboard = () => {
         });
     }
 
+    // Agents name formatting for render
     function agentsString(agents) {
         if (agents.length === 0) {
             return "no agent"
@@ -219,14 +231,30 @@ const Dashboard = () => {
         }
     }
 
+    // Overall rendering function for entire page
     function displayPage() {
-        if (loading || isLoading) {  // Loading message
-            return <div>Loading...</div>;
+        if (!isAuthenticated && !isLoading) { // if user not logged in, display error msg
+            return <div className={`${portalStyles.mainPad}, ${portalStyles.portal}`}><h1>Error: Unauthorized Acess - Please log in</h1></div>;
         }
 
-        if (isAuthenticated) {
+        if (loading || isLoading) {  // Loading message
             return (
-                <div className={`${portalStyles.portal} `}>
+                <div className={`${portalStyles.portal} ${styles.dashboardPage} `}>
+                    <div className={portalStyles.nav}><PortalNav page="Dashboard" /></div>
+                    <main className={portalStyles.main}>
+                        <PortalHeader>
+                            <PieChartSvg />
+                            Dashboard
+                        </PortalHeader>
+                        <div className={portalStyles.mainPad}>loading...</div>
+                    </main>
+                </div>
+            );
+        }
+
+        if (isAuthenticated) { // if user is authenticated correctly, display page
+            return (
+                <div className={`${portalStyles.portal} ${styles.dashboardPage} `}>
                     <div className={portalStyles.nav}><PortalNav page="Dashboard" /></div>
                     <main className={portalStyles.main}>
                         <PortalHeader>
@@ -248,9 +276,6 @@ const Dashboard = () => {
                     </main>
                 </div>
             )
-        }
-        else {
-            return <div>Error: Unauthorized Acess - Please log in</div>;
         }
     }
 
