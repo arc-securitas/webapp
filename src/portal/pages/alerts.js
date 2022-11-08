@@ -1,9 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
 
+import { useAuth0 } from "@auth0/auth0-react";
+
 const Alerts = () => {
+    const [alerts, setAlerts] = useState([]);
+    const [startDay, setStartDay] = useState(new Date());
+    const { user } = useAuth0();
+
+    async function getAlerts(day) {
+        let records = [];
+        console.log(user.email);
+        for (let i=0; i<7; i++) {
+            let startDate = new Date(day);
+            let endDate = new Date(day);
+            startDate.setDate(startDate.getDate()+i);
+            endDate.setDate(endDate.getDate()+i+1);
+            console.log(startDate.toISOString().split('T')[0]);
+            console.log(endDate.toISOString().split('T')[0]);
+            const response = await fetch(`/alerts/${user.email}/${startDate.toISOString().split('T')[0]}/${endDate.toISOString().split('T')[0]}`);
+
+            if (!response.ok) {
+                const message = `An error occurred: ${response.statusText}`;
+                window.alert(message);
+                return;
+            }
+
+            records.push(await response.json());
+        }
+
+        console.log(records);
+    }
+
+    useEffect(() => {
+        getAlerts(startDay);
+    }, []);
+
     return (
         <div className={portalStyles.portal}>
             <div className={portalStyles.nav}><PortalNav page="Alerts"/></div>
