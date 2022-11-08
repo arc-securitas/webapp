@@ -1,0 +1,19 @@
+.wrapper {
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 769px) {
+  .wrapper {
+    width: calc(50vw - 150px);
+    height: calc(50vw - 150px);
+    max-height: 500px;
+    max-width: 500px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    width: calc(100vw - 60px);
+    height: 45vw;
+  }
+}

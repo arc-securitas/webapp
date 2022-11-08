@@ -1,0 +1,103 @@
+.gap {
+  flex-grow: 1;
+}
+
+.inactive:hover, .active:hover {
+  filter: brightness(95%);
+}
+
+.inactive:active, .active:active {
+  filter: brightness(90%);
+}
+
+.logo {
+  padding: 23.5px 20px;
+  width: calc(100% - 40px);
+  border-bottom: 2px #E5E5E5 solid
+}
+
+@media screen and (min-width: 769px) {
+  .portalNav {
+    background-color: white;
+    border-right: 2px #E5E5E5 solid;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: min-content;
+  }
+
+  .label {
+    text-decoration: none;
+    white-space: nowrap;
+    text-align: left;
+    font-family: 'Outfit';
+    font-weight: 400;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    padding: 20px 32px;
+  }
+
+  .active {
+    background-color: #3684c9;
+    color: white;
+  }
+
+  .inactive {
+    background-color: white;
+    color: black;
+  }
+
+  .link {
+    text-decoration: none;
+    margin: 0px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .portalNav {
+    background-color: black;
+    border-top: 2px #E5E5E5 solid;
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+  }
+
+  .label {
+    text-decoration: none;
+    white-space: nowrap;
+    text-align: left;
+    font-family: 'Outfit';
+    font-weight: 400;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px 0px;
+  }
+
+  .active {
+    background-color: #3684c9;
+    color: white;
+  }
+
+  .inactive {
+    background-color: white;
+    color: black;
+  }
+
+  .labelText {
+    display: none;
+  }
+
+  .link {
+    text-decoration: none;
+    margin: 0px;
+    flex-grow: 1;
+  }
+}

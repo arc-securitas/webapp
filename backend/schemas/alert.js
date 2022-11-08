@@ -9,14 +9,16 @@ const alertSchema = new Schema({
     agent: { type: Schema.Types.ObjectId, required: true },
 
     // event id
-    event: { type: Schema.Types.ObjectId, required: true },
+    event: { type: Schema.Types.ObjectId },
 
     dateTime: { type: Date, required: true },
 
     // alert audio
     // audio: ???    ---> GridFS????
-    audioTranscription: String
+    audioTranscription: String,
+
+    managerEmail: String,
 });
 
 // export the user schema 
-module.exports = mongoose.model("Alert", alertSchema);
+module.exports = mongoose.model("Alert", alertSchema, 'alerts');

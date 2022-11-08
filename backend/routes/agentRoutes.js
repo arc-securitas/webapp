@@ -40,8 +40,17 @@ agentRoutes.route("/agents/:id").get(function (req, res) {
     // });
 });
 
+agentRoutes.route("/agents/:managerEmail/:id").get(function (req, res) {
+    let agentID = ObjectId(req.params.id)
+    let managerEmail = req.params.managerEmail;
+    Agent.findOne({_id: agentID, managerEmail: managerEmail}, function (err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+});
+
 // Create a new agent record.
-agentRoutes.route("/agents/add").post(function (req, res) {
+agentRoutes.route("/agents/add/").post(function (req, res) {
     let agent = new Agent();
     assignValues(agent, req.body);
 
@@ -119,6 +128,24 @@ function assignValues(agent, values) {
     // Status
     if (values.status != undefined) {
         agent.status = values.status;
+    }
+
+    // Events
+    if (values.contacts != undefined)
+    {
+        agent.contacts = values.contacts;
+    }
+
+    // Contacts
+    if (values.events != undefined)
+    {
+        agent.events = values.events;
+    }
+
+    // Manager Email
+    if (values.managerEmail != undefined)
+    {
+        agent.managerEmail = values.managerEmail;
     }
 }
 

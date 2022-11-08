@@ -36,15 +36,16 @@ const agentSchema = new Schema({
     }],
     
     // list of showings or open house events
-    event: [{
+    events: [{
         name: String, // Default location + eventType or location + client
         client: String,
         location: {type: String, required: true},
         startTime: Date, 
         endTime: Date,
         eventType: { type: String, enum: ['Showing', 'Open House', 'Other'] }
-    }]
+    }],
 
+    managerEmail: String,
 });
 
 agentSchema.pre("save", function (next) {

@@ -1,0 +1,247 @@
+.agentName {
+    color: #000000;
+    font-weight: bold;
+    font-family: 'Lato';
+}
+
+.details {
+    font-family: 'Lato';
+}
+
+.title {
+    font-family: 'Outfit';
+    font-weight: bold;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.miniRow {
+    display: flex;
+    align-items: center;
+}
+
+.leftPad {
+    margin-left: 20px;
+}
+
+.rightPad {
+    margin-right: 25px;
+}
+
+.tabRight {
+    padding-right: 1rem;
+}
+
+.lessBottomPad {
+    margin-bottom: -5px;
+}
+
+@media screen and (min-width: 320px) {
+    .eventCard {
+        width: 100%;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .alertCard {
+        width: 100%;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .title {
+        margin-bottom: 12px;
+        font-size: 20px;
+    }
+
+    .miniRow {
+        gap: 10px;
+    }
+
+    .bold {
+        font-size: 14px;
+    }
+
+    .big {
+        font-size: 20px;
+    }
+
+    .giant {
+        font-size: 28px;
+    }
+
+    .normal {
+        font-size: 16px;
+    }
+
+    .small {
+        font-size: 14px;
+    }
+
+    .icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .alertIcon {
+        width: 10px;
+        height: 10px;
+        margin-top: -20px;
+        margin-left: -15px;
+    }
+
+}
+
+@media screen and (min-width: 769px) {
+    .eventCard {
+        width: 200px;
+        font-size: 16px;
+        flex-grow: 1;
+        max-width: 500px;
+        margin-bottom: 10px;
+    }
+
+    .alertCard {
+        width: 250px;
+        font-size: 16px;
+        flex-grow: 1;
+        max-width: 1000px;
+        margin-bottom: 10px;
+    }
+
+    .sectionScroll {
+        padding: 20px;
+        overflow-y: scroll;
+        height: calc(100% - 74px - 66px);
+    }
+}
+
+@media screen and (min-width: 820px) {
+    .eventCard {
+        width: 200px;
+        font-size: 16px;
+        flex-grow: 1;
+        max-width: 500px;
+        margin-bottom: 10px;
+    }
+
+    .alertCard {
+        width: 300px;
+        font-size: 16px;
+        flex-grow: 1;
+        max-width: 1000px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .eventCard {
+        width: 200px;
+        font-size: 16px;
+        flex-grow: 1;
+        max-width: 500px;
+        margin-bottom: 10px;
+    }
+
+    .alertCard {
+        width: 370px;
+        font-size: 16px;
+        flex-grow: 1;
+        max-width: 1000px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (min-width: 1050px) {
+    .eventCard {
+        width: 230px;
+        font-size: 16px;
+        flex-grow: 1;
+        max-width: 500px;
+        margin-bottom: 10px;
+    }
+
+    .alertCard {
+        width: 450px;
+        font-size: 16px;
+        flex-grow: 1;
+        max-width: 1000px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (min-width: 1230px) {
+    .eventCard {
+        width: 300px;
+        font-size: 16px;
+        flex-grow: 1;
+        max-width: 500px;
+        margin-bottom: 10px;
+    }
+
+    .alertCard {
+        width: 580px;
+        font-size: 16px;
+        flex-grow: 1;
+        max-width: 1000px;
+        margin-bottom: 10px;
+    }
+
+    .title {
+        margin-bottom: 12px;
+        font-size: 24px;
+    }
+
+    .row {
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .miniRow {
+        gap: 10px;
+    }
+
+    .bold {
+        font-size: 18px;
+    }
+
+
+    .big {
+        font-size: 24px;
+    }
+
+    .giant {
+        font-size: 32px;
+    }
+
+    .normal {
+        font-size: 20px;
+    }
+
+    .small {
+        font-size: 18px;
+    }
+
+    .icon {
+        width: 15px;
+        height: 15px;
+    }
+
+    .alertIcon {
+        width: 15px;
+        height: 15px;
+        margin-top: -20px;
+        margin-left: -20px;
+    }
+}
+
+.h1 {
+    font-family: 'Outfit';
+}
