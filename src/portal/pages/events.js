@@ -24,7 +24,6 @@ const Events = () => {
             let date = new Date(d);
             date.setDate(date.getDate() + i);
             // Fetches the events corresponding to a single day
-            console.log(date.toISOString().split('T')[0]);
             const response = await fetch(`/events/getByDate/${user.email}/${date.toISOString().split('T')[0]}`);
 
             if (!response.ok) {
