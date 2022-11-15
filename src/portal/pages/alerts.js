@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
-import { useAuth0 } from "@auth0/auth0-react";
 import styles from './alerts.module.css';
+import { useAuth0 } from "@auth0/auth0-react";
 
 import Card from '../components/Card.js';
+import { ReactComponent as Black_Clock } from '../images/Black_Clock.svg';
+import { ReactComponent as Black_Map_Pin } from '../images/Black_Map_Pin.svg';
+import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
+import { ReactComponent as RedDot } from '../images/RedDot.svg';
+import { ReactComponent as GrayDot } from '../images/GrayDot.svg';
 
 const Alerts = () => {
     const [loading, setLoading] = useState(true);
@@ -44,20 +49,33 @@ const Alerts = () => {
                             {day.length !== 0 ? day.map((showing) => {
                                 return (
                                     <Card>
-                                        <div>
-                                            Agent Name: {agentsMap.has(showing.agent) ? `${agentsMap.get(showing.agent).firstName} ${agentsMap.get(showing.agent).lastName}` : ""}
-                                        </div>
-                                        <div>
-                                            Location: {showing["location"]}
-                                        </div>
-                                        <div>
-                                            Date: {new Date(showing["dateTime"]).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}
-                                        </div>
-                                        <div>
-                                            Time:{new Date(showing["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}
-                                        </div>
-                                        <div>
-                                            Audio Transcription: {showing["audioTranscription"]}
+                                        <div className={styles.bigRow}>
+                                            <div className={styles.column}>
+                                                <div className={styles.miniRow}>
+                                                    {showing.viewed ? <GrayDot /> : <RedDot />}
+                                                    <div className={styles.name}>
+                                                        {agentsMap.has(showing.agent) ? `${agentsMap.get(showing.agent).firstName} ${agentsMap.get(showing.agent).lastName}` : ""}
+                                                    </div>
+                                                </div>
+                                                <div className={styles.miniRow}>
+                                                    <Black_Map_Pin /> {showing["location"]}
+                                                </div>
+                                                <div className={styles.miniRow}>
+                                                    <Black_Calendar /> {new Date(showing["dateTime"]).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}
+                                                </div>
+                                                <div className={styles.miniRow}>
+                                                    <Black_Clock /> {new Date(showing["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}
+                                                </div>
+                                            </div>
+                                            <div className={styles.vert}/>
+                                            <div className={styles.column}>
+                                                <div className={styles.transcription}>
+                                                    Audio Transcription:
+                                                </div>
+                                                <div>
+                                                    {showing["audioTranscription"]}
+                                                </div>
+                                            </div>
                                         </div>
                                     </Card>
                                 );
@@ -102,8 +120,10 @@ const Alerts = () => {
                         Safety Alerts
                     </PortalHeader>
                     {/* Insert all main content below header here */}
-                    {alertsUI.length === 0 || loading ? "loading..." : alertsUI}
-                    <div className={styles.bottomSpacer} />
+                    <div className={`${styles.alertsPage} ${portalStyles.mainPad}`}>
+                        {alertsUI.length === 0 || loading ? "loading..." : alertsUI}
+                        <div className={styles.bottomSpacer} />
+                    </div>
                 </main>
             </div>
         )
