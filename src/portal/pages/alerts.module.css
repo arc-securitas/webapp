@@ -36,6 +36,10 @@
   margin-bottom: 12px;
 }
 
+.flexGrow {
+  flex-grow: 1;
+}
+
 @media screen and (max-width: 768px) {
   .title {
     margin-bottom: 12px;

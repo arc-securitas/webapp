@@ -11,6 +11,7 @@ import { ReactComponent as Black_Map_Pin } from '../images/Black_Map_Pin.svg';
 import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
 import { ReactComponent as RedDot } from '../images/RedDot.svg';
 import { ReactComponent as GrayDot } from '../images/GrayDot.svg';
+import Seesaw from '../components/Seesaw.js';
 
 const Alerts = () => {
     const [loading, setLoading] = useState(true);
@@ -18,97 +19,110 @@ const Alerts = () => {
     const [agentsMap, setAgentsMap] = useState(new Map());
     const [alertsUI, setAlertsUI] = useState([]);
     const [startDay, setStartDay] = useState(new Date());
+    const [endDay, setEndDay] = useState(new Date(new Date().setDate(new Date().getDate() + 6)));
     const { user } = useAuth0();
 
     useEffect(() => {
-        async function getAlerts(day) {
-            let records = [];
-            for (let i=0; i<7; i++) {
-                let startDate = new Date(day);
-                let endDate = new Date(day);
-                startDate.setDate(startDate.getDate()+i);
-                endDate.setDate(endDate.getDate()+i+1);
-                const response = await fetch(`/alerts/${user.email}/${startDate.toISOString().split('T')[0]}/${endDate.toISOString().split('T')[0]}`);
-
-                if (!response.ok) {
-                    const message = `An error occurred: ${response.statusText}`;
-                    window.alert(message);
-                    return;
-                }
-
-                records.push(await response.json());
-
-            }
-            setAlerts(records);
-            let date = new Date(day);
-            setAlertsUI(records.map((day) => {
-                let result = (
-                    <div>
-                        <div className={styles.title}>{date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}</div>
-                        <div className={styles.row}>
-                            {day.length !== 0 ? day.map((showing) => {
-                                return (
-                                    <Card>
-                                        <div className={styles.bigRow}>
-                                            <div className={styles.column}>
-                                                <div className={styles.miniRow}>
-                                                    {showing.viewed ? <GrayDot /> : <RedDot />}
-                                                    <div className={styles.name}>
-                                                        {agentsMap.has(showing.agent) ? `${agentsMap.get(showing.agent).firstName} ${agentsMap.get(showing.agent).lastName}` : ""}
-                                                    </div>
-                                                </div>
-                                                <div className={styles.miniRow}>
-                                                    <Black_Map_Pin /> {showing["location"]}
-                                                </div>
-                                                <div className={styles.miniRow}>
-                                                    <Black_Calendar /> {new Date(showing["dateTime"]).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}
-                                                </div>
-                                                <div className={styles.miniRow}>
-                                                    <Black_Clock /> {new Date(showing["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}
-                                                </div>
-                                            </div>
-                                            <div className={styles.vert}/>
-                                            <div className={styles.column}>
-                                                <div className={styles.transcription}>
-                                                    Audio Transcription:
-                                                </div>
-                                                <div>
-                                                    {showing["audioTranscription"]}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Card>
-                                );
-                            }) : "No alerts"}
-                        </div>
-                    </div>
-                );
-                date.setDate(date.getDate()+1);
-                return result;
-            }));
-        }
-
-        async function getAgents() {
-            alerts.map(async (alert) => {
-                for (let i=0; i<alert.length; i++) {
-                    let agentID = alert[i].agent;
-                    if (!agentsMap.has(agentID.toString())) {
-                        let response = await fetch(`/agents/${user.email}/${agentID}`);
-                        let agent = await response.json();
-                        if (agent !== null) {
-                            let temp = new Map(agentsMap);
-                            temp.set(agentID.toString(), agent);
-                            setAgentsMap(temp);
-                        }
-                    }
-                }
-            });
-        }
-
         getAlerts(startDay);
         getAgents();
         setLoading(false);
     }, [alertsUI.length, agentsMap.size]);
+
+    async function getAlerts(day) {
+        let records = [];
+        for (let i=0; i<7; i++) {
+            let startDate = new Date(day);
+            let endDate = new Date(day);
+            startDate.setDate(startDate.getDate()+i);
+            endDate.setDate(endDate.getDate()+i+1);
+            const response = await fetch(`/alerts/${user.email}/${startDate.toISOString().split('T')[0]}/${endDate.toISOString().split('T')[0]}`);
+
+            if (!response.ok) {
+                const message = `An error occurred: ${response.statusText}`;
+                window.alert(message);
+                return;
+            }
+
+            records.push(await response.json());
+
+        }
+        setAlerts(records);
+        let date = new Date(day);
+        setAlertsUI(records.map((day) => {
+            let result = (
+                <div>
+                    <div className={styles.title}>{date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}</div>
+                    <div className={styles.row}>
+                        {day.length !== 0 ? day.map((showing) => {
+                            return (
+                                <Card>
+                                    <div className={styles.bigRow}>
+                                        <div className={styles.column}>
+                                            <div className={styles.miniRow}>
+                                                {showing.viewed ? <GrayDot /> : <RedDot />}
+                                                <div className={styles.name}>
+                                                    {agentsMap.has(showing.agent) ? `${agentsMap.get(showing.agent).firstName} ${agentsMap.get(showing.agent).lastName}` : ""}
+                                                </div>
+                                            </div>
+                                            <div className={styles.miniRow}>
+                                                <Black_Map_Pin /> {showing["location"]}
+                                            </div>
+                                            <div className={styles.miniRow}>
+                                                <Black_Calendar /> {new Date(showing["dateTime"]).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}
+                                            </div>
+                                            <div className={styles.miniRow}>
+                                                <Black_Clock /> {new Date(showing["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}
+                                            </div>
+                                        </div>
+                                        <div className={styles.vert}/>
+                                        <div className={styles.column}>
+                                            <div className={styles.transcription}>
+                                                Audio Transcription:
+                                            </div>
+                                            <div>
+                                                {showing["audioTranscription"]}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Card>
+                            );
+                        }) : "No alerts"}
+                    </div>
+                </div>
+            );
+            date.setDate(date.getDate()+1);
+            return result;
+        }));
+    }
+
+    async function getAgents() {
+        alerts.map(async (alert) => {
+            for (let i=0; i<alert.length; i++) {
+                let agentID = alert[i].agent;
+                if (!agentsMap.has(agentID.toString())) {
+                    let response = await fetch(`/agents/${user.email}/${agentID}`);
+                    let agent = await response.json();
+                    if (agent !== null) {
+                        let temp = new Map(agentsMap);
+                        temp.set(agentID.toString(), agent);
+                        setAgentsMap(temp);
+                    }
+                }
+            }
+        });
+    }
+
+    function changeWeek(delta) {
+        setAlerts([]);
+        const newStart = new Date(startDay.getTime());
+        newStart.setDate(newStart.getDate() + delta);
+        setStartDay(newStart);
+
+        const newEnd = new Date(newStart.getTime());
+        newEnd.setDate(newEnd.getDate() + 6);
+        setEndDay(newEnd);
+        getAlerts(newStart);
+    }
 
     function display() {
         return (
@@ -118,6 +132,10 @@ const Alerts = () => {
                     <PortalHeader>
                         <AlertSvg />
                         Safety Alerts
+                        <div className={styles.flexGrow}/>
+                        <Seesaw leftHandler={() => changeWeek(-7)} rightHandler={() => changeWeek(7)}>
+                            {startDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})} - {endDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})}
+                        </Seesaw>
                     </PortalHeader>
                     {/* Insert all main content below header here */}
                     <div className={`${styles.alertsPage} ${portalStyles.mainPad}`}>
