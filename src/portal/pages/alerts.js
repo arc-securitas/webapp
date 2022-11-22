@@ -15,7 +15,6 @@ import Seesaw from '../components/Seesaw.js';
 
 const Alerts = () => {
     const [loading, setLoading] = useState(true);
-    const [alerts, setAlerts] = useState([]);
     const [agentsMap, setAgentsMap] = useState(new Map());
     const [alertsUI, setAlertsUI] = useState([]);
     const [startDay, setStartDay] = useState(new Date());
@@ -24,7 +23,6 @@ const Alerts = () => {
 
     useEffect(() => {
         getAlerts(startDay);
-        getAgents();
         setLoading(false);
     }, [alertsUI.length, agentsMap.size]);
 
@@ -46,7 +44,7 @@ const Alerts = () => {
             records.push(await response.json());
 
         }
-        setAlerts(records);
+        getAgents(records);
         let date = new Date(day);
         setAlertsUI(records.map((day) => {
             let result = (
@@ -95,8 +93,8 @@ const Alerts = () => {
         }));
     }
 
-    async function getAgents() {
-        alerts.map(async (alert) => {
+    async function getAgents(records) {
+        records.map(async (alert) => {
             for (let i=0; i<alert.length; i++) {
                 let agentID = alert[i].agent;
                 if (!agentsMap.has(agentID.toString())) {
@@ -113,7 +111,6 @@ const Alerts = () => {
     }
 
     function changeWeek(delta) {
-        setAlerts([]);
         const newStart = new Date(startDay.getTime());
         newStart.setDate(newStart.getDate() + delta);
         setStartDay(newStart);
