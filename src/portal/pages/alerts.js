@@ -12,7 +12,7 @@ import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
 import { ReactComponent as RedDot } from '../images/RedDot.svg';
 import { ReactComponent as GrayDot } from '../images/GrayDot.svg';
 import Seesaw from '../components/Seesaw.js';
-import AlertSolo from '../components/AlertSolo.js';
+import AlertSolo from './AlertSolo.js';
 
 const Alerts = () => {
     const [activeAlert, setActiveAlert] = useState("");
@@ -55,7 +55,6 @@ const Alerts = () => {
                     <div className={styles.row}>
                         {day.length !== 0 ? day.map((showing) => {
                             return (
-                                // <Card onClick={() => setActiveAlert(showing["_id"])}>
                                 <Card>
                                     <div className={styles.bigRow} onClick={() => setActiveAlert(showing["_id"])}>
                                         <div className={styles.column}>

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import MapWrapper from "../components/MapWrapper.js";
 import { ReactComponent as BackArrow } from '../images/BackArrow.svg';
-import styles from './AlertSolo.module.css';
+import styles from './solo.module.css';
 import Card from '../components/Card.js';
 import { ReactComponent as Black_Clock } from '../images/Black_Clock.svg';
 import { ReactComponent as Black_Map_Pin } from '../images/Black_Map_Pin.svg';
 import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
+import { ReactComponent as Phone } from '../images/Phone.svg';
+import { ReactComponent as Mail } from '../images/Mail.svg';
 
 const EventSolo = (props) => {
   const [alertData, setAlertData] = useState([]);
@@ -23,44 +25,49 @@ const EventSolo = (props) => {
       <div>
         <BackArrow className={styles.backArrow} onClick={props.callback}/>
       </div>
-      <div>
-        <h1 className={styles.sectionTitle}>Location</h1>
-        <MapWrapper features={[]} address={alertData["location"]}/>
-        {alertData["location"]}
-      </div>
-      <div>
-        <div>
-          <h1 className={styles.sectionTitle}>Event</h1>
+      <div className={styles.column}>
+        <h1 className={styles.title}>{agentData["firstName"]} {agentData["lastName"]}: {new Date(alertData["dateTime"]).toLocaleString(undefined, { weekday: "long", year: "numeric", month: "numeric", day: "numeric"})} {new Date(alertData["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}</h1>
+        <div className={styles.row}>
           <div>
-            {eventData["eventType"]}
-          </div>
-          <div>
-            {eventData["location"]}
-          </div>
-          <div>
-            {eventData["startTime"]} - {eventData["endTime"]}
-          </div>
+          <h1 className={styles.sectionTitle}>Location</h1>
+          <MapWrapper features={[]} address={alertData["location"]}/>
+          {alertData["location"]}
         </div>
         <div>
-          <h1 className={styles.sectionTitle}>Contact Information</h1>
-          <div>
-            {agentData["phoneNumber"]}
+          <div className={styles.section}>
+            <h1 className={styles.sectionTitle}>Alert Details</h1>
+            <div className={styles.sectionSub}>Audio Recording</div>
+            [insert ui element here]
+            <div className={styles.sectionSub}>Audio Transcription</div>
+            {alertData["audioTranscription"]}
           </div>
-          <div>
-            {agentData["email"]}
+          <div className={styles.section}>
+            <h1 className={styles.sectionTitle}>Event</h1>
+            <div className={styles.iconLine}>
+              <Black_Calendar className={styles.icon}/>
+              {eventData["eventType"]}
+            </div>
+            <div className={styles.iconLine}>
+              <Black_Map_Pin  className={styles.icon}/>
+              {eventData["location"]}
+            </div>
+            <div className={styles.iconLine}>
+              <Black_Clock  className={styles.icon}/>
+              {eventData["startTime"]} - {eventData["endTime"]}
+            </div>
+          </div>
+          <div className={styles.section}>
+            <h1 className={styles.sectionTitle}>Agent Contact</h1>
+            <div className={styles.iconLine}>
+              <Phone  className={styles.icon}/>
+              {agentData["phoneNumber"]}
+            </div>
+            <div className={styles.iconLine}>
+              <Mail  className={styles.icon}/>
+              {agentData["email"]}
+            </div>
           </div>
         </div>
-        <div>
-          <h1 className={styles.sectionTitle}>Time</h1>
-          {new Date(alertData["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}
-        </div>
-        <div>
-          <h1 className={styles.sectionTitle}>Audio Recording</h1>
-          [insert ui element here]
-        </div>
-        <div>
-          <h1 className={styles.sectionTitle}>Audio Transcription</h1>
-          {alertData["audioTranscription"]}
         </div>
       </div>
     </div>
