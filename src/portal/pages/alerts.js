@@ -12,8 +12,10 @@ import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
 import { ReactComponent as RedDot } from '../images/RedDot.svg';
 import { ReactComponent as GrayDot } from '../images/GrayDot.svg';
 import Seesaw from '../components/Seesaw.js';
+import AlertSolo from '../components/AlertSolo.js';
 
 const Alerts = () => {
+    const [activeAlert, setActiveAlert] = useState("");
     const [loading, setLoading] = useState(true);
     const [agentsMap, setAgentsMap] = useState(new Map());
     const [alertsUI, setAlertsUI] = useState([]);
@@ -53,8 +55,9 @@ const Alerts = () => {
                     <div className={styles.row}>
                         {day.length !== 0 ? day.map((showing) => {
                             return (
+                                // <Card onClick={() => setActiveAlert(showing["_id"])}>
                                 <Card>
-                                    <div className={styles.bigRow}>
+                                    <div className={styles.bigRow} onClick={() => setActiveAlert(showing["_id"])}>
                                         <div className={styles.column}>
                                             <div className={styles.miniRow}>
                                                 {showing.viewed ? <GrayDot /> : <RedDot />}
@@ -121,10 +124,9 @@ const Alerts = () => {
         getAlerts(newStart);
     }
 
-    function display() {
-        return (
-            <div className={portalStyles.portal}>
-                <div className={portalStyles.nav}><PortalNav page="Alerts"/></div>
+    function displayMain() {
+        if (activeAlert === "") {
+            return (
                 <main className={portalStyles.main}>
                     <PortalHeader>
                         <AlertSvg />
@@ -140,13 +142,31 @@ const Alerts = () => {
                         <div className={styles.bottomSpacer} />
                     </div>
                 </main>
-            </div>
-        )
+            );
+        } else {
+            return (
+                <main className={portalStyles.main}>
+                    <PortalHeader>
+                        <AlertSvg />
+                        Safety Alerts
+                        <div className={styles.flexGrow}/>
+                    </PortalHeader>
+                    {/* Insert all main content below header here */}
+                    <div className={`${styles.alertsPage} ${portalStyles.mainPad}`}>
+                        <AlertSolo activeAlert={activeAlert} callback={() => setActiveAlert("")} />
+                        <div className={styles.bottomSpacer} />
+                    </div>
+                </main>
+            );
+        }
     }
 
     return (
         <>
-            {display()}
+            <div className={portalStyles.portal}>
+                <div className={portalStyles.nav}><PortalNav page="Alerts"/></div>
+                {displayMain()}
+            </div>
         </>
     )
 }
