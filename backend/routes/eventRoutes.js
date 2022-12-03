@@ -6,9 +6,12 @@ const eventRoutes = express.Router();
 const Event = require('../schemas/event.js');
 let db_connect = mongoose.connection.collection("events");
 
-eventRoutes.route("/events/getByDate/:date").get(function (req, res) {
+eventRoutes.route("/events/getByDate/:managerEmail/:date").get(function (req, res) {
+  let managerEmail = req.params.managerEmail;
+  let date = new Date(req.params.date);
+
   db_connect
-    .find({ date: new Date(req.params.date) })
+    .find({ managerEmail: managerEmail, date: date })
     .toArray(function (err, result) {
       if (err) throw err;
       res.json(result);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MapWrapper from "../components/MapWrapper.js";
 import { ReactComponent as BackArrow } from '../images/BackArrow.svg';
-import styles from './eventSolo.module.css';
+import styles from './solo.module.css';
 import { agentsToString } from '../util.js';
 import Card from '../components/Card.js';
 import { ReactComponent as Black_Clock } from '../images/Black_Clock.svg';

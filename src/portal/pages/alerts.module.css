@@ -1,0 +1,89 @@
+.alertsPage {
+  font-family: 'Outfit';
+}
+
+.title {
+  font-weight: bold;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.miniRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bigRow {
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
+}
+
+.vert {
+  background-color: #e5e5e5;
+  align-self: stretch;
+  width: 2px;
+  margin: -10px 30px;
+}
+
+.transcription {
+  color: #1D5DA7;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.flexGrow {
+  flex-grow: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    margin-bottom: 12px;
+    font-size: 18px;
+  }
+
+  .row {
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .miniRow + .miniRow {
+    margin-top: 40px;
+  }
+
+  .bottomSpacer {
+    height: 20px;
+  }
+
+  .name {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .title {
+    margin-bottom: 12px;
+    font-size: 20px;
+  }
+
+  .row {
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .miniRow + .miniRow {
+    margin-top: 12px;
+  }
+
+  .bottomSpacer {
+    height: 30px;
+  }
+
+  .name {
+    font-size: 20px;
+  }
+}

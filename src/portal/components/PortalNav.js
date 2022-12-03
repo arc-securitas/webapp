@@ -7,7 +7,9 @@ import { ReactComponent as ExitIcon } from '../images/Exit.svg';
 export default function PortalNav(props) {
   return (
       <div className={styles.portalNav}>
-        <img src={logoPic} alt="Arc Security Logo" className={styles.logo}/>
+        <Link to={"/portal/Dashboard"} style={{ margin: '0' }}>
+          <img src={logoPic} alt="Arc Security Logo" className={styles.logo}/>
+        </Link>
         <NavLabel link={"/portal/Dashboard"} isActive={props.page === 'Dashboard'}>
           <PieChartSvg color={props.page === 'Dashboard' ? 'white' : 'black'}/>
           <div className={styles.labelText}>Dashboard</div>

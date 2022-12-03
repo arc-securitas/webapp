@@ -7,11 +7,14 @@ import EventSolo from './eventSolo.js';
 import EventCard from '../components/EventCard.js';
 import Seesaw from '../components/Seesaw.js';
 
+import { useAuth0 } from "@auth0/auth0-react";
+
 const Events = () => {
     const [records, setRecords] = useState([]);
     const [activeEvent, setActiveEvent] = useState("");
     const [startDay, setStartDay] = useState(new Date());
     const [endDay, setEndDay] = useState(new Date(new Date().setDate(new Date().getDate() + 6)));
+    const { user } = useAuth0();
 
     // Gets records from |date| plus the upcoming 7 days (hardcoded atm).
     async function getRecords(d) {
@@ -21,7 +24,7 @@ const Events = () => {
             let date = new Date(d);
             date.setDate(date.getDate() + i);
             // Fetches the events corresponding to a single day
-            const response = await fetch(`/events/getByDate/${date.toISOString().split('T')[0]}`);
+            const response = await fetch(`/events/getByDate/${user.email}/${date.toISOString().split('T')[0]}`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
