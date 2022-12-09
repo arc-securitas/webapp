@@ -38,7 +38,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const drawerWidth = '60%';
 
 // Page Names
-const navItems = ['Home', 'Product', 'About', 'TempToPortal'];
+const navItems = ['Home', 'Product', 'About'];
 
 export default function Header(props) {
     // Opening and closing drawer menu
@@ -103,7 +103,6 @@ export default function Header(props) {
                                 sx={{
                                     fontFamily: "Outfit",
                             }}>{item}</Typography>
-
                         </Link>
                     </ListItem>
                 ))}
@@ -285,7 +284,17 @@ export default function Header(props) {
                                     </Button>
                                     <Menu {...bindMenu(popupState)}>
                                         <MenuItem onClick={popupState.close}>Profile</MenuItem>
-                                        <MenuItem onClick={popupState.close}>Manager Portal</MenuItem>
+                                        <Link sx={{
+                                            fontFamily: 'Lato',
+                                            fontSize: '16px',
+                                            display: 'inline-block',
+                                            color: '#000',
+                                            "&:hover": {
+                                                color: '#000'
+                                            }
+                                        }} underline='none' component={RouterLink} to="/portal/dashboard">
+                                            <MenuItem onClick={popupState.close}>Manager Portal</MenuItem>
+                                        </Link>
                                         <LogoutButton onClick={popupState.close} />
                                     </Menu>
                                 </React.Fragment>
