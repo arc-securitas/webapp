@@ -4,6 +4,7 @@ import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
 import styles from './alerts.module.css';
 import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from 'react-router-dom';
 
 import Card from '../components/Card.js';
 import { ReactComponent as Black_Clock } from '../images/Black_Clock.svg';
@@ -12,10 +13,8 @@ import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
 import { ReactComponent as RedDot } from '../images/RedDot.svg';
 import { ReactComponent as GrayDot } from '../images/GrayDot.svg';
 import Seesaw from '../components/Seesaw.js';
-import AlertSolo from './AlertSolo.js';
 
 const Alerts = () => {
-    const [activeAlert, setActiveAlert] = useState("");
     const [loading, setLoading] = useState(true);
     const [agentsMap, setAgentsMap] = useState(new Map());
     const [alertsUI, setAlertsUI] = useState([]);
@@ -55,36 +54,38 @@ const Alerts = () => {
                     <div className={styles.row}>
                         {day.length !== 0 ? day.map((showing) => {
                             return (
-                                <Card>
-                                    <div className={styles.bigRow} onClick={() => setActiveAlert(showing["_id"])}>
-                                        <div className={styles.column}>
-                                            <div className={styles.miniRow}>
-                                                {showing.viewed ? <GrayDot /> : <RedDot />}
-                                                <div className={styles.name}>
-                                                    {agentsMap.has(showing.agent) ? `${agentsMap.get(showing.agent).firstName} ${agentsMap.get(showing.agent).lastName}` : ""}
+                                <Link to={`/portal/alerts/${showing["_id"]}`}>
+                                    <Card>
+                                        <div className={styles.bigRow}>
+                                            <div className={styles.column}>
+                                                <div className={styles.miniRow}>
+                                                    {showing.viewed ? <GrayDot /> : <RedDot />}
+                                                    <div className={styles.name}>
+                                                        {agentsMap.has(showing.agent) ? `${agentsMap.get(showing.agent).firstName} ${agentsMap.get(showing.agent).lastName}` : ""}
+                                                    </div>
+                                                </div>
+                                                <div className={styles.miniRow}>
+                                                    <Black_Map_Pin /> {showing["location"]}
+                                                </div>
+                                                <div className={styles.miniRow}>
+                                                    <Black_Calendar /> {new Date(showing["dateTime"]).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}
+                                                </div>
+                                                <div className={styles.miniRow}>
+                                                    <Black_Clock /> {new Date(showing["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}
                                                 </div>
                                             </div>
-                                            <div className={styles.miniRow}>
-                                                <Black_Map_Pin /> {showing["location"]}
-                                            </div>
-                                            <div className={styles.miniRow}>
-                                                <Black_Calendar /> {new Date(showing["dateTime"]).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}
-                                            </div>
-                                            <div className={styles.miniRow}>
-                                                <Black_Clock /> {new Date(showing["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}
-                                            </div>
-                                        </div>
-                                        <div className={styles.vert}/>
-                                        <div className={styles.column}>
-                                            <div className={styles.transcription}>
-                                                Audio Transcription:
-                                            </div>
-                                            <div>
-                                                {showing["audioTranscription"]}
+                                            <div className={styles.vert}/>
+                                            <div className={styles.column}>
+                                                <div className={styles.transcription}>
+                                                    Audio Transcription:
+                                                </div>
+                                                <div>
+                                                    {showing["audioTranscription"]}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </Card>
+                                    </Card>
+                                </Link>
                             );
                         }) : "No alerts"}
                     </div>
@@ -124,40 +125,23 @@ const Alerts = () => {
     }
 
     function displayMain() {
-        if (activeAlert === "") {
-            return (
-                <main className={portalStyles.main}>
-                    <PortalHeader>
-                        <AlertSvg />
-                        Safety Alerts
-                        <div className={styles.flexGrow}/>
-                        <Seesaw leftHandler={() => changeWeek(-7)} rightHandler={() => changeWeek(7)}>
-                            {startDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})} - {endDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})}
-                        </Seesaw>
-                    </PortalHeader>
-                    {/* Insert all main content below header here */}
-                    <div className={`${styles.alertsPage} ${portalStyles.mainPad}`}>
-                        {alertsUI.length === 0 || loading ? "loading..." : alertsUI}
-                        <div className={styles.bottomSpacer} />
-                    </div>
-                </main>
-            );
-        } else {
-            return (
-                <main className={portalStyles.main}>
-                    <PortalHeader>
-                        <AlertSvg />
-                        Safety Alerts
-                        <div className={styles.flexGrow}/>
-                    </PortalHeader>
-                    {/* Insert all main content below header here */}
-                    <div className={`${styles.alertsPage} ${portalStyles.mainPad}`}>
-                        <AlertSolo activeAlert={activeAlert} callback={() => setActiveAlert("")} />
-                        <div className={styles.bottomSpacer} />
-                    </div>
-                </main>
-            );
-        }
+        return (
+            <main className={portalStyles.main}>
+                <PortalHeader>
+                    <AlertSvg />
+                    Safety Alerts
+                    <div className={styles.flexGrow}/>
+                    <Seesaw leftHandler={() => changeWeek(-7)} rightHandler={() => changeWeek(7)}>
+                        {startDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})} - {endDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})}
+                    </Seesaw>
+                </PortalHeader>
+                {/* Insert all main content below header here */}
+                <div className={`${styles.alertsPage} ${portalStyles.mainPad}`}>
+                    {alertsUI.length === 0 || loading ? "loading..." : alertsUI}
+                    <div className={styles.bottomSpacer} />
+                </div>
+            </main>
+        );
     }
 
     return (

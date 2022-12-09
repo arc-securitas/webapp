@@ -12,6 +12,7 @@ import { ReactComponent as Black_Clock } from '../images/Black_Clock.svg';
 import { ReactComponent as Black_Map_Pin } from '../images/Black_Map_Pin.svg';
 import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
 import styles from './dashboard.module.css';
+import { Link } from 'react-router-dom';
 
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -50,7 +51,6 @@ const Dashboard = () => {
 
             const safetyAlerts = await response.json();
             setSafetyAlerts(safetyAlerts);
-            console.log("Here1");
         }
 
         async function fetchEvents() {
@@ -86,7 +86,6 @@ const Dashboard = () => {
                     }
                 }
             });
-            console.log("Here1");
         }
 
         // Fetches an agent based on their unique ID
@@ -112,8 +111,6 @@ const Dashboard = () => {
         fetchEvents();
         getAgents();
 
-        console.log("Here2");
-
         SetLoading(false);
         return;
 
@@ -133,25 +130,27 @@ const Dashboard = () => {
                 let agentName = agent.firstName + " " + agent.lastName;
                 return (
                     <div className={styles.alertCard}>
-                        <Card>
-                            <span className={styles.miniRow}>
-                                {displayDot(safetyAlert.viewed ? "GrayDot" : "RedDot")}
-                            </span>
-                            <span className={`${styles.agentName} ${styles.normal} `}>
-                                {" " + agentName}
-                            </span>
-                            <span className={` ${styles.leftPad}`}>
-                                <Black_Map_Pin className={styles.icon} />{safetyAlert.location} <br />
-                            </span>
+                        <Link to={`/portal/alerts/${safetyAlert["_id"]}`}>
+                            <Card>
+                                <span className={styles.miniRow}>
+                                    {displayDot(safetyAlert.viewed ? "GrayDot" : "RedDot")}
+                                </span>
+                                <span className={`${styles.agentName} ${styles.normal} `}>
+                                    {" " + agentName}
+                                </span>
+                                <span className={` ${styles.leftPad}`}>
+                                    <Black_Map_Pin className={styles.icon} />{safetyAlert.location} <br />
+                                </span>
 
-                            <span className={` `}>
-                                <Black_Calendar className={styles.icon} /> {date}
-                            </span>
+                                <span className={` `}>
+                                    <Black_Calendar className={styles.icon} /> {date}
+                                </span>
 
-                            <span className={`  ${styles.leftPad}`}>
-                                <Black_Clock className={styles.icon} /> {time}
-                            </span>
-                        </Card>
+                                <span className={`  ${styles.leftPad}`}>
+                                    <Black_Clock className={styles.icon} /> {time}
+                                </span>
+                            </Card>
+                        </Link>
                     </div>
                 );
             }
