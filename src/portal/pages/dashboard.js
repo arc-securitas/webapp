@@ -171,23 +171,25 @@ const Dashboard = () => {
         return events.map((showing) => {
             return (
                 <div className={styles.eventCard}>
-                    <Card>
-                        <div className={styles.miniRow}>
-                            <div className={`${styles.agentName} ${styles.normal}`}>{agentsString(showing.agents)}</div>
-                        </div>
-                        <div className={styles.miniRow}>
-                            <Map_Pin className={styles.icon} />
-                            {" " + showing.location}
-                        </div>
-                        <div className={styles.miniRow}>
-                            <Clock className={styles.icon} />
-                            {" " + showing.startTime} - {showing.endTime}
-                        </div>
-                        <div className={styles.miniRow}>
-                            <Calendar className={styles.icon} />
-                            {" " + showing.eventType}
-                        </div>
-                    </Card>
+                    <Link to={`/portal/events/${showing["_id"]}`}>
+                        <Card>
+                            <div className={styles.miniRow}>
+                                <div className={`${styles.agentName} ${styles.normal}`}>{agentsString(showing.agents)}</div>
+                            </div>
+                            <div className={styles.miniRow}>
+                                <Map_Pin className={styles.icon} />
+                                {" " + showing.location}
+                            </div>
+                            <div className={styles.miniRow}>
+                                <Clock className={styles.icon} />
+                                {" " + showing.startTime} - {showing.endTime}
+                            </div>
+                            <div className={styles.miniRow}>
+                                <Calendar className={styles.icon} />
+                                {" " + showing.eventType}
+                            </div>
+                        </Card>
+                    </Link>
                 </div>
             )
         });

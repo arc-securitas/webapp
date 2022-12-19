@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MapWrapper from "../components/MapWrapper.js";
-import { ReactComponent as BackArrow } from '../images/BackArrow.svg';
 import styles from './solo.module.css';
-import Card from '../components/Card.js';
 import { ReactComponent as Black_Clock } from '../images/Black_Clock.svg';
 import { ReactComponent as Black_Map_Pin } from '../images/Black_Map_Pin.svg';
 import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
@@ -36,11 +34,8 @@ const AlertSolo = () => {
             <div className={styles.flexGrow}/>
         </PortalHeader>
         {/* Insert all main content below header here */}
-          <div className={`${styles.alertsPage} ${portalStyles.mainPad}`}>
+          <div className={portalStyles.mainPad}>
             <div className={styles.row}>
-              {/* <div>
-                <BackArrow className={styles.backArrow} onClick={props.callback}/>
-              </div> */}
               <div className={styles.column}>
                 <h1 className={styles.title}>{agentData["firstName"]} {agentData["lastName"]}: {new Date(alertData["dateTime"]).toLocaleString(undefined, { weekday: "long", year: "numeric", month: "numeric", day: "numeric"})} {new Date(alertData["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}</h1>
                 <div className={styles.row}>

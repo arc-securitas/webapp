@@ -15,18 +15,18 @@ code {
 }
 
 a {
-  color: inherit;
+  color: black;
   text-decoration: none;
 }
 
 a:visited {
-  color: inherit;
+  color: black;
 }
 
 a:hover {
-  color: inherit;
+  color: black;
 }
 
 a:hover:visited {
-  color: inherit;
+  color: black;
 }
