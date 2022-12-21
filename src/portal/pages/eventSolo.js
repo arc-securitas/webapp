@@ -1,53 +1,67 @@
 import React, { useState, useEffect } from "react";
 import MapWrapper from "../components/MapWrapper.js";
-import { ReactComponent as BackArrow } from '../images/BackArrow.svg';
 import styles from './solo.module.css';
 import { agentsToString } from '../util.js';
 import Card from '../components/Card.js';
 import { ReactComponent as Black_Clock } from '../images/Black_Clock.svg';
 import { ReactComponent as Black_Map_Pin } from '../images/Black_Map_Pin.svg';
 import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
+import portalStyles from './portal.module.css';
+import PortalHeader from '../components/PortalHeader.js';
+import PortalNav from '../components/PortalNav.js';
+import { useParams } from 'react-router-dom';
 
-const EventSolo = (props) => {
+const EventSolo = () => {
+  const { id } = useParams();
   const [eventData, setEventData] = useState([]);
   const [alertData, setAlertData] = useState([]);
 
   useEffect(() => {
-      getEventData(props.activeEvent);
-  }, [props.activeEvent]);
+      getEventData(id);
+  }, [id]);
 
   if (eventData.length === 0) return (<div>Loading...</div>);
 
   return (
-    <div className={styles.row}>
-      <div>
-        <BackArrow className={styles.backArrow} onClick={props.callback}/>
-      </div>
-      <div>
-        <h1 className={styles.sectionTitle}>Location</h1>
-        <MapWrapper features={[]} address={eventData[0]["location"]}/>
-        {eventData[0]["location"]}
-      </div>
-      <div>
-        <div className={styles.column}>
-          <div>
-            <h1 className={styles.sectionTitle}>Time</h1>
-            {eventData[0]["startTime"]} - {eventData[0]["endTime"]}
-          </div>
-          <div>
-            <h1 className={styles.sectionTitle}>Agents</h1>
-            {agentsToString(eventData[0]["agents"])}
-          </div>
-          <div>
-            <h1 className={styles.sectionTitle}>Event Type</h1>
-            {eventData[0]["eventType"]}
-          </div>
-          <div>
-            <h1 className={styles.sectionTitle}>Alerts</h1>
-            {displayAlerts()}
+    <div className={portalStyles.portal}>
+      <div className={portalStyles.nav}><PortalNav page="Events" /></div>
+      <main className={portalStyles.main}>
+        <PortalHeader>
+          <CalendarSvg />
+          Events
+          <div className={styles.flexGrow} />
+        </PortalHeader>
+        {/* Insert all main content below header here */}
+        <div className={portalStyles.mainPad}>
+          <div className={styles.row}>
+            <div>
+              <h1 className={styles.sectionTitle}>Location</h1>
+              <MapWrapper features={[]} address={eventData[0]["location"]}/>
+              {eventData[0]["location"]}
+            </div>
+            <div>
+              <div className={styles.column}>
+                <div>
+                  <h1 className={styles.sectionTitle}>Time</h1>
+                  {eventData[0]["startTime"]} - {eventData[0]["endTime"]}
+                </div>
+                <div>
+                  <h1 className={styles.sectionTitle}>Agents</h1>
+                  {agentsToString(eventData[0]["agents"])}
+                </div>
+                <div>
+                  <h1 className={styles.sectionTitle}>Event Type</h1>
+                  {eventData[0]["eventType"]}
+                </div>
+                <div>
+                  <h1 className={styles.sectionTitle}>Alerts</h1>
+                  {displayAlerts()}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 
@@ -149,3 +163,16 @@ class AlertCard extends React.Component {
 }
 
 export default EventSolo;
+
+class CalendarSvg extends React.Component {
+  render() {
+      return (
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 8H20" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M19 4H5C4.44772 4 4 4.44772 4 5V19C4 19.5523 4.44772 20 5 20H19C19.5523 20 20 19.5523 20 19V5C20 4.44772 19.5523 4 19 4Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M16 2V4" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M8 2V4" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+      );
+  }
+}

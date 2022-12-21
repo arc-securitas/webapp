@@ -9,7 +9,9 @@ import About from "./mainSite/pages/about.js";
 import Product from "./mainSite/pages/product.js";
 import Dashboard from "./portal/pages/dashboard.js";
 import Events from "./portal/pages/events.js";
+import EventSolo from "./portal/pages/eventSolo.js";
 import Alerts from "./portal/pages/alerts.js";
+import AlertSolo from './portal/pages/AlertSolo.js';
 import Agents from "./portal/pages/agents.js";
 import Payment from "./portal/pages/payment.js";
 
@@ -35,10 +37,11 @@ function App(props) {
         <Route exact path="/legal/privacy-policy-web" render={() => { window.location.href = "privacy-policy-web.html" }} />
 
         {/* Portal Pages */}
-        <Route exact path="/TempToPortal" element={<Dashboard />} />
         <Route exact path="/portal/dashboard" element={<Dashboard />} />
-        <Route exact path="/portal/alerts" element={<Alerts />} />
+        <Route exact path="/portal/alerts/" element={<Alerts />} />
+        <Route exact path="/portal/alerts/:id" element={<AlertSolo />} />
         <Route exact path="/portal/events" element={<Events />} />
+        <Route exact path="/portal/events/:id" element={<EventSolo />} />
         <Route exact path="/portal/agents" element={<Agents />} />
         <Route exact path="/portal/payment" element={<Payment />} />
 
@@ -49,7 +52,6 @@ function App(props) {
         <Route exact path="/alertsTest" element={<AlertsTest />} />
       </Routes>
     </Router>
-
   );
 }
 

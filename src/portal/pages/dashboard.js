@@ -12,6 +12,7 @@ import { ReactComponent as Black_Clock } from '../images/Black_Clock.svg';
 import { ReactComponent as Black_Map_Pin } from '../images/Black_Map_Pin.svg';
 import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
 import styles from './dashboard.module.css';
+import { Link } from 'react-router-dom';
 
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -122,6 +123,7 @@ const Dashboard = () => {
             getAgents();
             SetLoading(false);
         }
+  
         return;
 
     }, [safetyAlerts.length, agentsMap.size, isLoading, isAuthenticated]);
@@ -140,25 +142,27 @@ const Dashboard = () => {
                 let agentName = agent.firstName + " " + agent.lastName;
                 return (
                     <div className={styles.alertCard}>
-                        <Card>
-                            <span className={styles.miniRow}>
-                                {displayDot(safetyAlert.viewed ? "GrayDot" : "RedDot")}
-                            </span>
-                            <span className={`${styles.agentName} ${styles.normal} `}>
-                                {" " + agentName}
-                            </span>
-                            <span className={` ${styles.leftPad}`}>
-                                <Black_Map_Pin className={styles.icon} />{safetyAlert.location} <br />
-                            </span>
+                        <Link to={`/portal/alerts/${safetyAlert["_id"]}`}>
+                            <Card>
+                                <span className={styles.miniRow}>
+                                    {displayDot(safetyAlert.viewed ? "GrayDot" : "RedDot")}
+                                </span>
+                                <span className={`${styles.agentName} ${styles.normal} `}>
+                                    {" " + agentName}
+                                </span>
+                                <span className={` ${styles.leftPad}`}>
+                                    <Black_Map_Pin className={styles.icon} />{safetyAlert.location} <br />
+                                </span>
 
-                            <span className={` `}>
-                                <Black_Calendar className={styles.icon} /> {date}
-                            </span>
+                                <span className={` `}>
+                                    <Black_Calendar className={styles.icon} /> {date}
+                                </span>
 
-                            <span className={`  ${styles.leftPad}`}>
-                                <Black_Clock className={styles.icon} /> {time}
-                            </span>
-                        </Card>
+                                <span className={`  ${styles.leftPad}`}>
+                                    <Black_Clock className={styles.icon} /> {time}
+                                </span>
+                            </Card>
+                        </Link>
                     </div>
                 );
             }
@@ -180,23 +184,25 @@ const Dashboard = () => {
         return events.map((showing) => {
             return (
                 <div className={styles.eventCard}>
-                    <Card>
-                        <div className={styles.miniRow}>
-                            <div className={`${styles.agentName} ${styles.normal}`}>{agentsString(showing.agents)}</div>
-                        </div>
-                        <div className={styles.miniRow}>
-                            <Map_Pin className={styles.icon} />
-                            {" " + showing.location}
-                        </div>
-                        <div className={styles.miniRow}>
-                            <Clock className={styles.icon} />
-                            {" " + showing.startTime} - {showing.endTime}
-                        </div>
-                        <div className={styles.miniRow}>
-                            <Calendar className={styles.icon} />
-                            {" " + showing.eventType}
-                        </div>
-                    </Card>
+                    <Link to={`/portal/events/${showing["_id"]}`}>
+                        <Card>
+                            <div className={styles.miniRow}>
+                                <div className={`${styles.agentName} ${styles.normal}`}>{agentsString(showing.agents)}</div>
+                            </div>
+                            <div className={styles.miniRow}>
+                                <Map_Pin className={styles.icon} />
+                                {" " + showing.location}
+                            </div>
+                            <div className={styles.miniRow}>
+                                <Clock className={styles.icon} />
+                                {" " + showing.startTime} - {showing.endTime}
+                            </div>
+                            <div className={styles.miniRow}>
+                                <Calendar className={styles.icon} />
+                                {" " + showing.eventType}
+                            </div>
+                        </Card>
+                    </Link>
                 </div>
             )
         });

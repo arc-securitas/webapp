@@ -3,15 +3,14 @@ import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
 import styles from './events.module.css'
-import EventSolo from './eventSolo.js';
 import EventCard from '../components/EventCard.js';
 import Seesaw from '../components/Seesaw.js';
 
 import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from 'react-router-dom';
 
 const Events = () => {
     const [records, setRecords] = useState([]);
-    const [activeEvent, setActiveEvent] = useState("");
     const [startDay, setStartDay] = useState(new Date());
     const [endDay, setEndDay] = useState(new Date(new Date().setDate(new Date().getDate() + 6)));
     const { user } = useAuth0();
@@ -45,7 +44,9 @@ const Events = () => {
                     <div className={styles.row}>
                         {day.length !== 0 ? day.map((showing) => {
                                 return (
-                                    <EventCard showing={showing} clickHandler={() => setActiveEvent(showing["_id"])}/>
+                                    <Link to={`/portal/events/${showing["_id"]}`}>
+                                        <EventCard showing={showing} />
+                                    </Link>
                                 );
                             }
                         ) : "No events"}
@@ -79,24 +80,6 @@ const Events = () => {
         }
     }
 
-    function displayActive() {
-        if (activeEvent === "") {
-            return (
-                <>
-                    {records.length === 0 ? "loading..." : records}
-                    <div className={styles.bottomSpacer}/>
-                </>
-            );
-        } else {
-            return (
-                <>
-                    <EventSolo activeEvent={activeEvent} callback={() => setActiveEvent("")}/>
-                    <div className={styles.bottomSpacer}/>
-                </>
-            );
-        }
-    }
-
     useEffect(() => {
         getRecords(startDay);
     }, []);
@@ -122,18 +105,15 @@ const Events = () => {
                     Events
                     <div className={styles.flexGrow}/>
                     {
-                        activeEvent === ""
-                        ?
                         <Seesaw leftHandler={() => changeWeek(-7)} rightHandler={() => changeWeek(7)}>
                             {startDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})} - {endDay.toLocaleDateString("en-US", {month: 'long', day: 'numeric'})}
                         </Seesaw>
-                        :
-                        <></>
                     }
                 </PortalHeader>
                 {/* Insert all main content below header here */}
                 <div className={portalStyles.mainPad}>
-                    {displayActive()}
+                    {records.length === 0 ? "loading..." : records}
+                    <div className={styles.bottomSpacer}/>
                 </div>
             </main>
         </div>
