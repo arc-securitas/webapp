@@ -5,7 +5,7 @@ The authentication service used by the application is Auth0. The application Mon
 1. Navigate to Auth0 Dashboard and sign in with appropriate credentials
 2. Select Applications -> Applications in the left navigation bar
 3. Click on the Create Application in the top right
-4. **TODO.....IDK MUCH ABOUT THE PROCESS THAT WAS FOLLOWED**
+4. **<mark>TODO.....IDK MUCH ABOUT THE PROCESS THAT WAS FOLLOWED</mark>**
 
 Alternatively, follow Auth0's get started guide: [Auth0 Quickstarts](https://auth0.com/docs/get-started)
 
