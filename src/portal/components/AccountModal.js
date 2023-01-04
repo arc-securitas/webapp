@@ -6,12 +6,16 @@ import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import Modal from '@mui/material/Modal';
 
+import { useAuth0 } from "@auth0/auth0-react";
+
 const AccountModal = (props) => {
     const [open, setOpen] = React.useState(false);
     const [firstName, setFirstName] = React.useState(props.firstName);
     const [middleName, setMiddleName] = React.useState(props.middleName);
     const [lastName, setLastName] = React.useState(props.lastName);
     const [phoneNumber, setPhoneNumber] = React.useState(props.phoneNumber);
+    const { user } = useAuth0();
+
     const handleOpen = () => {
         setOpen(true);
     };
@@ -20,8 +24,24 @@ const AccountModal = (props) => {
         setOpen(false);
     }
 
-    const saveChanges = () => {
-        alert("saved");
+    async function saveChanges() {
+        let response;
+        if (middleName) {
+            let url = `/managers/update/${user.email}/${firstName}/${middleName}/${lastName}/${phoneNumber}`;
+            response = await fetch(url, {method: 'POST'});
+        } else {
+            let url = `/managers/update/${user.email}/${firstName}/${lastName}/${phoneNumber}`;
+            response = await fetch(url, {method: 'POST'});
+        }
+
+        if (!response.ok) {
+            const message = `An error occurred: ${response.statusText}`;
+            window.alert(message);
+            return;
+        }
+
+        console.log(await response.json());
+
         handleClose();
     }
 
