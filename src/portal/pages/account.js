@@ -3,6 +3,7 @@ import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
 import styles from './account.module.css';
+import AccountModal from '../components/AccountModal.js';
 
 const Agents = () => {
     return (
@@ -24,6 +25,7 @@ const Agents = () => {
                         <div className={styles.subtext}>John Doe</div>
                       </div>
                       <button>Change</button>
+                      <AccountModal firstName="Logan" middleName="" lastName="Wang" phoneNumber="1234567890" />
                     </div>
                     <div clasName={styles.horizontal} />
                     <div className={styles.row}>
