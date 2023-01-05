@@ -59,41 +59,20 @@ const Agents = () => {
 					{/* Insert all main content below header here */}
 					<div className={styles.center}>
 					  <div className={styles.column}>
-						<div className={styles.header}>Account Settings</div>
-						<div clasName={styles.horizontal} />
-						<div className={styles.row}>
-						  <div className={styles.column}>
-							<div className={styles.title}>Name</div>
-							<div className={styles.subtext}>{`${user_metadata.firstName} ${user_metadata.middleName} ${user_metadata.lastName}`}</div>
-						  </div>
-						  <AccountModal firstName={user_metadata.firstName} middleName={user_metadata.middleName} lastName={user_metadata.lastName} phoneNumber={user_metadata.phoneNumber} />
-						</div>
-						<div clasName={styles.horizontal} />
-						<div className={styles.row}>
-						  <div className={styles.column}>
-							<div className={styles.title}>Phone Number</div>
-							<div className={styles.subtext}>{user_metadata.phoneNumber}</div>
-						  </div>
-						</div>
-						<div clasName={styles.horizontal} />
-						<div className={styles.row}>
-						  <div className={styles.column}>
-							<div className={styles.title}>Password</div>
-							<div className={styles.subtext}>Current password strength: Strong</div>
-						  </div>
-						</div>
-						<div clasName={styles.horizontal} />
-					  </div>
-					  <div className={styles.column}>
-						<div className={styles.header}>Edit Plan</div>
-						<div clasName={styles.horizontal} />
-						<div className={styles.row}>
-						  <div className={styles.column}>
-							<div className={styles.title}>Current Plan</div>
-							<div className={styles.subtext}>Basic</div>
-						  </div>
-						</div>
-						<div clasName={styles.horizontal} />
+							<div className={styles.row}>
+								<div className={styles.header}>Account Information</div>
+								<AccountModal firstName={user_metadata.firstName} middleName={user_metadata.middleName} lastName={user_metadata.lastName} phoneNumber={user_metadata.phoneNumber} />
+							</div>
+							<div className={styles.horizontal} />
+							<div className={styles.pair}>
+								<div className={styles.title}>Name</div>
+								<div className={styles.subtext}>{`${user_metadata.firstName} ${user_metadata.middleName} ${user_metadata.lastName}`}</div>
+							</div>
+							<div className={styles.horizontal} />
+							<div className={styles.pair}>
+								<div className={styles.title}>Phone Number</div>
+								<div className={styles.subtext}>{user_metadata.phoneNumber}</div>
+							</div>
 					  </div>
 					</div>
 				</main>

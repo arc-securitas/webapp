@@ -50,6 +50,9 @@ const AccountModal = (props) => {
             <Button onClick={handleOpen} variant="text">EDIT</Button>
 
             <Modal
+                disableEnforceFocus
+                disableAutoFocus
+                disableScrollLock
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="child-modal-title"
@@ -74,18 +77,15 @@ const AccountModal = (props) => {
                     background: '#FFFFFF',
                     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                     borderRadius: '10px',
-                    pt: 2,
-                    px: 4,
-                    pb: 3,
                 }}>
-                    <div className={styles.column}>
+                    <div className={`${styles.column} ${styles.font}`}>
                         <h2 className={styles.title}>Update Account Information</h2>
                         <div className={styles.inputPair}>
                             <div>First Name</div>
                             <input className={styles.input} type="text" name="First Name" onChange={(e) => setFirstName(e.target.value)} value={firstName} placeholder="First Name" />
                         </div>
                         <div className={styles.inputPair}>
-                            <div>Middle Name</div>
+                            <div>Middle Name (optional)</div>
                             <input className={styles.input} type="text" name="Middle Name" onChange={(e) => setMiddleName(e.target.value)} value={middleName} placeholder="Middle Name" />
                         </div>
                         <div className={styles.inputPair}>
