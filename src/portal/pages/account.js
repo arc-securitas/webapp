@@ -1,66 +1,105 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
 import styles from './account.module.css';
 import AccountModal from '../components/AccountModal.js';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Agents = () => {
-    return (
-        <div className={portalStyles.portal}>
-            <div className={portalStyles.nav}><PortalNav page="Agents"/></div>
-            <main className={portalStyles.main}>
-                <PortalHeader>
-                    <PeopleSvg />
-                    Manage Account
-                </PortalHeader>
-                {/* Insert all main content below header here */}
-                <div className={styles.center}>
-                  <div className={styles.column}>
-                    <div className={styles.header}>Account Settings</div>
-                    <div clasName={styles.horizontal} />
-                    <div className={styles.row}>
-                      <div className={styles.column}>
-                        <div className={styles.title}>Name</div>
-                        <div className={styles.subtext}>John Doe</div>
-                      </div>
-                      <button>Change</button>
-                      <AccountModal firstName="Logan" middleName="" lastName="Wang" phoneNumber="1234567890" />
-                    </div>
-                    <div clasName={styles.horizontal} />
-                    <div className={styles.row}>
-                      <div className={styles.column}>
-                        <div className={styles.title}>Phone Number</div>
-                        <div className={styles.subtext}>123-456-7890</div>
-                      </div>
-                      <button>Change</button>
-                    </div>
-                    <div clasName={styles.horizontal} />
-                    <div className={styles.row}>
-                      <div className={styles.column}>
-                        <div className={styles.title}>Password</div>
-                        <div className={styles.subtext}>Current password strength: Strong</div>
-                      </div>
-                      <button>Change</button>
-                    </div>
-                    <div clasName={styles.horizontal} />
-                  </div>
-                  <div className={styles.column}>
-                    <div className={styles.header}>Edit Plan</div>
-                    <div clasName={styles.horizontal} />
-                    <div className={styles.row}>
-                      <div className={styles.column}>
-                        <div className={styles.title}>Current Plan</div>
-                        <div className={styles.subtext}>Basic</div>
-                      </div>
-                      <button>Change</button>
-                    </div>
-                    <div clasName={styles.horizontal} />
-                  </div>
-                </div>
-            </main>
-        </div>
-    )
+	const [data, setData] = useState();
+	// const [firstName, setFirstName] = useState("");
+	// const [middleName, setMiddleName] = useState("");
+	// const [lastName, setLastName] = useState("");
+	// const [phoneNumber, setPhoneNumber] = useState("");
+	const { user } = useAuth0();
+
+	async function getRecords(user) {
+		if (user) {
+			const response = await fetch(`/managers/${user.email}`);
+
+			if (!response.ok) {
+                const message = `An error occurred: ${response.statusText}`;
+                window.alert(message);
+                return;
+            }
+
+			console.log(data);
+			setData(await response.json());
+		}
+	}
+
+	useEffect(() => {
+		getRecords(user);
+	}, [user]);
+
+	if (data === undefined) {
+		return (
+			<div className={portalStyles.portal}>
+				<div className={portalStyles.nav}><PortalNav page="Agents"/></div>
+				<main className={portalStyles.main}>
+					<PortalHeader>
+						<PeopleSvg />
+						Manage Account
+					</PortalHeader>
+					<div>Loading...</div>
+				</main>
+			</div>
+		)
+	} else {
+		let user_metadata = data[0].user_metadata;
+		return (
+			<div className={portalStyles.portal}>
+				<div className={portalStyles.nav}><PortalNav page="Agents"/></div>
+				<main className={portalStyles.main}>
+					<PortalHeader>
+						<PeopleSvg />
+						Manage Account
+					</PortalHeader>
+					{/* Insert all main content below header here */}
+					<div className={styles.center}>
+					  <div className={styles.column}>
+						<div className={styles.header}>Account Settings</div>
+						<div clasName={styles.horizontal} />
+						<div className={styles.row}>
+						  <div className={styles.column}>
+							<div className={styles.title}>Name</div>
+							<div className={styles.subtext}>{`${user_metadata.firstName} ${user_metadata.middleName} ${user_metadata.lastName}`}</div>
+						  </div>
+						  <AccountModal firstName={user_metadata.firstName} middleName={user_metadata.middleName} lastName={user_metadata.lastName} phoneNumber={user_metadata.phoneNumber} />
+						</div>
+						<div clasName={styles.horizontal} />
+						<div className={styles.row}>
+						  <div className={styles.column}>
+							<div className={styles.title}>Phone Number</div>
+							<div className={styles.subtext}>{user_metadata.phoneNumber}</div>
+						  </div>
+						</div>
+						<div clasName={styles.horizontal} />
+						<div className={styles.row}>
+						  <div className={styles.column}>
+							<div className={styles.title}>Password</div>
+							<div className={styles.subtext}>Current password strength: Strong</div>
+						  </div>
+						</div>
+						<div clasName={styles.horizontal} />
+					  </div>
+					  <div className={styles.column}>
+						<div className={styles.header}>Edit Plan</div>
+						<div clasName={styles.horizontal} />
+						<div className={styles.row}>
+						  <div className={styles.column}>
+							<div className={styles.title}>Current Plan</div>
+							<div className={styles.subtext}>Basic</div>
+						  </div>
+						</div>
+						<div clasName={styles.horizontal} />
+					  </div>
+					</div>
+				</main>
+			</div>
+		)
+	}
 }
 
 export default Agents;
