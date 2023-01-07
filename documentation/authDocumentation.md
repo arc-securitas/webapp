@@ -9,6 +9,13 @@ The authentication service used by the application is Auth0. The application Mon
 
 Alternatively, follow Auth0's get started guide: [Auth0 Quickstarts](https://auth0.com/docs/get-started)
 
+## Enable/Disable Google Auth Option
+1. Navigate to Auth0 Dashboard and sign in with appropriate credentials.
+2. Select Applications -> Applications in the left navigation bar.
+3. Select the desired application.
+4. In the Connections tab, scroll down to the Social section 
+5. Toggle the Google authentication option (google-oauth) on or off based on the desired authentication
+
 ## Session Management Settings
 1. Navigate to Auth0 Dashboard and sign in with appropriate credentials.
 2. Click on Setting in the left navigation bar.
@@ -199,6 +206,68 @@ validator: function() {
     };
   }
 }   
+```
+
+## Using Auth0 in Development
+1. Open up the file where Auth0 needs to be used.
+2. Import Auth0 using the following line: ```import { useAuth0 } from "@auth0/auth0-react";```.
+3. Set up variables to handle authentication state using the Auth0 hook: ```const { user, isAuthenticated, isLoading} = useAuth0();```. This step should be done inside the React component for that file. Look at the Auth0 documentation to determine the purpose of these variables.
+4. Use the variables set up in the previous step in code logic.
+
+### Example 1: Check whether a person is authenticated before displaying the page
+```
+// Overall rendering function for entire page
+// displayPage() is called in the React Component's return function
+function displayPage() {
+    if (!isAuthenticated && !isLoading) { // if user not logged in, display error msg
+        return <h1>Error: Unauthorized Acess - Please log in</h1>;
+    }
+
+    if (loading || isLoading) {  // Loading message
+        return (
+            // code for page header
+            // code for Loading message
+        );
+    }
+
+    if (isAuthenticated) { // if user is authenticated correctly, display page
+        return (
+            // code for page header
+            // code for rest of page
+        );
+    }
+}
+```
+
+### Example 2: Using Auth0 user's detail in a database query
+```
+// Fetches an agent based on their unique ID
+async function fetchAgent(agentID) {
+    const response = await fetch(`/agents/${user.email}/${agentID}`);
+
+    // rest of code logic here
+
+    return agent;
+}
+```
+
+### Example 3: Checking if person is authenticated in UseEffect hook with the purpose of not running queries if not authenticated
+```
+// Use Effect called on refresh and changes to the several variables including
+//      Auth0's isLoading & isAuthenticated boolean values
+useEffect(() => {
+    // functions definitions
+    // can be placed in useEffect or outside of use effect
+
+    // Check if Auth0 is loading or authenticated
+    // Then, run queries
+    if (!isLoading && isAuthenticated) {
+        // call functions and queries here
+    }
+
+    return;
+
+}, [/**  other variables */,  isLoading, isAuthenticated]);
 ```
 
 ## Helpful Links
