@@ -274,6 +274,9 @@ useEffect(() => {
 - [Auth0 Quickstarts](https://auth0.com/docs/get-started)
   - Official Auth0 getting started guide for connecting an application with Auth0
 
+- [Auth0 React](https://auth0.github.io/auth0-react/)
+  - Official Auth0 documentation for using Auth0 with React applications
+
 - [Configure Session Lifetime Settings](https://auth0.com/docs/manage-users/sessions/configure-session-lifetime-settings)
   - Official Auth0 guide for session management settings
 
