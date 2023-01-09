@@ -2,16 +2,12 @@ import React, { useEffect, useState } from "react";
 import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
-import styles from './account.module.css';
+import styles from './profile.module.css';
 import AccountModal from '../components/AccountModal.js';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const Agents = () => {
+const Profile = () => {
 	const [data, setData] = useState();
-	// const [firstName, setFirstName] = useState("");
-	// const [middleName, setMiddleName] = useState("");
-	// const [lastName, setLastName] = useState("");
-	// const [phoneNumber, setPhoneNumber] = useState("");
 	const { user } = useAuth0();
 
 	async function getRecords(user) {
@@ -39,8 +35,8 @@ const Agents = () => {
 				<div className={portalStyles.nav}><PortalNav page="Agents"/></div>
 				<main className={portalStyles.main}>
 					<PortalHeader>
-						<PeopleSvg />
-						Manage Account
+						<ProfileSvg />
+						Profile
 					</PortalHeader>
 					<div>Loading...</div>
 				</main>
@@ -50,11 +46,11 @@ const Agents = () => {
 		let user_metadata = data[0].user_metadata;
 		return (
 			<div className={portalStyles.portal}>
-				<div className={portalStyles.nav}><PortalNav page="Agents"/></div>
+				<div className={portalStyles.nav}><PortalNav page="Profile"/></div>
 				<main className={portalStyles.main}>
 					<PortalHeader>
-						<PeopleSvg />
-						Manage Account
+						<ProfileSvg />
+						Profile
 					</PortalHeader>
 					{/* Insert all main content below header here */}
 					<div className={styles.center}>
@@ -81,14 +77,16 @@ const Agents = () => {
 	}
 }
 
-export default Agents;
+export default Profile;
 
-class PeopleSvg extends React.Component {
-    render() {
-        return (
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16.5 13C15.3 13 13.43 13.34 12 14C10.57 13.33 8.7 13 7.5 13C5.33 13 1 14.08 1 16.25V19H23V16.25C23 14.08 18.67 13 16.5 13ZM12.5 17.5H2.5V16.25C2.5 15.71 5.06 14.5 7.5 14.5C9.94 14.5 12.5 15.71 12.5 16.25V17.5ZM21.5 17.5H14V16.25C14 15.79 13.8 15.39 13.48 15.03C14.36 14.73 15.44 14.5 16.5 14.5C18.94 14.5 21.5 15.71 21.5 16.25V17.5ZM7.5 12C9.43 12 11 10.43 11 8.5C11 6.57 9.43 5 7.5 5C5.57 5 4 6.57 4 8.5C4 10.43 5.57 12 7.5 12ZM7.5 6.5C8.6 6.5 9.5 7.4 9.5 8.5C9.5 9.6 8.6 10.5 7.5 10.5C6.4 10.5 5.5 9.6 5.5 8.5C5.5 7.4 6.4 6.5 7.5 6.5ZM16.5 12C18.43 12 20 10.43 20 8.5C20 6.57 18.43 5 16.5 5C14.57 5 13 6.57 13 8.5C13 10.43 14.57 12 16.5 12ZM16.5 6.5C17.6 6.5 18.5 7.4 18.5 8.5C18.5 9.6 17.6 10.5 16.5 10.5C15.4 10.5 14.5 9.6 14.5 8.5C14.5 7.4 15.4 6.5 16.5 6.5Z" fill="black"/>
-            </svg>
-        );
-    }
-}
+class ProfileSvg extends React.Component {
+	render() {
+	  return (
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		  <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+		  <path d="M17.2165 19.3323C15.9348 17.9008 14.0725 17 11.9998 17C9.92718 17 8.06492 17.9008 6.7832 19.3323" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+		  <path d="M12 14C13.6569 14 15 12.6569 15 11C15 9.34315 13.6569 8 12 8C10.3431 8 9 9.34315 9 11C9 12.6569 10.3431 14 12 14Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+		</svg>
+	  );
+	}
+  }

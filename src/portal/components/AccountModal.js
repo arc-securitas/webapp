@@ -43,6 +43,7 @@ const AccountModal = (props) => {
         console.log(await response.json());
 
         handleClose();
+        window.location.reload();
     }
 
     return (
