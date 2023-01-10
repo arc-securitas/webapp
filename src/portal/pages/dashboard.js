@@ -14,6 +14,12 @@ import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
 import styles from './dashboard.module.css';
 import { Link } from 'react-router-dom';
 
+/*
+  The dashboard!
+  ------------------------------------------------------------------------------
+  Accessed through the path "/portal/dashboard". See App.js for Route definitions.
+*/
+
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Dashboard = () => {
@@ -31,7 +37,7 @@ const Dashboard = () => {
     // Auth0 info
     const { user, isAuthenticated, isLoading} = useAuth0();
 
-    // Use Effect called on refresh and changes to the following: 
+    // Use Effect called on refresh and changes to the following:
     //      safetyAlerts array length, agentsMap map size, and
     //      Auth0's isLoading & isAuthenticated boolean values
     useEffect(() => {
@@ -123,7 +129,7 @@ const Dashboard = () => {
             getAgents();
             SetLoading(false);
         }
-  
+
         return;
 
     }, [safetyAlerts.length, agentsMap.size, isLoading, isAuthenticated]);

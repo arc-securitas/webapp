@@ -4,45 +4,83 @@ import logoPic from "../../images/ArcLogoName.svg";
 import * as React from 'react';
 import { ReactComponent as ExitIcon } from '../images/Exit.svg';
 
+/*
+	Side navigation bar for portal.
+	Basically a container for the individual tabs.
+	---------------------------------------------
+	EXAMPLE:
+	<PortalNav page="Agents" />
+	---------------------------------------------
+	Just plop in the component and specify which page is active.
+	If you want to add a new tab, see below to <NavLabel>.
+*/
 export default function PortalNav(props) {
   return (
-      <div className={styles.portalNav}>
-        <Link to={"/portal/Dashboard"} style={{ margin: '0' }}>
-          <img src={logoPic} alt="Arc Security Logo" className={styles.logo}/>
-        </Link>
-        <NavLabel link={"/portal/Dashboard"} isActive={props.page === 'Dashboard'}>
-          <PieChartSvg color={props.page === 'Dashboard' ? 'white' : 'black'}/>
-          <div className={styles.labelText}>Dashboard</div>
-        </NavLabel>
-        <NavLabel link={"/portal/Alerts"} isActive={props.page === 'Alerts'}>
-          <AlertSvg color={props.page === 'Alerts' ? 'white' : 'black'}/>
-          <div className={styles.labelText}>Safety Alerts</div>
-        </NavLabel>
-        <NavLabel link={"/portal/Events"} isActive={props.page === 'Events'}>
-          <CalendarSvg color={props.page === 'Events' ? 'white' : 'black'}/>
-          <div className={styles.labelText}>Events</div>
-        </NavLabel>
-        <NavLabel link={"/portal/Agents"} isActive={props.page === 'Agents'}>
-          <PeopleSvg color={props.page === 'Agents' ? 'white' : 'black'}/>
-          <div className={styles.labelText}>Manage Agents</div>
-        </NavLabel>
-        <NavLabel link={"/portal/Payment"} isActive={props.page === 'Payment'}>
-          <PaymentSvg color={props.page === 'Payment' ? 'white' : 'black'}/>
-          <div className={styles.labelText}>Payment</div>
-        </NavLabel>
-        <NavLabel link={"/portal/Profile"} isActive={props.page === 'Profile'}>
-          <ProfileSvg color={props.page === 'Profile' ? 'white' : 'black'}/>
-          <div className={styles.labelText}>Profile</div>
-        </NavLabel>
-        <div className={styles.gap}/>
-        <NavLabel link={"/"} isActive={false}>
-          <ExitIcon />
-          <div className={styles.labelText}>Exit Portal</div>
-        </NavLabel>
-      </div>
+		<div className={styles.portalNav}>
+			{/* Logo */}
+			<Link to={"/portal/Dashboard"} style={{ margin: '0' }}>
+				<img src={logoPic} alt="Arc Security Logo" className={styles.logo}/>
+			</Link>
+			{/* Dashboard */}
+			<NavLabel link={"/portal/Dashboard"} isActive={props.page === 'Dashboard'}>
+				<PieChartSvg color={props.page === 'Dashboard' ? 'white' : 'black'}/>
+				<div className={styles.labelText}>Dashboard</div>
+			</NavLabel>
+			{/* Safety Alerts */}
+			<NavLabel link={"/portal/Alerts"} isActive={props.page === 'Alerts'}>
+				<AlertSvg color={props.page === 'Alerts' ? 'white' : 'black'}/>
+				<div className={styles.labelText}>Safety Alerts</div>
+			</NavLabel>
+			{/* Events */}
+			<NavLabel link={"/portal/Events"} isActive={props.page === 'Events'}>
+				<CalendarSvg color={props.page === 'Events' ? 'white' : 'black'}/>
+				<div className={styles.labelText}>Events</div>
+			</NavLabel>
+			{/* Manage Agents */}
+			<NavLabel link={"/portal/Agents"} isActive={props.page === 'Agents'}>
+				<PeopleSvg color={props.page === 'Agents' ? 'white' : 'black'}/>
+				<div className={styles.labelText}>Manage Agents</div>
+			</NavLabel>
+			{/* Payment */}
+			<NavLabel link={"/portal/Payment"} isActive={props.page === 'Payment'}>
+				<PaymentSvg color={props.page === 'Payment' ? 'white' : 'black'}/>
+				<div className={styles.labelText}>Payment</div>
+			</NavLabel>
+			{/* Profile */}
+			<NavLabel link={"/portal/Profile"} isActive={props.page === 'Profile'}>
+				<ProfileSvg color={props.page === 'Profile' ? 'white' : 'black'}/>
+				<div className={styles.labelText}>Profile</div>
+			</NavLabel>
+
+			{/* Separates top from bottom */}
+			<div className={styles.gap}/>
+
+			{/* Exit Portal */}
+			<NavLabel link={"/"} isActive={false}>
+				<ExitIcon />
+				<div className={styles.labelText}>Exit Portal</div>
+			</NavLabel>
+		</div>
   );
 }
 
+/*
+	One of the tabs in the PortalNav.
+	------------------------------------------------
+	EXAMPLE:
+	<NavLabel link={"/portal/Agents"} isActive={props.page === 'Agents'}>
+		<PeopleSvg color={props.page === 'Agents' ? 'white' : 'black'}/>
+		<div className={styles.labelText}>Manage Agents</div>
+	</NavLabel>
+	------------------------------------------------
+	The |link| prop tells ReactRouter where to send the user when they click
+	on this tab.
+	The |isActive| prop will color the tab blue if true, white if false.
+	The content inside is what is actually displayed.
+
+	Continuing from the example above, because props.page is "Agents",
+	this tab will be blue after the user clicks on it.
+*/
 class NavLabel extends React.Component {
   constructor(props) {
     super(props);
@@ -59,6 +97,13 @@ class NavLabel extends React.Component {
   }
 }
 
+
+
+// Warning, bad style below this point. These can probably be refactored elsewhere.
+// I think this was done to easily change the color of the |stroke| and |fill| properties
+// of the svgs, but it is very not reusable and not modular. Feel free to change if
+// it bothers you, or don't if you are as lazy as I was! It does work, at least.
+//	-Logan
 class PieChartSvg extends React.Component {
   constructor(props) {
     super(props);

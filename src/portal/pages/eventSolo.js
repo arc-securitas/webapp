@@ -11,6 +11,13 @@ import PortalHeader from '../components/PortalHeader.js';
 import PortalNav from '../components/PortalNav.js';
 import { useParams } from 'react-router-dom';
 
+/*
+  The detailed view of a particular event.
+  ------------------------------------------------------------------------------
+  Accessed through the path "/portal/events/:id", where |id| is the MongoDB _id
+  associated with the event to view. See App.js for Route definitions.
+*/
+
 const EventSolo = () => {
   const { id } = useParams();
   const [eventData, setEventData] = useState([]);

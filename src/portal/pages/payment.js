@@ -7,6 +7,12 @@ import { ReactComponent as Cross } from '../images/Cross.svg';
 import portalStyles from './portal.module.css';
 import styles from './payment.module.css';
 
+/*
+  Page displaying payment information.
+  ------------------------------------------------------------------------------
+  Accessed through the path "/portal/payment". See App.js for Route definitions.
+*/
+
 const Payment = () => {
     return (
         <div className={portalStyles.portal}>

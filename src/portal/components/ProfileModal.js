@@ -1,4 +1,4 @@
-import styles from "./AccountModal.module.css";
+import styles from "./ProfileModal.module.css";
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -8,7 +8,20 @@ import Modal from '@mui/material/Modal';
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-const AccountModal = (props) => {
+/*
+    Popup for the Profile Page.
+    ---------------------------------------------
+    <ProfileModal
+        firstName="Spongebob"
+        middleName=""
+        lastName="Squarepants"
+        phoneNumber="555-5555" />
+    ---------------------------------------------
+    Each prop corresponds to an input field in the popup, where the value passed
+    in is the filler value.
+*/
+
+const ProfileModal = (props) => {
     const [open, setOpen] = React.useState(false);
     const [firstName, setFirstName] = React.useState(props.firstName);
     const [middleName, setMiddleName] = React.useState(props.middleName);
@@ -39,8 +52,6 @@ const AccountModal = (props) => {
             window.alert(message);
             return;
         }
-
-        console.log(await response.json());
 
         handleClose();
         window.location.reload();
@@ -137,4 +148,4 @@ const AccountModal = (props) => {
     );
 }
 
-export default AccountModal;
+export default ProfileModal;

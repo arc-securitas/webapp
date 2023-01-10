@@ -3,8 +3,14 @@ import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
 import styles from './profile.module.css';
-import AccountModal from '../components/AccountModal.js';
+import ProfileModal from '../components/ProfileModal.js';
 import { useAuth0 } from '@auth0/auth0-react';
+
+/*
+  The profile page :)
+  ------------------------------------------------------------------------------
+  Accessed through the path "/portal/profile". See App.js for Route definitions.
+*/
 
 const Profile = () => {
 	const [data, setData] = useState();
@@ -20,7 +26,6 @@ const Profile = () => {
                 return;
             }
 
-			console.log(data);
 			setData(await response.json());
 		}
 	}
@@ -29,6 +34,7 @@ const Profile = () => {
 		getRecords(user);
 	}, [user]);
 
+	// If data is still loading in, display loading.
 	if (data === undefined) {
 		return (
 			<div className={portalStyles.portal}>
@@ -57,7 +63,7 @@ const Profile = () => {
 					  <div className={styles.column}>
 							<div className={styles.row}>
 								<div className={styles.header}>Account Information</div>
-								<AccountModal firstName={user_metadata.firstName} middleName={user_metadata.middleName} lastName={user_metadata.lastName} phoneNumber={user_metadata.phoneNumber} />
+								<ProfileModal firstName={user_metadata.firstName} middleName={user_metadata.middleName} lastName={user_metadata.lastName} phoneNumber={user_metadata.phoneNumber} />
 							</div>
 							<div className={styles.horizontal} />
 							<div className={styles.pair}>
