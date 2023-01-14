@@ -2,9 +2,8 @@ import React from "react";
 import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
-import { useAuth0 } from "@auth0/auth0-react";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
@@ -34,13 +33,13 @@ const Record = (props) => (
 );
 
 const RecordTable = () => {
-    const { user } = useAuth0();
     const [records, setRecords] = useState([]);
 
     // This method fetches the records from the database.
     useEffect(() => {
         async function getRecords() {
-            const response = await fetch(`/agents/${user.email}`)
+            const response = await fetch(`/agents/`);
+
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
                 window.alert(message);
