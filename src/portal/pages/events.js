@@ -9,6 +9,12 @@ import Seesaw from '../components/Seesaw.js';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from 'react-router-dom';
 
+/*
+  List of all events associated with user.
+  ------------------------------------------------------------------------------
+  Accessed through the path "/portal/events". See App.js for Route definitions.
+*/
+
 const Events = () => {
     const [records, setRecords] = useState([]);
     const [startDay, setStartDay] = useState(new Date());

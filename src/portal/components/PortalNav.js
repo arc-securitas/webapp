@@ -4,41 +4,83 @@ import logoPic from "../../images/ArcLogoName.svg";
 import * as React from 'react';
 import { ReactComponent as ExitIcon } from '../images/Exit.svg';
 
+/*
+	Side navigation bar for portal.
+	Basically a container for the individual tabs.
+	---------------------------------------------
+	EXAMPLE:
+	<PortalNav page="Agents" />
+	---------------------------------------------
+	Just plop in the component and specify which page is active.
+	If you want to add a new tab, see below to <NavLabel>.
+*/
 export default function PortalNav(props) {
   return (
-      <div className={styles.portalNav}>
-        <Link to={"/portal/Dashboard"} style={{ margin: '0' }}>
-          <img src={logoPic} alt="Arc Security Logo" className={styles.logo}/>
-        </Link>
-        <NavLabel link={"/portal/Dashboard"} isActive={props.page === 'Dashboard'}>
-          <PieChartSvg color={props.page === 'Dashboard' ? 'white' : 'black'}/>
-          <div className={styles.labelText}>Dashboard</div>
-        </NavLabel>
-        <NavLabel link={"/portal/Alerts"} isActive={props.page === 'Alerts'}>
-          <AlertSvg color={props.page === 'Alerts' ? 'white' : 'black'}/>
-          <div className={styles.labelText}>Safety Alerts</div>
-        </NavLabel>
-        <NavLabel link={"/portal/Events"} isActive={props.page === 'Events'}>
-          <CalendarSvg color={props.page === 'Events' ? 'white' : 'black'}/>
-          <div className={styles.labelText}>Events</div>
-        </NavLabel>
-        <NavLabel link={"/portal/Agents"} isActive={props.page === 'Agents'}>
-          <PeopleSvg color={props.page === 'Agents' ? 'white' : 'black'}/>
-          <div className={styles.labelText}>Manage Agents</div>
-        </NavLabel>
-        <NavLabel link={"/portal/Payment"} isActive={props.page === 'Payment'}>
-          <PaymentSvg color={props.page === 'Payment' ? 'white' : 'black'}/>
-          <div className={styles.labelText}>Payment</div>
-        </NavLabel>
-        <div className={styles.gap}/>
-        <NavLabel link={"/"} isActive={false}>
-          <ExitIcon />
-          <div className={styles.labelText}>Exit Portal</div>
-        </NavLabel>
-      </div>
+		<div className={styles.portalNav}>
+			{/* Logo */}
+			<Link to={"/portal/Dashboard"} style={{ margin: '0' }}>
+				<img src={logoPic} alt="Arc Security Logo" className={styles.logo}/>
+			</Link>
+			{/* Dashboard */}
+			<NavLabel link={"/portal/Dashboard"} isActive={props.page === 'Dashboard'}>
+				<PieChartSvg color={props.page === 'Dashboard' ? 'white' : 'black'}/>
+				<div className={styles.labelText}>Dashboard</div>
+			</NavLabel>
+			{/* Safety Alerts */}
+			<NavLabel link={"/portal/Alerts"} isActive={props.page === 'Alerts'}>
+				<AlertSvg color={props.page === 'Alerts' ? 'white' : 'black'}/>
+				<div className={styles.labelText}>Safety Alerts</div>
+			</NavLabel>
+			{/* Events */}
+			<NavLabel link={"/portal/Events"} isActive={props.page === 'Events'}>
+				<CalendarSvg color={props.page === 'Events' ? 'white' : 'black'}/>
+				<div className={styles.labelText}>Events</div>
+			</NavLabel>
+			{/* Manage Agents */}
+			<NavLabel link={"/portal/Agents"} isActive={props.page === 'Agents'}>
+				<PeopleSvg color={props.page === 'Agents' ? 'white' : 'black'}/>
+				<div className={styles.labelText}>Manage Agents</div>
+			</NavLabel>
+			{/* Payment */}
+			<NavLabel link={"/portal/Payment"} isActive={props.page === 'Payment'}>
+				<PaymentSvg color={props.page === 'Payment' ? 'white' : 'black'}/>
+				<div className={styles.labelText}>Payment</div>
+			</NavLabel>
+			{/* Profile */}
+			<NavLabel link={"/portal/Profile"} isActive={props.page === 'Profile'}>
+				<ProfileSvg color={props.page === 'Profile' ? 'white' : 'black'}/>
+				<div className={styles.labelText}>Profile</div>
+			</NavLabel>
+
+			{/* Separates top from bottom */}
+			<div className={styles.gap}/>
+
+			{/* Exit Portal */}
+			<NavLabel link={"/"} isActive={false}>
+				<ExitIcon />
+				<div className={styles.labelText}>Exit Portal</div>
+			</NavLabel>
+		</div>
   );
 }
 
+/*
+	One of the tabs in the PortalNav.
+	------------------------------------------------
+	EXAMPLE:
+	<NavLabel link={"/portal/Agents"} isActive={props.page === 'Agents'}>
+		<PeopleSvg color={props.page === 'Agents' ? 'white' : 'black'}/>
+		<div className={styles.labelText}>Manage Agents</div>
+	</NavLabel>
+	------------------------------------------------
+	The |link| prop tells ReactRouter where to send the user when they click
+	on this tab.
+	The |isActive| prop will color the tab blue if true, white if false.
+	The content inside is what is actually displayed.
+
+	Continuing from the example above, because props.page is "Agents",
+	this tab will be blue after the user clicks on it.
+*/
 class NavLabel extends React.Component {
   constructor(props) {
     super(props);
@@ -55,6 +97,13 @@ class NavLabel extends React.Component {
   }
 }
 
+
+
+// Warning, bad style below this point. These can probably be refactored elsewhere.
+// I think this was done to easily change the color of the |stroke| and |fill| properties
+// of the svgs, but it is very not reusable and not modular. Feel free to change if
+// it bothers you, or don't if you are as lazy as I was! It does work, at least.
+//	-Logan
 class PieChartSvg extends React.Component {
   constructor(props) {
     super(props);
@@ -123,6 +172,22 @@ class PaymentSvg extends React.Component {
     return (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z" fill={this.props.color}/>
+      </svg>
+    );
+  }
+}
+
+class ProfileSvg extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke={this.props.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M17.2165 19.3323C15.9348 17.9008 14.0725 17 11.9998 17C9.92718 17 8.06492 17.9008 6.7832 19.3323" stroke={this.props.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 14C13.6569 14 15 12.6569 15 11C15 9.34315 13.6569 8 12 8C10.3431 8 9 9.34315 9 11C9 12.6569 10.3431 14 12 14Z" stroke={this.props.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     );
   }

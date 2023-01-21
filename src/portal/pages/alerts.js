@@ -14,6 +14,12 @@ import { ReactComponent as RedDot } from '../images/RedDot.svg';
 import { ReactComponent as GrayDot } from '../images/GrayDot.svg';
 import Seesaw from '../components/Seesaw.js';
 
+/*
+  The list of all alerts for all agents managed by the user.
+  ------------------------------------------------------------------------------
+  Accessed through the path "/portal/alerts/". See App.js for Route definitions.
+*/
+
 const Alerts = () => {
     const [loading, setLoading] = useState(true);
     const [agentsMap, setAgentsMap] = useState(new Map());
