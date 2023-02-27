@@ -25,20 +25,31 @@ agentRoutes.route("/agents").get(function (req, res) {
         });
 });
 
+// Get a list of all agents specific to the manager in manageAgents page
+agentRoutes.route("/agents/:managerEmail").get(function (req, res) {
+    let managerEmail = req.params.managerEmail;
+    db_connect
+        .find({managerEmail: managerEmail})
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
+});
+
 
 // Gets a single agent record by id
-agentRoutes.route("/agents/:id").get(function (req, res) {
-    Agent.findById(ObjectId(req.params.id), function (err, result) {
-        if (err) throw err;
-        res.json(result);
-    });
+// agentRoutes.route("/agents/:id").get(function (req, res) {
+//     Agent.findById(ObjectId(req.params.id), function (err, result) {
+//         if (err) throw err;
+//         res.json(result);
+//     });
 
-    // let query = Agent.where({ _id: ObjectId(req.params.id) });
-    // query.findOne(function (err, result) {
-    //     if (err) throw err;
-    //     res.json(result);
-    // });
-});
+//     // let query = Agent.where({ _id: ObjectId(req.params.id) });
+//     // query.findOne(function (err, result) {
+//     //     if (err) throw err;
+//     //     res.json(result);
+//     // });
+// });
 
 agentRoutes.route("/agents/:managerEmail/:id").get(function (req, res) {
     let agentID = ObjectId(req.params.id)

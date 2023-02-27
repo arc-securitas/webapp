@@ -2,6 +2,12 @@ import React from "react";
 import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
+import agentsStyles from './agents.css'
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
+// import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { useEffect, useState } from "react";
@@ -10,16 +16,16 @@ import { Link } from "react-router-dom";
 
 const Record = (props) => (
     <tr>
-        <td>{props.record._id}</td>
-        <td>{props.record.firstName}</td>
-        <td>{props.record.middleName}</td>
-        <td>{props.record.lastName}</td>
+        <td>{props.record.firstName + " " + props.record.lastName}</td>
         <td>{props.record.phoneNumber}</td>
         <td>{props.record.email}</td>
-        <td>{props.record.safetyCode}</td>
-        <td>{props.record.status}</td>
-        <td>{props.record.location}</td>
-        <td><Link className="btn btn-link" to={`/edit/${props.record._id}`}>Edit</Link></td>
+        <td>{props.record._id}</td>
+        <td>
+            <MoreHorizIcon onClick={() => {
+                props.deleteRecord(props.record._id);
+            }}/>
+        </td>
+        {/* <td><Link className="btn btn-link" to={`/edit/${props.record._id}`}>Edit</Link></td>
         <td><Link className="btn btn-link" to={`/addEvent/${props.record._id}`}>Add Event</Link></td>
         <td>
             <button className="btn btn-link"
@@ -29,7 +35,7 @@ const Record = (props) => (
             >
                 Delete
             </button>
-        </td>
+        </td> */}
     </tr>
 );
 
@@ -37,7 +43,13 @@ const RecordTable = () => {
     const { user } = useAuth0();
     const [records, setRecords] = useState([]);
 
+    // displayRecords is the list of records that we want to display 
+    // in the page. All the filtering (search) and categorizing (active / pending / inactive)
+    // happens on displayRecords
+    const [displayRecords, setDisplayRecords] = useState(records);
+
     // This method fetches the records from the database.
+    // and store the list of agents in records
     useEffect(() => {
         async function getRecords() {
             const response = await fetch(`/agents/${user.email}`)
@@ -49,6 +61,7 @@ const RecordTable = () => {
 
             const records = await response.json();
             setRecords(records);
+            setDisplayRecords(records);
         }
 
         getRecords();
@@ -57,24 +70,67 @@ const RecordTable = () => {
     }, [records.length]);
 
 
-    // This method will map out the records on the table
-    function recordList() {
-        return records.map((record) => {
+    // filtering displayRecords to be active
+    const activeRecords = displayRecords.filter(displayRecord => displayRecord.status == "active");
+
+    function activeList() {
+        return activeRecords.map((activeRecords) => {
             return (
                 <Record
-                    record={record}
-                    deleteRecord={() => deleteRecord(record._id)}
-                    key={record._id}
+                    record={activeRecords}
+                    deleteRecord={() => deleteRecord(activeRecords._id)}
+                    key={activeRecords._id}
                 />
             );
         });
     }
 
+    // filtering displayRecords to be pending
+    const pendingRecords = displayRecords.filter(displayRecord => displayRecord.status == "pending");
+
+    function pendingList() {
+        return pendingRecords.map((pendingRecords) => {
+            return (
+                <Record
+                    record={pendingRecords}
+                    deleteRecord={() => deleteRecord(pendingRecords._id)}
+                    key={pendingRecords._id}
+                />
+            );
+        });
+    }
+
+    // filtering displayRecords to be inactive
+    const inactiveRecords = displayRecords.filter(displayRecord => displayRecord.status == "inactive");
+
+    function inactiveList() {
+        return inactiveRecords.map((inactiveRecords) => {
+            return (
+                <Record
+                    record={inactiveRecords}
+                    deleteRecord={() => deleteRecord(inactiveRecords._id)}
+                    key={inactiveRecords._id}
+                />
+            );
+        });
+    }
+
+    // search is for storing input in search bar
+    const [search, setSearch] = useState("");
+
+    const handleSearch = (event) => {
+        event.preventDefault();
+        const searchResults = records.filter(record => `${record.firstName} ${record.lastName}`.includes(search));
+        setDisplayRecords(searchResults);
+    }
+
+    // for create new agents form
     const [form, setForm] = useState({
         firstName: "",
         lastName: "",
         phoneNumber: "",
         email: "",
+        licenseID: "",
     });
     const navigate = useNavigate();
 
@@ -85,6 +141,7 @@ const RecordTable = () => {
         });
     }
 
+    // make a post request to add agents on server
     async function onSubmit(e) {
         e.preventDefault();
 
@@ -103,11 +160,11 @@ const RecordTable = () => {
                 return;
             });
 
-        setForm({ firstName: "", lastName: "", phoneNumber: "", email: "" });
+        setForm({ firstName: "", lastName: "", phoneNumber: "", email: "", licenseID: "" });
         navigate("/");
     }
 
-    // This method will delete a record
+    // make a delete request to delete a record on server
     async function deleteRecord(id) {
         await fetch(`/agents/delete/${id}`, {
             method: "DELETE"
@@ -117,84 +174,134 @@ const RecordTable = () => {
         setRecords(newRecords);
     }
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
         <div>
-            <h3>Record List</h3>
-            <table className="table table-striped" style={{ marginTop: 20 }}>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Middle Name</th>
-                        <th>Last Name</th>
-                        <th>Phone Number</th>
-                        <th>Email</th>
-                        <th>Safety Code</th>
-                        <th>Status</th>
-                        <th>Location</th>
-                        <th>Edit Agent</th>
-                        <th>Add Event</th>
-                        <th>Delete Agent</th>
-                    </tr>
-                </thead>
-                <tbody>{recordList()}</tbody>
-            </table>
+            <div className="container searchbar p-3">
+                <h4>Search Agents</h4>
+                <Form type="submit" onSubmit={handleSearch} >
+                    <input type="text" className="searchAgents" value={search} onChange={(event) => setSearch(event.target.value)} />
+                </Form>
+             </div>
+            
+            <div className="threeTable">
+                <h4>Active</h4>
+                <table className="table" >
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>Email</th>
+                            <th>License ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>{activeList()}</tbody>
+                </table>
 
-            <h3>Create New Record</h3>
-            <form onSubmit={onSubmit}>
-                <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="firstName"
-                        defaultValue={form.firstName}
-                        onChange={(e) => updateForm({ firstName: e.target.value })}
-                    />
-                </div>
+                <h4>Pending</h4>
+                <table className="table" >
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>Email</th>
+                            <th>License ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>{pendingList()}</tbody>
+                </table>
 
-                <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="lastName"
-                        defaultValue={form.lastName}
-                        onChange={(e) => updateForm({ lastName: e.target.value })}
-                    />
-                </div>
+                <h4>Inactive</h4>
+                <table className="table" >
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>Email</th>
+                            <th>License ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>{inactiveList()}</tbody>
+                </table>
+            </div>
 
-                <div className="form-group">
-                    <label htmlFor="phoneNumber">phoneNumber</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="phoneNumber"
-                        defaultValue={form.phoneNumber}
-                        onChange={(e) => updateForm({ phoneNumber: e.target.value })}
-                    />
-                </div>
+            <Button id="add-agent-button" onClick={handleShow}>
+                + Add New Agent
+            </Button>
 
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="email"
-                        defaultValue={form.email}
-                        onChange={(e) => updateForm({ email: e.target.value })}
-                    />
-                </div>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Add New Agent</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={onSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="firstName">First Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="firstName"
+                                defaultValue={form.firstName}
+                                onChange={(e) => updateForm({ firstName: e.target.value })}
+                            />
+                        </div>
 
-                <div className="form-group">
-                    <input
-                        type="submit"
-                        value="Create agent"
-                        className="btn btn-primary"
-                    />
-                </div>
-            </form>
+                        <div className="form-group">
+                            <label htmlFor="lastName">Last Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="lastName"
+                                defaultValue={form.lastName}
+                                onChange={(e) => updateForm({ lastName: e.target.value })}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="phoneNumber">Phone Number</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="phoneNumber"
+                                defaultValue={form.phoneNumber}
+                                onChange={(e) => updateForm({ phoneNumber: e.target.value })}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="email">Email</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="email"
+                                defaultValue={form.email}
+                                onChange={(e) => updateForm({ email: e.target.value })}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="licenseID">License ID</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="licenseID"
+                                defaultValue={form.licenseID}
+                                onChange={(e) => updateForm({ email: e.target.value })}
+                            />
+                        </div>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Cancel
+                </Button>
+                <Button variant="primary" onClick={handleClose}>
+                    Add Agent
+                </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }
