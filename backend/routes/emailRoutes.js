@@ -7,7 +7,7 @@ const express = require("express");
 const emailRoutes = express.Router();
 const Email = require("../schemas/email.js");
 
-emailRoutes.route("/emails/add").post(function (req, res) {
+emailRoutes.route("/api/emails/add").post(function (req, res) {
     console.log("Here");
     let newEmail = new Email();
     if (req.body.email !== undefined) {

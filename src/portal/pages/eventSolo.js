@@ -73,7 +73,7 @@ const EventSolo = () => {
   );
 
   async function getEventData(id) {
-    const response = await fetch(`/events/getById/${id}`);
+    const response = await fetch(`/api/events/getById/${id}`);
 
     if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
@@ -99,7 +99,7 @@ const EventSolo = () => {
   }
 
   async function getAlertData(id) {
-    const response = await fetch(`/alerts/getById/${id}`);
+    const response = await fetch(`/api/alerts/getById/${id}`);
 
     if (!response.ok) {
       const message = `An error occurred: ${response.statusText}`;

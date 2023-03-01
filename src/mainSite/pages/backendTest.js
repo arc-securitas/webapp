@@ -33,7 +33,7 @@ const BackendTest = () => {
     // This method fetches the records from the database.
     useEffect(() => {
         async function getRecords() {
-            const response = await fetch(`/agents/`);
+            const response = await fetch(`/api/agents/`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
@@ -85,7 +85,7 @@ const BackendTest = () => {
         // When a post request is sent to the create url, we'll add a new record to the database.
         const newAgent = { ...form };
 
-        await fetch("/agents/add", {
+        await fetch("/api/agents/add", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -103,7 +103,7 @@ const BackendTest = () => {
 
     // This method will delete a record
     async function deleteRecord(id) {
-        await fetch(`/agents/delete/${id}`, {
+        await fetch(`/api/agents/delete/${id}`, {
             method: "DELETE"
         });
 

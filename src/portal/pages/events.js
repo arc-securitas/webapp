@@ -29,7 +29,7 @@ const Events = () => {
             let date = new Date(d);
             date.setDate(date.getDate() + i);
             // Fetches the events corresponding to a single day
-            const response = await fetch(`/events/getByDate/${user.email}/${date.toISOString().split('T')[0]}`);
+            const response = await fetch(`/api/events/getByDate/${user.email}/${date.toISOString().split('T')[0]}`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;

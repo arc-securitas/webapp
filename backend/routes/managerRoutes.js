@@ -8,7 +8,7 @@ const ObjectId = require("mongodb").ObjectId;
 let db_connect = mongoose.connection.collection("managers");
 
 // Get all managers
-managerRoutes.route("/managers").get(function (req, res) {
+managerRoutes.route("/api/managers").get(function (req, res) {
     db_connect.find().toArray(function (err, result) {
         if (err) throw err;
         res.json(result);
@@ -16,7 +16,7 @@ managerRoutes.route("/managers").get(function (req, res) {
 });
 
 // Get manager matching given email
-managerRoutes.route("/managers/:email").get(function (req, res) {
+managerRoutes.route("/api/managers/:email").get(function (req, res) {
     db_connect.find({email: req.params.email}).toArray(function (err, result) {
         if (err) throw err;
         res.json(result);
@@ -24,7 +24,7 @@ managerRoutes.route("/managers/:email").get(function (req, res) {
 });
 
 // Updates the given manager info (based on their email). Middle name is optional.
-managerRoutes.route("/managers/update/:email/:firstName/:middleName?/:lastName/:phoneNumber").post(function (req, res) {
+managerRoutes.route("/api/managers/update/:email/:firstName/:middleName?/:lastName/:phoneNumber").post(function (req, res) {
     db_connect.updateOne(
         {email: req.params.email},
         {$set: {user_metadata: {

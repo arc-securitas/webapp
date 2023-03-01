@@ -18,7 +18,7 @@ const Profile = () => {
 
 	async function getRecords(user) {
 		if (user) {
-			const response = await fetch(`/managers/${user.email}`);
+			const response = await fetch(`/api/managers/${user.email}`);
 
 			if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;

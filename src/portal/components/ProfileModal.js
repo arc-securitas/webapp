@@ -40,10 +40,10 @@ const ProfileModal = (props) => {
     async function saveChanges() {
         let response;
         if (middleName) {
-            let url = `/managers/update/${user.email}/${firstName}/${middleName}/${lastName}/${phoneNumber}`;
+            let url = `/api/managers/update/${user.email}/${firstName}/${middleName}/${lastName}/${phoneNumber}`;
             response = await fetch(url, {method: 'POST'});
         } else {
-            let url = `/managers/update/${user.email}/${firstName}/${lastName}/${phoneNumber}`;
+            let url = `/api/managers/update/${user.email}/${firstName}/${lastName}/${phoneNumber}`;
             response = await fetch(url, {method: 'POST'});
         }
 

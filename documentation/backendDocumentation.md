@@ -199,7 +199,7 @@ GET request example:
 ```
 // Gets all agent records from database
 async function getRecords() {
-  const response = await fetch(`/agents/`);
+  const response = await fetch(`/api/agents/`);
 
   if (!response.ok) {
     const message = `An error occurred: ${response.statusText}`;
@@ -223,7 +223,7 @@ async function onSubmit(e) {
   // form is the state variable in this example
   const newAgent = { ...form }; 
 
-  await fetch("/agents/add", {
+  await fetch("/api/agents/add", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -247,7 +247,7 @@ DELETE Request example:
 // Deletes an agent record based on id
 async function deleteRecord(id) {
   // ${id} adds the passed in id value into route path
-  await fetch(`/agents/delete/${id}`, {
+  await fetch(`/api/agents/delete/${id}`, {
     method: "DELETE"
   });
   
