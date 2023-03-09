@@ -48,7 +48,7 @@ Steps : Go to Users page -> select the user -> in the permissions tab, click on 
 11. Set up Nginx configurations
 	cd /etc/nginx
 	sudo vi nginx.conf 
--------------------------------------
+```
 user ubuntu;
 worker_processes  1;
 
@@ -85,13 +85,14 @@ http {
 
     include /etc/nginx/conf.d/*.conf;
 }
-----------------------------------------------------
-	
-	
-	cd /etc/nginx/conf.d/
-	sudo vi default.conf
+```
 
----------------------------
+
+cd /etc/nginx/conf.d/
+sudo vi default.conf
+
+
+```
 server {
         #listen       80;
         listen 80 default_server;
@@ -126,7 +127,7 @@ server {
                 deny  all;
         }
 }
----------------------------------------------------------
+```
 
 
 14. Add backend api keys to config.js and create build file for frontend
