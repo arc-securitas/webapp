@@ -19,7 +19,7 @@ const Record = (props) => (
         <td>{props.record.firstName + " " + props.record.lastName}</td>
         <td>{props.record.phoneNumber}</td>
         <td>{props.record.email}</td>
-        <td>{props.record._id}</td>
+        <td>{props.record.licenseID}</td>
         <td>
             <MoreHorizIcon onClick={() => {
                 props.deleteRecord(props.record._id);
@@ -131,6 +131,7 @@ const RecordTable = () => {
         phoneNumber: "",
         email: "",
         licenseID: "",
+        managerEmail: user.email
     });
     const navigate = useNavigate();
 
@@ -144,11 +145,11 @@ const RecordTable = () => {
     // make a post request to add agents on server
     async function onSubmit(e) {
         e.preventDefault();
-
+        console.log(form);
         // When a post request is sent to the create url, we'll add a new record to the database.
         const newAgent = { ...form };
 
-        await fetch("/agents/add", {
+        await fetch(`/agents/add/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -160,13 +161,14 @@ const RecordTable = () => {
                 return;
             });
 
-        setForm({ firstName: "", lastName: "", phoneNumber: "", email: "", licenseID: "" });
+        setForm({ firstName: "", lastName: "", phoneNumber: "", email: "", licenseID: "", managerEmail: user.email });
+        handleClose();
         navigate("/");
     }
 
     // make a delete request to delete a record on server
     async function deleteRecord(id) {
-        await fetch(`/agents/delete/${id}`, {
+        await fetch(`/agents/delete/${user.email}/${id}`, {
             method: "DELETE"
         });
 
@@ -288,7 +290,7 @@ const RecordTable = () => {
                                 className="form-control"
                                 id="licenseID"
                                 defaultValue={form.licenseID}
-                                onChange={(e) => updateForm({ email: e.target.value })}
+                                onChange={(e) => updateForm({ licenseID: e.target.value })}
                             />
                         </div>
                     </form>
@@ -297,7 +299,7 @@ const RecordTable = () => {
                 <Button variant="secondary" onClick={handleClose}>
                     Cancel
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" onClick={onSubmit}>
                     Add Agent
                 </Button>
                 </Modal.Footer>

@@ -16,9 +16,10 @@ const agentSchema = new Schema({
 
     // contact info
     countryCode: String,  // Needed?
-    phoneNumber: { type: String, required: true, unique: true },
+    phoneNumber: { type: String },
     email: { type: String, unique: true, required: true, lowercase: true }, // required: true ?
 
+    licenseID: String,
     safetyCode: String, 
     location: String,
     status: { type: String, enum: ['', 'Active', 'Pending', 'Inactive', 'Other'] },
@@ -46,6 +47,7 @@ const agentSchema = new Schema({
     }],
 
     managerEmail: String,
+    status: {type: String, enum: ['active', 'pending', 'inactive'], default: 'pending', required: true}
 });
 
 agentSchema.pre("save", function (next) {

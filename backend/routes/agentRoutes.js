@@ -94,6 +94,14 @@ agentRoutes.route("/agents/delete/:id").delete((req, res) => {
     });
 });
 
+// Deletes a single agent record by id
+agentRoutes.route("/agents/delete/:managerEmail/:id").delete((req, res) => {
+    Agent.findByIdAndDelete(ObjectId(req.params.id), function (err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+});
+
 // Assigns values to the agent's properties
 function assignValues(agent, values) {
     // First Name
@@ -157,6 +165,12 @@ function assignValues(agent, values) {
     if (values.managerEmail != undefined)
     {
         agent.managerEmail = values.managerEmail;
+    }
+
+    // License Id
+    if (values.licenseID != undefined)
+    {
+        agent.licenseID = values.licenseID;
     }
 }
 
