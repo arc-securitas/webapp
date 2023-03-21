@@ -16,7 +16,7 @@ const agentSchema = new Schema({
 
     // contact info
     countryCode: String,  // Needed?
-    phoneNumber: { type: String },
+    phoneNumber: { type: String, required: true, unique: true },
     email: { type: String, unique: true, required: true, lowercase: true }, // required: true ?
 
     licenseID: String,

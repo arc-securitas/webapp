@@ -1,42 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+
 import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
-import agentsStyles from './agents.css'
+import agentsStyles from './agents.css';
+
+import trashIcon from "../images/trashIcon.svg";
+import pencilIcon from "../images/pencilIcon.svg";
+
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-// import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state'
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
 
 const Record = (props) => (
     <tr>
-        <td>{props.record.firstName + " " + props.record.lastName}</td>
+        <td>{props.record.firstName + " " + props.record.middleName + " " + props.record.lastName}</td>
         <td>{props.record.phoneNumber}</td>
         <td>{props.record.email}</td>
         <td>{props.record.licenseID}</td>
         <td>
-            <MoreHorizIcon onClick={() => {
-                props.deleteRecord(props.record._id);
-            }}/>
+            <PopupState variant="popover" popupId="demo-popup-menu">
+                {(popupState) => (
+                    <React.Fragment>
+                        <MoreHorizIcon  {...bindTrigger(popupState)} />
+                        <Menu {...bindMenu(popupState)}>
+                            <Button variant="text">
+                                <MenuItem onClick={() => { popupState.close(); props.deleteRecord(props.record._id); }}
+                                    sx={{
+                                        fontFamily: "Outfit",
+                                        fontWeight: '500',
+                                    }}
+                                ><img src={trashIcon} /> Delete </MenuItem>
+                            </Button>
+
+                            <Button variant="text" >
+                                <MenuItem onClick={() => { popupState.close(); props.editRecord(); }} sx={{
+                                    fontFamily: "Outfit",
+                                    fontWeight: '500',
+                                }}> <img src={pencilIcon} />Edit</MenuItem>
+                            </Button>
+                        </Menu>
+                    </React.Fragment>
+                )}
+            </PopupState>
         </td>
-        {/* <td><Link className="btn btn-link" to={`/edit/${props.record._id}`}>Edit</Link></td>
-        <td><Link className="btn btn-link" to={`/addEvent/${props.record._id}`}>Add Event</Link></td>
-        <td>
-            <button className="btn btn-link"
-                onClick={() => {
-                    props.deleteRecord(props.record._id);
-                }}
-            >
-                Delete
-            </button>
-        </td> */}
     </tr>
+
 );
 
 const RecordTable = () => {
@@ -79,6 +97,7 @@ const RecordTable = () => {
                 <Record
                     record={activeRecords}
                     deleteRecord={() => deleteRecord(activeRecords._id)}
+                    editRecord={() => { setEditAgentForm({...activeRecords}); handleEditAgentShow(); }}
                     key={activeRecords._id}
                 />
             );
@@ -94,6 +113,7 @@ const RecordTable = () => {
                 <Record
                     record={pendingRecords}
                     deleteRecord={() => deleteRecord(pendingRecords._id)}
+                    editRecord={() => { setEditAgentForm({...pendingRecords}); handleEditAgentShow(); }}
                     key={pendingRecords._id}
                 />
             );
@@ -109,6 +129,7 @@ const RecordTable = () => {
                 <Record
                     record={inactiveRecords}
                     deleteRecord={() => deleteRecord(inactiveRecords._id)}
+                    editRecord={() => { setEditAgentForm({...inactiveRecords}); handleEditAgentShow(); }}
                     key={inactiveRecords._id}
                 />
             );
@@ -120,24 +141,43 @@ const RecordTable = () => {
 
     const handleSearch = (event) => {
         event.preventDefault();
-        const searchResults = records.filter(record => `${record.firstName} ${record.lastName}`.includes(search));
+        const searchResults = records.filter(record => `${record.firstName} ${record.middleName} ${record.lastName}`.includes(search));
         setDisplayRecords(searchResults);
     }
 
     // for create new agents form
     const [form, setForm] = useState({
         firstName: "",
+        middleName: "",
         lastName: "",
         phoneNumber: "",
         email: "",
         licenseID: "",
         managerEmail: user.email
     });
+
+    const [editAgentForm, setEditAgentForm] = useState({
+        _id: "",
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        phoneNumber: "",
+        email: "",
+        licenseID: "",
+    });
+
     const navigate = useNavigate();
 
     // These methods will update the state properties.
     function updateForm(value) {
         return setForm((prev) => {
+            return { ...prev, ...value };
+        });
+    }
+
+    // These methods will update the state properties.
+    function updateEditAgentForm(value) {
+        return setEditAgentForm((prev) => {
             return { ...prev, ...value };
         });
     }
@@ -161,8 +201,34 @@ const RecordTable = () => {
                 return;
             });
 
-        setForm({ firstName: "", lastName: "", phoneNumber: "", email: "", licenseID: "", managerEmail: user.email });
-        handleClose();
+        setForm({ firstName: "", middleName: "", lastName: "", phoneNumber: "", email: "", licenseID: "", managerEmail: user.email });
+        handleAddAgentClose();
+        navigate("/");
+    }
+
+    async function onEditAgentSubmit(e) {
+        console.log(editAgentForm);
+        //e.preventDefault(); ------------why doesn't this work?
+        const editedAgent = {
+            firstName: editAgentForm.firstName,
+            middleName: editAgentForm.middleName,
+            lastName: editAgentForm.lastName,
+            phoneNumber: editAgentForm.phoneNumber,
+            email: editAgentForm.email,
+            licenseID: editAgentForm.licenseID,
+            managerEmail: user.email,
+        };
+
+        // This will send a post request to update the data in the database.
+        await fetch(`/agents/update/${user.email}/${editAgentForm._id}`, {
+            method: "POST",
+            body: JSON.stringify(editedAgent),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        setEditAgentForm({});
         navigate("/");
     }
 
@@ -176,9 +242,13 @@ const RecordTable = () => {
         setRecords(newRecords);
     }
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [addAgentShow, setAddAgentShow] = useState(false);
+    const handleAddAgentClose = () => setAddAgentShow(false);
+    const handleAddAgentShow = () => setAddAgentShow(true);
+
+    const [editAgentShow, setEditAgentShow] = useState(false);
+    const handleEditAgentClose = () => setEditAgentShow(false);
+    const handleEditAgentShow = () => setEditAgentShow(true);
 
     return (
         <div>
@@ -187,8 +257,8 @@ const RecordTable = () => {
                 <Form type="submit" onSubmit={handleSearch} >
                     <input type="text" className="searchAgents" value={search} onChange={(event) => setSearch(event.target.value)} />
                 </Form>
-             </div>
-            
+            </div>
+
             <div className="threeTable">
                 <h4>Active</h4>
                 <table className="table" >
@@ -230,13 +300,14 @@ const RecordTable = () => {
                 </table>
             </div>
 
-            <Button id="add-agent-button" onClick={handleShow}>
+            <Button id="add-agent-button" onClick={handleAddAgentShow}>
                 + Add New Agent
             </Button>
 
-            <Modal show={show} onHide={handleClose}>
+            {/* Add Agents */}
+            <Modal show={addAgentShow} onHide={handleAddAgentClose}>
                 <Modal.Header closeButton>
-                <Modal.Title>Add New Agent</Modal.Title>
+                    <Modal.Title>Add New Agent</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form onSubmit={onSubmit}>
@@ -248,6 +319,17 @@ const RecordTable = () => {
                                 id="firstName"
                                 defaultValue={form.firstName}
                                 onChange={(e) => updateForm({ firstName: e.target.value })}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="middleName">Middle Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="middleName"
+                                defaultValue={form.middleName}
+                                onChange={(e) => updateForm({ middleName: e.target.value })}
                             />
                         </div>
 
@@ -296,12 +378,95 @@ const RecordTable = () => {
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Cancel
-                </Button>
-                <Button variant="primary" onClick={onSubmit}>
-                    Add Agent
-                </Button>
+                    <Button variant="secondary" onClick={handleAddAgentClose}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={onSubmit}>
+                        Add Agent
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* Edit Agents Modal */}
+            <Modal show={editAgentShow} onHide={handleEditAgentClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Agent</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={onEditAgentSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="firstName">First Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="firstName"
+                                defaultValue={editAgentForm.firstName}
+                                onChange={(e) => updateEditAgentForm({ firstName: e.target.value })}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="middleName">Middle Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="middleName"
+                                defaultValue={editAgentForm.middleName}
+                                onChange={(e) => updateEditAgentForm({ middleName: e.target.value })}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="lastName">Last Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="lastName"
+                                defaultValue={editAgentForm.lastName}
+                                onChange={(e) => updateEditAgentForm({ lastName: e.target.value })}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="phoneNumber">Phone Number</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="phoneNumber"
+                                defaultValue={editAgentForm.phoneNumber}
+                                onChange={(e) => updateEditAgentForm({ phoneNumber: e.target.value })}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="email">Email</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="email"
+                                defaultValue={editAgentForm.email}
+                                onChange={(e) => updateEditAgentForm({ email: e.target.value })}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="licenseID">License ID</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="licenseID"
+                                defaultValue={editAgentForm.licenseID}
+                                onChange={(e) => updateEditAgentForm({ licenseID: e.target.value })}
+                            />
+                        </div>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleEditAgentClose}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={() => { handleEditAgentClose(); onEditAgentSubmit(); }}>
+                        Edit Agent
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </div>
@@ -312,7 +477,7 @@ const RecordTable = () => {
 const Agents = () => {
     return (
         <div className={portalStyles.portal}>
-            <div className={portalStyles.nav}><PortalNav page="Agents"/></div>
+            <div className={portalStyles.nav}><PortalNav page="Agents" /></div>
             <main className={portalStyles.main}>
                 <PortalHeader>
                     <PeopleSvg />
@@ -331,7 +496,7 @@ class PeopleSvg extends React.Component {
     render() {
         return (
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16.5 13C15.3 13 13.43 13.34 12 14C10.57 13.33 8.7 13 7.5 13C5.33 13 1 14.08 1 16.25V19H23V16.25C23 14.08 18.67 13 16.5 13ZM12.5 17.5H2.5V16.25C2.5 15.71 5.06 14.5 7.5 14.5C9.94 14.5 12.5 15.71 12.5 16.25V17.5ZM21.5 17.5H14V16.25C14 15.79 13.8 15.39 13.48 15.03C14.36 14.73 15.44 14.5 16.5 14.5C18.94 14.5 21.5 15.71 21.5 16.25V17.5ZM7.5 12C9.43 12 11 10.43 11 8.5C11 6.57 9.43 5 7.5 5C5.57 5 4 6.57 4 8.5C4 10.43 5.57 12 7.5 12ZM7.5 6.5C8.6 6.5 9.5 7.4 9.5 8.5C9.5 9.6 8.6 10.5 7.5 10.5C6.4 10.5 5.5 9.6 5.5 8.5C5.5 7.4 6.4 6.5 7.5 6.5ZM16.5 12C18.43 12 20 10.43 20 8.5C20 6.57 18.43 5 16.5 5C14.57 5 13 6.57 13 8.5C13 10.43 14.57 12 16.5 12ZM16.5 6.5C17.6 6.5 18.5 7.4 18.5 8.5C18.5 9.6 17.6 10.5 16.5 10.5C15.4 10.5 14.5 9.6 14.5 8.5C14.5 7.4 15.4 6.5 16.5 6.5Z" fill="black"/>
+                <path d="M16.5 13C15.3 13 13.43 13.34 12 14C10.57 13.33 8.7 13 7.5 13C5.33 13 1 14.08 1 16.25V19H23V16.25C23 14.08 18.67 13 16.5 13ZM12.5 17.5H2.5V16.25C2.5 15.71 5.06 14.5 7.5 14.5C9.94 14.5 12.5 15.71 12.5 16.25V17.5ZM21.5 17.5H14V16.25C14 15.79 13.8 15.39 13.48 15.03C14.36 14.73 15.44 14.5 16.5 14.5C18.94 14.5 21.5 15.71 21.5 16.25V17.5ZM7.5 12C9.43 12 11 10.43 11 8.5C11 6.57 9.43 5 7.5 5C5.57 5 4 6.57 4 8.5C4 10.43 5.57 12 7.5 12ZM7.5 6.5C8.6 6.5 9.5 7.4 9.5 8.5C9.5 9.6 8.6 10.5 7.5 10.5C6.4 10.5 5.5 9.6 5.5 8.5C5.5 7.4 6.4 6.5 7.5 6.5ZM16.5 12C18.43 12 20 10.43 20 8.5C20 6.57 18.43 5 16.5 5C14.57 5 13 6.57 13 8.5C13 10.43 14.57 12 16.5 12ZM16.5 6.5C17.6 6.5 18.5 7.4 18.5 8.5C18.5 9.6 17.6 10.5 16.5 10.5C15.4 10.5 14.5 9.6 14.5 8.5C14.5 7.4 15.4 6.5 16.5 6.5Z" fill="black" />
             </svg>
         );
     }

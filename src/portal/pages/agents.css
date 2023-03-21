@@ -1,3 +1,7 @@
+.agentsPage {
+    font-family: 'Outfit';
+}
+
 .threeTable {
     margin: 1.2em;
 }
@@ -21,4 +25,8 @@
 #add-agent-button {
     background-color: #3684c9;
     margin-left: 85%;
+}
+
+img {
+    margin-right: 7px;
 }

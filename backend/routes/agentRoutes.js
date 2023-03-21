@@ -52,7 +52,7 @@ agentRoutes.route("/agents/:managerEmail").get(function (req, res) {
 // });
 
 agentRoutes.route("/agents/:managerEmail/:id").get(function (req, res) {
-    let agentID = ObjectId(req.params.id)
+    let agentID = ObjectId(req.params.id);
     let managerEmail = req.params.managerEmail;
     Agent.findOne({_id: agentID, managerEmail: managerEmail}, function (err, result) {
         if (err) throw err;
@@ -86,6 +86,23 @@ agentRoutes.route("/agents/update/:id").post(function (req, res) {
     });
 });
 
+// Updates a single agent record by id
+agentRoutes.route("/agents/update/:managerEmail/:id").post(function (req, res) {
+    let agentID = ObjectId(req.params.id);
+    let managerEmail = req.params.managerEmail;
+    Agent.findOne({_id: agentID, managerEmail: managerEmail}, function (err, agent) {
+        if (err) throw err;
+        if (agent != null) {
+            assignValues(agent, req.body);
+            agent.save(function (err, result) {
+                if (err) throw err;
+                res.json(result);
+            });
+        }
+
+    });
+});
+
 // Deletes a single agent record by id
 agentRoutes.route("/agents/delete/:id").delete((req, res) => {
     Agent.findByIdAndDelete(ObjectId(req.params.id), function (err, result) {
@@ -96,7 +113,9 @@ agentRoutes.route("/agents/delete/:id").delete((req, res) => {
 
 // Deletes a single agent record by id
 agentRoutes.route("/agents/delete/:managerEmail/:id").delete((req, res) => {
-    Agent.findByIdAndDelete(ObjectId(req.params.id), function (err, result) {
+    let agentID = ObjectId(req.params.id);
+    let managerEmail = req.params.managerEmail;
+    Agent.findOneAndDelete({_id: agentID, managerEmail: managerEmail}, function (err, result) {
         if (err) throw err;
         res.json(result);
     });

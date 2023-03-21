@@ -152,7 +152,6 @@ export default function Header(props) {
                                 My Account
                             </Button>
                             <Menu {...bindMenu(popupState)}>
-                                <MenuItem onClick={popupState.close}>Profile</MenuItem>
                                 <MenuItem onClick={popupState.close}>Manager Portal</MenuItem>
                                 <LogoutButton onClick={popupState.close} />
                             </Menu>
@@ -283,7 +282,6 @@ export default function Header(props) {
                                         My Account
                                     </Button>
                                     <Menu {...bindMenu(popupState)}>
-                                        <MenuItem onClick={popupState.close}>Profile</MenuItem>
                                         <Link sx={{
                                             fontFamily: 'Lato',
                                             fontSize: '16px',
