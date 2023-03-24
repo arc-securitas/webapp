@@ -14,6 +14,7 @@ import Alerts from "./portal/pages/alerts.js";
 import AlertSolo from './portal/pages/AlertSolo.js';
 import Agents from "./portal/pages/agents.js";
 import Payment from "./portal/pages/payment.js";
+import Account from "./portal/pages/account.js";
 
 import BackendTest from "./mainSite/pages/backendTest.js";
 import Edit from "./mainSite/pages/edit.js";
@@ -44,6 +45,8 @@ function App(props) {
         <Route exact path="/portal/events/:id" element={<EventSolo />} />
         <Route exact path="/portal/agents" element={<Agents />} />
         <Route exact path="/portal/payment" element={<Payment />} />
+        <Route exact path="/portal/account" element={<Account />} />
+
 
         {/* Below links just for testing purposes - Need to remove before deployment */}
         <Route exact path="/backendTest" element={<BackendTest />} />

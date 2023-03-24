@@ -4,12 +4,12 @@ import { useNavigate } from "react-router";
 import PortalNav from "../components/PortalNav.js";
 import PortalHeader from '../components/PortalHeader.js';
 import portalStyles from './portal.module.css';
-import agentsStyles from './agents.css';
+import agentsStyles from './agents.module.css';
 
 import trashIcon from "../images/trashIcon.svg";
 import pencilIcon from "../images/pencilIcon.svg";
+import addIcon from "../images/Add_Plus.svg";
 
-import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
@@ -89,51 +89,55 @@ const RecordTable = () => {
 
 
     // filtering displayRecords to be active
-    const activeRecords = displayRecords.filter(displayRecord => displayRecord.status == "active");
-
-    function activeList() {
-        return activeRecords.map((activeRecords) => {
-            return (
-                <Record
-                    record={activeRecords}
-                    deleteRecord={() => deleteRecord(activeRecords._id)}
-                    editRecord={() => { setEditAgentForm({...activeRecords}); handleEditAgentShow(); }}
-                    key={activeRecords._id}
-                />
-            );
-        });
-    }
+    const activeRecords = displayRecords.filter(displayRecord => displayRecord.status === "active");
 
     // filtering displayRecords to be pending
-    const pendingRecords = displayRecords.filter(displayRecord => displayRecord.status == "pending");
+    const pendingRecords = displayRecords.filter(displayRecord => displayRecord.status === "pending");
 
-    function pendingList() {
-        return pendingRecords.map((pendingRecords) => {
+    // filtering displayRecords to be inactive
+    const inactiveRecords = displayRecords.filter(displayRecord => displayRecord.status === "inactive");
+
+    function displayTableContents(agentsList) {
+        return agentsList.map((agentItem) => {
             return (
                 <Record
-                    record={pendingRecords}
-                    deleteRecord={() => deleteRecord(pendingRecords._id)}
-                    editRecord={() => { setEditAgentForm({...pendingRecords}); handleEditAgentShow(); }}
-                    key={pendingRecords._id}
+                    record={agentItem}
+                    deleteRecord={() => deleteRecord(agentItem._id)}
+                    editRecord={() => { setEditAgentForm({ ...agentItem }); handleEditAgentShow(); }}
+                    key={agentItem._id}
                 />
             );
         });
     }
 
-    // filtering displayRecords to be inactive
-    const inactiveRecords = displayRecords.filter(displayRecord => displayRecord.status == "inactive");
-
-    function inactiveList() {
-        return inactiveRecords.map((inactiveRecords) => {
+    function displayTable(agentsList, name) {
+        if (agentsList.length === 0) {
             return (
-                <Record
-                    record={inactiveRecords}
-                    deleteRecord={() => deleteRecord(inactiveRecords._id)}
-                    editRecord={() => { setEditAgentForm({...inactiveRecords}); handleEditAgentShow(); }}
-                    key={inactiveRecords._id}
-                />
+                <div>
+                    <h4 className={agentsStyles.title}>{name}</h4>
+                    <p className={agentsStyles.threeTable}><i>No agents to display for this catergory.</i></p>
+                </div>
             );
-        });
+        }
+
+        return (
+            <div className={agentsStyles.threeTable}>
+                <h4 className={agentsStyles.title}>{name}</h4>
+                <table className="table" >
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>Email</th>
+                            <th>License ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {displayTableContents(agentsList)}
+                    </tbody>
+                </table>
+            </div>
+        );
     }
 
     // search is for storing input in search bar
@@ -141,7 +145,9 @@ const RecordTable = () => {
 
     const handleSearch = (event) => {
         event.preventDefault();
-        const searchResults = records.filter(record => `${record.firstName} ${record.middleName} ${record.lastName}`.includes(search));
+        const searchResults = records.filter(record => `${record.firstName.toLowerCase()} 
+                                                        ${record.middleName.toLowerCase()} 
+                                                        ${record.lastName.toLowerCase()}`.includes(search.toLowerCase()));
         setDisplayRecords(searchResults);
     }
 
@@ -185,7 +191,6 @@ const RecordTable = () => {
     // make a post request to add agents on server
     async function onSubmit(e) {
         e.preventDefault();
-        console.log(form);
         // When a post request is sent to the create url, we'll add a new record to the database.
         const newAgent = { ...form };
 
@@ -207,7 +212,6 @@ const RecordTable = () => {
     }
 
     async function onEditAgentSubmit(e) {
-        console.log(editAgentForm);
         //e.preventDefault(); ------------why doesn't this work?
         const editedAgent = {
             firstName: editAgentForm.firstName,
@@ -251,224 +255,184 @@ const RecordTable = () => {
     const handleEditAgentShow = () => setEditAgentShow(true);
 
     return (
-        <div>
-            <div className="container searchbar p-3">
-                <h4>Search Agents</h4>
-                <Form type="submit" onSubmit={handleSearch} >
-                    <input type="text" className="searchAgents" value={search} onChange={(event) => setSearch(event.target.value)} />
-                </Form>
+        <div className={portalStyles.mainPad}>
+            <div>
+                <div >
+                    {displayTable(activeRecords, "Active")}
+                    {displayTable(pendingRecords, "Pending")}
+                    {displayTable(inactiveRecords, "Inactive")}
+                </div>
+
+                <Button className={`${agentsStyles.primaryButton} ${agentsStyles.addAgentButton}`} onClick={handleAddAgentShow}>
+                    <img src={addIcon} className={agentsStyles.addIcon}/>Add New Agent
+                </Button>
+
+                {/* Add Agents */}
+                <Modal show={addAgentShow} onHide={handleAddAgentClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add New Agent</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <form onSubmit={onSubmit}>
+                            <div className="form-group">
+                                <label htmlFor="firstName">First Name</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="firstName"
+                                    defaultValue={form.firstName}
+                                    onChange={(e) => updateForm({ firstName: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="middleName">Middle Name</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="middleName"
+                                    defaultValue={form.middleName}
+                                    onChange={(e) => updateForm({ middleName: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="lastName">Last Name</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="lastName"
+                                    defaultValue={form.lastName}
+                                    onChange={(e) => updateForm({ lastName: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="phoneNumber">Phone Number</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="phoneNumber"
+                                    defaultValue={form.phoneNumber}
+                                    onChange={(e) => updateForm({ phoneNumber: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="email">Email</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="email"
+                                    defaultValue={form.email}
+                                    onChange={(e) => updateForm({ email: e.target.value })}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="licenseID">License ID</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="licenseID"
+                                    defaultValue={form.licenseID}
+                                    onChange={(e) => updateForm({ licenseID: e.target.value })}
+                                />
+                            </div>
+                        </form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleAddAgentClose}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" onClick={onSubmit}>
+                            Add Agent
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
+                {/* Edit Agents Modal */}
+                <Modal show={editAgentShow} onHide={handleEditAgentClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Edit Agent</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <form onSubmit={onEditAgentSubmit}>
+                            <div className="form-group">
+                                <label htmlFor="firstName">First Name</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="firstName"
+                                    defaultValue={editAgentForm.firstName}
+                                    onChange={(e) => updateEditAgentForm({ firstName: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="middleName">Middle Name</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="middleName"
+                                    defaultValue={editAgentForm.middleName}
+                                    onChange={(e) => updateEditAgentForm({ middleName: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="lastName">Last Name</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="lastName"
+                                    defaultValue={editAgentForm.lastName}
+                                    onChange={(e) => updateEditAgentForm({ lastName: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="phoneNumber">Phone Number</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="phoneNumber"
+                                    defaultValue={editAgentForm.phoneNumber}
+                                    onChange={(e) => updateEditAgentForm({ phoneNumber: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="email">Email</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="email"
+                                    defaultValue={editAgentForm.email}
+                                    onChange={(e) => updateEditAgentForm({ email: e.target.value })}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="licenseID">License ID</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="licenseID"
+                                    defaultValue={editAgentForm.licenseID}
+                                    onChange={(e) => updateEditAgentForm({ licenseID: e.target.value })}
+                                />
+                            </div>
+                        </form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleEditAgentClose}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" onClick={() => { handleEditAgentClose(); onEditAgentSubmit(); }}>
+                            Edit Agent
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
-
-            <div className="threeTable">
-                <h4>Active</h4>
-                <table className="table" >
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Number</th>
-                            <th>Email</th>
-                            <th>License ID</th>
-                        </tr>
-                    </thead>
-                    <tbody>{activeList()}</tbody>
-                </table>
-
-                <h4>Pending</h4>
-                <table className="table" >
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Number</th>
-                            <th>Email</th>
-                            <th>License ID</th>
-                        </tr>
-                    </thead>
-                    <tbody>{pendingList()}</tbody>
-                </table>
-
-                <h4>Inactive</h4>
-                <table className="table" >
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Number</th>
-                            <th>Email</th>
-                            <th>License ID</th>
-                        </tr>
-                    </thead>
-                    <tbody>{inactiveList()}</tbody>
-                </table>
-            </div>
-
-            <Button id="add-agent-button" onClick={handleAddAgentShow}>
-                + Add New Agent
-            </Button>
-
-            {/* Add Agents */}
-            <Modal show={addAgentShow} onHide={handleAddAgentClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Add New Agent</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <form onSubmit={onSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="firstName">First Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="firstName"
-                                defaultValue={form.firstName}
-                                onChange={(e) => updateForm({ firstName: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="middleName">Middle Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="middleName"
-                                defaultValue={form.middleName}
-                                onChange={(e) => updateForm({ middleName: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="lastName">Last Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="lastName"
-                                defaultValue={form.lastName}
-                                onChange={(e) => updateForm({ lastName: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="phoneNumber">Phone Number</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="phoneNumber"
-                                defaultValue={form.phoneNumber}
-                                onChange={(e) => updateForm({ phoneNumber: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="email"
-                                defaultValue={form.email}
-                                onChange={(e) => updateForm({ email: e.target.value })}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="licenseID">License ID</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="licenseID"
-                                defaultValue={form.licenseID}
-                                onChange={(e) => updateForm({ licenseID: e.target.value })}
-                            />
-                        </div>
-                    </form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleAddAgentClose}>
-                        Cancel
-                    </Button>
-                    <Button variant="primary" onClick={onSubmit}>
-                        Add Agent
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
-            {/* Edit Agents Modal */}
-            <Modal show={editAgentShow} onHide={handleEditAgentClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit Agent</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <form onSubmit={onEditAgentSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="firstName">First Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="firstName"
-                                defaultValue={editAgentForm.firstName}
-                                onChange={(e) => updateEditAgentForm({ firstName: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="middleName">Middle Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="middleName"
-                                defaultValue={editAgentForm.middleName}
-                                onChange={(e) => updateEditAgentForm({ middleName: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="lastName">Last Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="lastName"
-                                defaultValue={editAgentForm.lastName}
-                                onChange={(e) => updateEditAgentForm({ lastName: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="phoneNumber">Phone Number</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="phoneNumber"
-                                defaultValue={editAgentForm.phoneNumber}
-                                onChange={(e) => updateEditAgentForm({ phoneNumber: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="email"
-                                defaultValue={editAgentForm.email}
-                                onChange={(e) => updateEditAgentForm({ email: e.target.value })}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="licenseID">License ID</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="licenseID"
-                                defaultValue={editAgentForm.licenseID}
-                                onChange={(e) => updateEditAgentForm({ licenseID: e.target.value })}
-                            />
-                        </div>
-                    </form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleEditAgentClose}>
-                        Cancel
-                    </Button>
-                    <Button variant="primary" onClick={() => { handleEditAgentClose(); onEditAgentSubmit(); }}>
-                        Edit Agent
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </div>
     );
 }

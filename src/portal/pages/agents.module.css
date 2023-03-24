@@ -1,0 +1,77 @@
+.agentsPage {
+    font-family: 'Outfit';
+}
+
+.title {
+    font-family: 'Outfit';
+    font-weight: bold;
+    font-size: 21px; 
+}
+
+.threeTable {
+    margin: 1.2em;
+    margin-bottom: 2.5em;
+}
+
+.threeTable th {
+    color: #3684C9;
+    border: none;
+}
+
+.searchBar {
+    border-radius: 8px;
+    border: 1.5px solid #3684C9;
+    width: 40%;  
+    margin-right: 10px;
+    padding: 6px;  
+}
+
+.linkStyle {
+    color: #3684C9;
+    margin-left: 65%;
+}
+
+.primaryButton {
+    background-color: #3684C9 !important;
+}
+
+.secondaryButton {
+    background-color: white !important;
+    outline: #3684C9 !important;
+    color: #3684C9 !important;
+}
+
+.addAgentButton {
+    border-radius: 50px !important;
+    margin-left: 80%;
+    margin-bottom: 10px;
+    font-size: 18px !important;
+    padding: 12px !important;
+}
+
+.leftPad {
+    margin-left: 20px;
+}
+
+.sectionScroll {
+    padding: 20px;
+    overflow-y: scroll;
+}
+
+img {
+    margin-right: 7px;
+}
+
+.addIcon {
+    margin-right: 0px;
+    margin-bottom: 2px;
+    width: 25px;
+    height: auto;
+}
+
+.searchButton {
+    margin-left: 50px;
+    margin-right: 50px;
+    height: 10px;
+}
+
