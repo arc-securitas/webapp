@@ -70,7 +70,7 @@ const RecordTable = () => {
     // and store the list of agents in records
     useEffect(() => {
         async function getRecords() {
-            const response = await fetch(`/agents/${user.email}`)
+            const response = await fetch(`/api/agents/${user.email}`)
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
                 window.alert(message);
@@ -194,7 +194,7 @@ const RecordTable = () => {
         // When a post request is sent to the create url, we'll add a new record to the database.
         const newAgent = { ...form };
 
-        await fetch(`/agents/add/`, {
+        await fetch(`/api/agents/add/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -224,7 +224,7 @@ const RecordTable = () => {
         };
 
         // This will send a post request to update the data in the database.
-        await fetch(`/agents/update/${user.email}/${editAgentForm._id}`, {
+        await fetch(`/api/agents/update/${user.email}/${editAgentForm._id}`, {
             method: "POST",
             body: JSON.stringify(editedAgent),
             headers: {
@@ -238,7 +238,7 @@ const RecordTable = () => {
 
     // make a delete request to delete a record on server
     async function deleteRecord(id) {
-        await fetch(`/agents/delete/${user.email}/${id}`, {
+        await fetch(`/api/agents/delete/${user.email}/${id}`, {
             method: "DELETE"
         });
 

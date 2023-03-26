@@ -16,7 +16,7 @@ const ObjectId = require("mongodb").ObjectId;
 let db_connect = mongoose.connection.collection("agents");
 
 // Get a list of all the agent records
-agentRoutes.route("/agents").get(function (req, res) {
+agentRoutes.route("/api/agents").get(function (req, res) {
     db_connect
         .find({})
         .toArray(function (err, result) {
@@ -26,7 +26,7 @@ agentRoutes.route("/agents").get(function (req, res) {
 });
 
 // Get a list of all agents specific to the manager in manageAgents page
-agentRoutes.route("/agents/:managerEmail").get(function (req, res) {
+agentRoutes.route("/api/agents/:managerEmail").get(function (req, res) {
     let managerEmail = req.params.managerEmail;
     db_connect
         .find({managerEmail: managerEmail})
@@ -51,7 +51,7 @@ agentRoutes.route("/agents/:managerEmail").get(function (req, res) {
 //     // });
 // });
 
-agentRoutes.route("/agents/:managerEmail/:id").get(function (req, res) {
+agentRoutes.route("/api/agents/:managerEmail/:id").get(function (req, res) {
     let agentID = ObjectId(req.params.id);
     let managerEmail = req.params.managerEmail;
     Agent.findOne({_id: agentID, managerEmail: managerEmail}, function (err, result) {
@@ -61,7 +61,7 @@ agentRoutes.route("/agents/:managerEmail/:id").get(function (req, res) {
 });
 
 // Create a new agent record.
-agentRoutes.route("/agents/add/").post(function (req, res) {
+agentRoutes.route("/api/agents/add/").post(function (req, res) {
     let agent = new Agent();
     assignValues(agent, req.body);
 
@@ -72,7 +72,7 @@ agentRoutes.route("/agents/add/").post(function (req, res) {
 });
 
 // Updates a single agent record by id
-agentRoutes.route("/agents/update/:id").post(function (req, res) {
+agentRoutes.route("/api/agents/update/:id").post(function (req, res) {
     Agent.findById(ObjectId(req.params.id), function (err, agent) {
         if (err) throw err;
         if (agent != null) {
@@ -87,7 +87,7 @@ agentRoutes.route("/agents/update/:id").post(function (req, res) {
 });
 
 // Updates a single agent record by id
-agentRoutes.route("/agents/update/:managerEmail/:id").post(function (req, res) {
+agentRoutes.route("/api/agents/update/:managerEmail/:id").post(function (req, res) {
     let agentID = ObjectId(req.params.id);
     let managerEmail = req.params.managerEmail;
     Agent.findOne({_id: agentID, managerEmail: managerEmail}, function (err, agent) {
@@ -104,7 +104,7 @@ agentRoutes.route("/agents/update/:managerEmail/:id").post(function (req, res) {
 });
 
 // Deletes a single agent record by id
-agentRoutes.route("/agents/delete/:id").delete((req, res) => {
+agentRoutes.route("/api/agents/delete/:id").delete((req, res) => {
     Agent.findByIdAndDelete(ObjectId(req.params.id), function (err, result) {
         if (err) throw err;
         res.json(result);
@@ -112,7 +112,7 @@ agentRoutes.route("/agents/delete/:id").delete((req, res) => {
 });
 
 // Deletes a single agent record by id
-agentRoutes.route("/agents/delete/:managerEmail/:id").delete((req, res) => {
+agentRoutes.route("/api/agents/delete/:managerEmail/:id").delete((req, res) => {
     let agentID = ObjectId(req.params.id);
     let managerEmail = req.params.managerEmail;
     Agent.findOneAndDelete({_id: agentID, managerEmail: managerEmail}, function (err, result) {
