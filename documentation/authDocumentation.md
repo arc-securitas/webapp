@@ -243,7 +243,7 @@ function displayPage() {
 ```
 // Fetches an agent based on their unique ID
 async function fetchAgent(agentID) {
-    const response = await fetch(`/agents/${user.email}/${agentID}`);
+    const response = await fetch(`/api/agents/${user.email}/${agentID}`);
 
     // rest of code logic here
 

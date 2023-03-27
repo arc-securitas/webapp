@@ -1,0 +1,55 @@
+.inputPair {
+    width: 100%;
+}
+
+.inputPair + .inputPair {
+    margin-top: 20px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.title {
+    white-space: nowrap;
+    font-family: 'Outfit';
+    margin: 0px;
+    margin-bottom: 20px;
+}
+
+.box {
+    padding: 40px;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px black solid;
+    border-radius: 4px;
+    margin-top: 4px;
+    font-family: 'Outfit';
+}
+
+.buttonPair {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 10px;
+}
+
+.grow {
+    flex-grow: 1;
+    width: 10px;
+}
+
+.font {
+    font-family: 'Outfit';
+}

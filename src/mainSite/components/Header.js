@@ -158,28 +158,6 @@ export default function Header(props) {
                         </React.Fragment>
                     )}
                 </PopupState> : <LoginButton />}
-
-                {/* Get Started Button and pop up menu */}
-                {/* <JoinModal buttonStyling={{
-                    display: 'inline',
-                    backgroundColor: "#fff",
-                    border: 'none',
-                    borderRadius: '4px',
-                    fontFamily: "Outfit",
-                    fontWeight: '700',
-                    textTransform: 'none',
-                    color: '#3684C9',
-                    padding: '12px 20px',
-                    textAlign: 'center',
-                    gap: '4px',
-                    justifyContent: 'center',
-                    fontWeight: 700,
-                    marginTop: '2.5rem',
-
-                    '&:hover': {
-                        backgroundColor: '#fff'
-                    }
-                }} /> */}
             </List>
         </Box>
 
@@ -298,44 +276,6 @@ export default function Header(props) {
                                 </React.Fragment>
                             )}
                         </PopupState> : <LoginButton />}
-
-                        {/* Get Started Button and pop up window */}
-                        {/* <JoinModal onClick={handleDrawerToggle} buttonStyling={{
-                            display: 'inline',
-                            backgroundColor: "#3684C9",
-                            border: 'none',
-                            borderRadius: '4px',
-                            fontFamily: "Outfit",
-                            fontWeight: '700',
-                            textTransform: 'none',
-                            color: "#fff",
-                            padding: '9px 20px',
-                            textAlign: 'center',
-                            gap: '4px',
-                            justifyContent: 'center',
-                            marginTop: '-5px',
-
-                            '@media screen and (min-width: 768px)': {
-                                marginLeft: '3rem'
-                            },
-
-                            '@media screen and (min-width: 850px)': {
-                                marginLeft: '10rem'
-                            },
-
-                            '@media screen and (min-width: 1024px)': {
-                                marginLeft: '15rem'
-                            },
-
-                            '@media screen and (min-width: 1440px)': {
-                                marginLeft: '20rem'
-                            },
-
-                            '&:hover': {
-                                backgroundColor: '#3684C9'
-                            }
-
-                        }} /> */}
                     </Box>
 
                     {/* Drawer Menu Icon */}

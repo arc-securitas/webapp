@@ -14,6 +14,12 @@ import { ReactComponent as Black_Calendar } from '../images/Black_Calendar.svg';
 import styles from './dashboard.module.css';
 import { Link } from 'react-router-dom';
 
+/*
+  The dashboard!
+  ------------------------------------------------------------------------------
+  Accessed through the path "/portal/dashboard". See App.js for Route definitions.
+*/
+
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Dashboard = () => {
@@ -31,7 +37,7 @@ const Dashboard = () => {
     // Auth0 info
     const { user, isAuthenticated, isLoading} = useAuth0();
 
-    // Use Effect called on refresh and changes to the following: 
+    // Use Effect called on refresh and changes to the following:
     //      safetyAlerts array length, agentsMap map size, and
     //      Auth0's isLoading & isAuthenticated boolean values
     useEffect(() => {
@@ -48,7 +54,7 @@ const Dashboard = () => {
             startOfWeek.setDate(today.getDate() - today.getDay());
             startOfWeek.setHours(0, 0, 0, 0);
 
-            const response = await fetch(`/alerts/${user.email}/${startOfWeek}/${tmrw}`);
+            const response = await fetch(`/api/alerts/${user.email}/${startOfWeek}/${tmrw}`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
@@ -69,7 +75,7 @@ const Dashboard = () => {
             tmrw.setDate(today.getDate() + 1);
             tmrw.setHours(0, 0, 0, 0);
 
-            const response = await fetch(`/events/${user.email}/${today}/${tmrw}`);
+            const response = await fetch(`/api/events/${user.email}/${today}/${tmrw}`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
@@ -98,7 +104,7 @@ const Dashboard = () => {
 
         // Fetches an agent based on their unique ID
         async function fetchAgent(agentID) {
-            const response = await fetch(`/agents/${user.email}/${agentID}`);
+            const response = await fetch(`/api/agents/${user.email}/${agentID}`);
 
             if (!response.ok) {
                 const message = `An error has occurred: ${response.statusText}`;
@@ -123,7 +129,7 @@ const Dashboard = () => {
             getAgents();
             SetLoading(false);
         }
-  
+
         return;
 
     }, [safetyAlerts.length, agentsMap.size, isLoading, isAuthenticated]);

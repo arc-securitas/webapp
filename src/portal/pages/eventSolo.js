@@ -11,6 +11,13 @@ import PortalHeader from '../components/PortalHeader.js';
 import PortalNav from '../components/PortalNav.js';
 import { useParams } from 'react-router-dom';
 
+/*
+  The detailed view of a particular event.
+  ------------------------------------------------------------------------------
+  Accessed through the path "/portal/events/:id", where |id| is the MongoDB _id
+  associated with the event to view. See App.js for Route definitions.
+*/
+
 const EventSolo = () => {
   const { id } = useParams();
   const [eventData, setEventData] = useState([]);
@@ -66,7 +73,7 @@ const EventSolo = () => {
   );
 
   async function getEventData(id) {
-    const response = await fetch(`/events/getById/${id}`);
+    const response = await fetch(`/api/events/getById/${id}`);
 
     if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
@@ -92,7 +99,7 @@ const EventSolo = () => {
   }
 
   async function getAlertData(id) {
-    const response = await fetch(`/alerts/getById/${id}`);
+    const response = await fetch(`/api/alerts/getById/${id}`);
 
     if (!response.ok) {
       const message = `An error occurred: ${response.statusText}`;

@@ -14,6 +14,12 @@ import { ReactComponent as RedDot } from '../images/RedDot.svg';
 import { ReactComponent as GrayDot } from '../images/GrayDot.svg';
 import Seesaw from '../components/Seesaw.js';
 
+/*
+  The list of all alerts for all agents managed by the user.
+  ------------------------------------------------------------------------------
+  Accessed through the path "/portal/alerts/". See App.js for Route definitions.
+*/
+
 const Alerts = () => {
     const [loading, setLoading] = useState(true);
     const [agentsMap, setAgentsMap] = useState(new Map());
@@ -34,7 +40,7 @@ const Alerts = () => {
             let endDate = new Date(day);
             startDate.setDate(startDate.getDate()+i);
             endDate.setDate(endDate.getDate()+i+1);
-            const response = await fetch(`/alerts/${user.email}/${startDate.toISOString().split('T')[0]}/${endDate.toISOString().split('T')[0]}`);
+            const response = await fetch(`/api/alerts/${user.email}/${startDate.toISOString().split('T')[0]}/${endDate.toISOString().split('T')[0]}`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
@@ -101,7 +107,7 @@ const Alerts = () => {
             for (let i=0; i<alert.length; i++) {
                 let agentID = alert[i].agent;
                 if (!agentsMap.has(agentID.toString())) {
-                    let response = await fetch(`/agents/${user.email}/${agentID}`);
+                    let response = await fetch(`/api/agents/${user.email}/${agentID}`);
                     let agent = await response.json();
                     if (agent !== null) {
                         let temp = new Map(agentsMap);

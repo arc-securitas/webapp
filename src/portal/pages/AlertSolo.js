@@ -12,6 +12,13 @@ import PortalNav from '../components/PortalNav.js';
 
 import { useParams } from 'react-router-dom';
 
+/*
+  The detailed view of a particular alert.
+  ------------------------------------------------------------------------------
+  Accessed through the path "/portal/alerts/:id", where |id| is the MongoDB _id
+  associated with the alert to view. See App.js for Route definitions.
+*/
+
 const AlertSolo = () => {
   const { id } = useParams();
   const [alertData, setAlertData] = useState([]);
@@ -89,7 +96,7 @@ const AlertSolo = () => {
   );
 
   async function getAlertData(id) {
-    const response = await fetch(`/alerts/getById/${id}`);
+    const response = await fetch(`/api/alerts/getById/${id}`);
 
     if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
@@ -116,7 +123,7 @@ const AlertSolo = () => {
   }
 
   async function getEventData(id) {
-    const response = await fetch(`/events/getById/${id}`);
+    const response = await fetch(`/api/events/getById/${id}`);
 
     if (!response.ok) {
       const message = `An error occurred: ${response.statusText}`;
@@ -129,7 +136,7 @@ const AlertSolo = () => {
   }
 
   async function getAgentData(id) {
-    const response = await fetch(`/agents/${id}`);
+    const response = await fetch(`/api/agents/${id}`);
 
     if (!response.ok) {
       const message = `An error occurred: ${response.statusText}`;

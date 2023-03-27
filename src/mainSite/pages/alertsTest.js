@@ -29,7 +29,7 @@ const AlertsTest = () => {
     // This method fetches the records from the database.
     useEffect(() => {
         async function getRecords() {
-            const response = await fetch(`/alerts/`);
+            const response = await fetch(`/api/alerts/`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
@@ -47,7 +47,7 @@ const AlertsTest = () => {
     }, [records.length]);
 
     async function getFilteredRecords() {
-        const response = await fetch(`/alerts/${form.startDate}/${form.endDate}`);
+        const response = await fetch(`/api/alerts/${form.startDate}/${form.endDate}`);
 
         if (!response.ok) {
             const message = `An error occurred: ${response.statusText}`;

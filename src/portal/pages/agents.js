@@ -445,7 +445,7 @@ const Agents = () => {
             <main className={portalStyles.main}>
                 <PortalHeader>
                     <PeopleSvg />
-                    Manage Agents
+                    Manage Your Account
                 </PortalHeader>
                 {/* Insert all main content below header here */}
                 <RecordTable />

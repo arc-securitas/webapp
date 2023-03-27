@@ -9,6 +9,12 @@ import Seesaw from '../components/Seesaw.js';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from 'react-router-dom';
 
+/*
+  List of all events associated with user.
+  ------------------------------------------------------------------------------
+  Accessed through the path "/portal/events". See App.js for Route definitions.
+*/
+
 const Events = () => {
     const [records, setRecords] = useState([]);
     const [startDay, setStartDay] = useState(new Date());
@@ -23,7 +29,7 @@ const Events = () => {
             let date = new Date(d);
             date.setDate(date.getDate() + i);
             // Fetches the events corresponding to a single day
-            const response = await fetch(`/events/getByDate/${user.email}/${date.toISOString().split('T')[0]}`);
+            const response = await fetch(`/api/events/getByDate/${user.email}/${date.toISOString().split('T')[0]}`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;

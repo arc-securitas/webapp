@@ -6,7 +6,7 @@ const eventRoutes = express.Router();
 const Event = require('../schemas/event.js');
 let db_connect = mongoose.connection.collection("events");
 
-eventRoutes.route("/events/getByDate/:managerEmail/:date").get(function (req, res) {
+eventRoutes.route("/api/events/getByDate/:managerEmail/:date").get(function (req, res) {
   let managerEmail = req.params.managerEmail;
   let date = new Date(req.params.date);
 
@@ -18,7 +18,7 @@ eventRoutes.route("/events/getByDate/:managerEmail/:date").get(function (req, re
     });
 });
 
-eventRoutes.route("/events/getById/:id").get(function (req, res) {
+eventRoutes.route("/api/events/getById/:id").get(function (req, res) {
   var ObjectId = (require('mongoose').Types.ObjectId);
   var query = { _id: new ObjectId(req.params.id) };
 
@@ -30,7 +30,7 @@ eventRoutes.route("/events/getById/:id").get(function (req, res) {
     });
 });
 
-eventRoutes.route("/events/:startDate/:endDate").get(function (req, res) {
+eventRoutes.route("/api/events/:startDate/:endDate").get(function (req, res) {
   let startDate = new Date(req.params.startDate);
   let endDate = new Date(req.params.endDate)
   db_connect
@@ -41,7 +41,7 @@ eventRoutes.route("/events/:startDate/:endDate").get(function (req, res) {
       });
 });
 
-eventRoutes.route("/events/:managerEmail/:startDate/:endDate").get(function (req, res) {
+eventRoutes.route("/api/events/:managerEmail/:startDate/:endDate").get(function (req, res) {
   let startDate = new Date(req.params.startDate);
   let endDate = new Date(req.params.endDate);
   let managerEmail = req.params.managerEmail;
@@ -53,7 +53,7 @@ eventRoutes.route("/events/:managerEmail/:startDate/:endDate").get(function (req
       });
 });
 
-eventRoutes.route("/events/add").post(function (req, res) {
+eventRoutes.route("/api/events/add").post(function (req, res) {
   let event = new Event();
   assignValues(event, req.body);
 

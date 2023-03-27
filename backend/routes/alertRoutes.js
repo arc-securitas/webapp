@@ -16,7 +16,7 @@ const ObjectId = require("mongodb").ObjectId;
 let db_connect = mongoose.connection.collection("alerts");
 
 // Get a list of all the alert records
-alertRoutes.route("/alerts").get(function (req, res) {
+alertRoutes.route("/api/alerts").get(function (req, res) {
     db_connect
         .find({})
         .toArray(function (err, result) {
@@ -25,7 +25,7 @@ alertRoutes.route("/alerts").get(function (req, res) {
         });
 });
 
-alertRoutes.route("/alerts/getById/:id").get(function (req, res) {
+alertRoutes.route("/api/alerts/getById/:id").get(function (req, res) {
     var ObjectId = (require('mongoose').Types.ObjectId);
     var query = { _id: new ObjectId(req.params.id) };
 
@@ -37,7 +37,7 @@ alertRoutes.route("/alerts/getById/:id").get(function (req, res) {
     });
 });
 
-alertRoutes.route("/alerts/:managerEmail/:startDate/:endDate").get(function (req, res) {
+alertRoutes.route("/api/alerts/:managerEmail/:startDate/:endDate").get(function (req, res) {
     let startDate = new Date(req.params.startDate);
     let endDate = new Date(req.params.endDate);
     let managerEmail = req.params.managerEmail;
@@ -51,7 +51,7 @@ alertRoutes.route("/alerts/:managerEmail/:startDate/:endDate").get(function (req
 });
 
 // Create a new alert record.
-alertRoutes.route("/alerts/add").post(function (req, res) {
+alertRoutes.route("/api/alerts/add").post(function (req, res) {
     let alert = new Alert();
     assignValues(alert, req.body);
 
@@ -61,7 +61,7 @@ alertRoutes.route("/alerts/add").post(function (req, res) {
     });
 });
 
-alertRoutes.route("/alerts/:startDate/:endDate").get(function (req, res) {
+alertRoutes.route("/api/alerts/:startDate/:endDate").get(function (req, res) {
     let startDate = new Date(req.params.startDate);
     let endDate = new Date(req.params.endDate)
     db_connect

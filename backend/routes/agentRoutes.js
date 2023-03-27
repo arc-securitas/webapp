@@ -25,6 +25,7 @@ agentRoutes.route("/api/agents").get(function (req, res) {
         });
 });
 
+
 // Get a list of all agents specific to the manager in manageAgents page
 agentRoutes.route("/api/agents/:managerEmail").get(function (req, res) {
     let managerEmail = req.params.managerEmail;
@@ -36,23 +37,31 @@ agentRoutes.route("/api/agents/:managerEmail").get(function (req, res) {
         });
 });
 
-
-// Gets a single agent record by id
-// agentRoutes.route("/agents/:id").get(function (req, res) {
-//     Agent.findById(ObjectId(req.params.id), function (err, result) {
-//         if (err) throw err;
-//         res.json(result);
-//     });
-
-//     // let query = Agent.where({ _id: ObjectId(req.params.id) });
-//     // query.findOne(function (err, result) {
-//     //     if (err) throw err;
-//     //     res.json(result);
-//     // });
-// });
-
 agentRoutes.route("/api/agents/:managerEmail/:id").get(function (req, res) {
     let agentID = ObjectId(req.params.id);
+    let managerEmail = req.params.managerEmail;
+    Agent.findOne({_id: agentID, managerEmail: managerEmail}, function (err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+});
+
+// Gets a single agent record by id
+agentRoutes.route("/api/agents/:id").get(function (req, res) {
+    Agent.findById(ObjectId(req.params.id), function (err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+
+    // let query = Agent.where({ _id: ObjectId(req.params.id) });
+    // query.findOne(function (err, result) {
+    //     if (err) throw err;
+    //     res.json(result);
+    // });
+});
+
+agentRoutes.route("/api/agents/:managerEmail/:id").get(function (req, res) {
+    let agentID = ObjectId(req.params.id)
     let managerEmail = req.params.managerEmail;
     Agent.findOne({_id: agentID, managerEmail: managerEmail}, function (err, result) {
         if (err) throw err;
