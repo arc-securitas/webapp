@@ -7,6 +7,10 @@ import { agentsToString } from '../util.js';
 import styles from './eventCard.module.css'
 
 const EventCard = (props) => {
+    let startTime = new Date(props.showing["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+    let endTime = new Date(props.showing["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+
+
   return (
       <div className={`${styles.card} ${props.clickHandler === undefined ? "" : styles.clickable}`} onClick={props.clickHandler}>
           <Card>
@@ -19,7 +23,7 @@ const EventCard = (props) => {
               </div>
               <div className={styles.miniRow}>
                   <Clock className={styles.icon}/>
-                  {props.showing["startTime"]} - {props.showing["endTime"]}
+                  {startTime} - {endTime}
               </div>
               <div className={styles.miniRow}>
                   <Calendar className={styles.icon}/>

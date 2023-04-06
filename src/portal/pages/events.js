@@ -25,11 +25,18 @@ const Events = () => {
     async function getRecords(d) {
         // |records| has one row per day. Each row is an array w/ the events of that day.
         let records = [];
+
         for (let i = 0; i < 7; i++) {
-            let date = new Date(d);
-            date.setDate(date.getDate() + i);
+            let currDay = new Date(d);
+            currDay.setDate(d.getDate() + i);
+            currDay.setHours(0, 0, 0, 0);
+            
+            let nextDay = new Date(currDay);
+            nextDay.setDate(currDay.getDate() + 1);
+            nextDay.setHours(0, 0, 0, 0);
+
             // Fetches the events corresponding to a single day
-            const response = await fetch(`/api/events/getByDate/${user.email}/${date.toISOString().split('T')[0]}`);
+            const response = await fetch(`/api/events/${user.email}/${currDay}/${nextDay}`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
@@ -42,6 +49,7 @@ const Events = () => {
         }
 
         let date = new Date(d);
+        date.setHours(0, 0, 0, 0);
         // Finally, maps the records to cards w/ the corresponding data in them.
         setRecords(records.map((day) => {
             let result = (

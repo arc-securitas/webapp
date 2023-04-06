@@ -17,9 +17,8 @@ const eventSchema = new Schema({
   }],
   eventType: { type: String, enum: ['Showing', 'Open House', 'Other'] },
   location: { type: String, required : true },
-  date: Date,
-  startTime: String,
-  endTime: String,
+  startTime: Date,
+  endTime: Date,
 
   managerEmail: String,
   // TODO: Related Alerts-

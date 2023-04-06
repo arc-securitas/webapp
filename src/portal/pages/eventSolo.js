@@ -24,10 +24,13 @@ const EventSolo = () => {
   const [alertData, setAlertData] = useState([]);
 
   useEffect(() => {
-      getEventData(id);
+    getEventData(id);
   }, [id]);
 
   if (eventData.length === 0) return (<div>Loading...</div>);
+
+  let startTime = new Date(eventData[0]["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+  let endTime = new Date(eventData[0]["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
 
   return (
     <div className={portalStyles.portal}>
@@ -43,14 +46,14 @@ const EventSolo = () => {
           <div className={styles.row}>
             <div>
               <h1 className={styles.sectionTitle}>Location</h1>
-              <MapWrapper features={[]} address={eventData[0]["location"]}/>
+              {/* <MapWrapper features={[]} address={eventData[0]["location"]} /> */}
               {eventData[0]["location"]}
             </div>
             <div>
               <div className={styles.column}>
                 <div>
                   <h1 className={styles.sectionTitle}>Time</h1>
-                  {eventData[0]["startTime"]} - {eventData[0]["endTime"]}
+                  {startTime} - {endTime}
                 </div>
                 <div>
                   <h1 className={styles.sectionTitle}>Agents</h1>
@@ -76,9 +79,9 @@ const EventSolo = () => {
     const response = await fetch(`/api/events/getById/${id}`);
 
     if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
     }
 
     let result = await response.json();
@@ -120,9 +123,9 @@ const EventSolo = () => {
       )
     } else {
       return alertData.map((alert) => {
-        return(
+        return (
           <div>
-            <AlertCard alert={alert[0]}/>
+            <AlertCard alert={alert[0]} />
           </div>
         );
       })
@@ -145,7 +148,7 @@ class AlertCard extends React.Component {
           <span className={` ${styles.leftPad}`}>
             <Black_Map_Pin className={styles.icon} />
             {this.props.alert.location}
-            <br/>
+            <br />
           </span>
 
           <span className={` `}>
@@ -164,7 +167,7 @@ class AlertCard extends React.Component {
             {this.props.alert.audioTranscription}
           </span>
         </Card>
-    </div>
+      </div>
     );
   }
 }
@@ -173,13 +176,13 @@ export default EventSolo;
 
 class CalendarSvg extends React.Component {
   render() {
-      return (
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 8H20" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M19 4H5C4.44772 4 4 4.44772 4 5V19C4 19.5523 4.44772 20 5 20H19C19.5523 20 20 19.5523 20 19V5C20 4.44772 19.5523 4 19 4Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M16 2V4" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M8 2V4" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-      );
+    return (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 8H20" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M19 4H5C4.44772 4 4 4.44772 4 5V19C4 19.5523 4.44772 20 5 20H19C19.5523 20 20 19.5523 20 19V5C20 4.44772 19.5523 4 19 4Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M16 2V4" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M8 2V4" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
   }
 }
