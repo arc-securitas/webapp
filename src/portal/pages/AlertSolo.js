@@ -31,10 +31,25 @@ const AlertSolo = () => {
 
   if (alertData.length === 0) return (<div>Loading...</div>);
 
-  let startTime = new Date(eventData["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
-  let endTime = new Date(eventData["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+  let startTime = "";
+  let endTime = "";
 
+  let startDate = new Date(eventData["startTime"]);
+  startDate.setHours(0, 0, 0, 0);
 
+  let endDate = new Date(eventData["endTime"]);
+  endDate.setHours(0, 0, 0, 0);
+
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  startTime += startDate.toLocaleDateString(undefined, options) + " ";
+
+  if (startDate.getTime() < endDate.getTime()) {
+
+    endTime += endDate.toLocaleDateString(undefined, options) + " ";
+  }
+
+  startTime += new Date(eventData["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+  endTime += new Date(eventData["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
 
   return (
     <div className={portalStyles.portal}>

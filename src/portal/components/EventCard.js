@@ -7,8 +7,24 @@ import { agentsToString } from '../util.js';
 import styles from './eventCard.module.css'
 
 const EventCard = (props) => {
-    let startTime = new Date(props.showing["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
-    let endTime = new Date(props.showing["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+    let startTime = "";
+    let endTime = "";
+
+    let startDate = new Date(props.showing["startTime"]);
+    startDate.setHours(0, 0, 0, 0);
+
+    let endDate = new Date(props.showing["endTime"]);
+    endDate.setHours(0, 0, 0, 0);
+
+    
+    if (startDate.getTime() < endDate.getTime()) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        startTime += startDate.toLocaleDateString(undefined, options) + " ";
+        endTime += endDate.toLocaleDateString(undefined, options) + " ";
+    }
+
+    startTime += new Date(props.showing["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+    endTime += new Date(props.showing["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
 
 
   return (
