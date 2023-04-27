@@ -31,6 +31,26 @@ const AlertSolo = () => {
 
   if (alertData.length === 0) return (<div>Loading...</div>);
 
+  let startTime = "";
+  let endTime = "";
+
+  let startDate = new Date(eventData["startTime"]);
+  startDate.setHours(0, 0, 0, 0);
+
+  let endDate = new Date(eventData["endTime"]);
+  endDate.setHours(0, 0, 0, 0);
+
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  startTime += startDate.toLocaleDateString(undefined, options) + " ";
+
+  if (startDate.getTime() < endDate.getTime()) {
+
+    endTime += endDate.toLocaleDateString(undefined, options) + " ";
+  }
+
+  startTime += new Date(eventData["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+  endTime += new Date(eventData["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+
   return (
     <div className={portalStyles.portal}>
       <div className={portalStyles.nav}><PortalNav page="Alerts"/></div>
@@ -48,7 +68,7 @@ const AlertSolo = () => {
                 <div className={styles.row}>
                   <div>
                   <h1 className={styles.sectionTitle}>Location</h1>
-                  <MapWrapper features={[]} address={alertData["location"]}/>
+                  {/* <MapWrapper features={[]} address={alertData["location"]}/> */}
                   {alertData["location"]}
                 </div>
                 <div>
@@ -71,7 +91,7 @@ const AlertSolo = () => {
                     </div>
                     <div className={styles.iconLine}>
                       <Black_Clock  className={styles.icon}/>
-                      {eventData["startTime"]} - {eventData["endTime"]}
+                      {startTime} - {endTime}
                     </div>
                   </div>
                   <div className={styles.section}>

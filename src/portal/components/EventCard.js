@@ -7,6 +7,26 @@ import { agentsToString } from '../util.js';
 import styles from './eventCard.module.css'
 
 const EventCard = (props) => {
+    let startTime = "";
+    let endTime = "";
+
+    let startDate = new Date(props.showing["startTime"]);
+    startDate.setHours(0, 0, 0, 0);
+
+    let endDate = new Date(props.showing["endTime"]);
+    endDate.setHours(0, 0, 0, 0);
+
+    
+    if (startDate.getTime() < endDate.getTime()) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        startTime += startDate.toLocaleDateString(undefined, options) + " ";
+        endTime += endDate.toLocaleDateString(undefined, options) + " ";
+    }
+
+    startTime += new Date(props.showing["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+    endTime += new Date(props.showing["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+
+
   return (
       <div className={`${styles.card} ${props.clickHandler === undefined ? "" : styles.clickable}`} onClick={props.clickHandler}>
           <Card>
@@ -19,7 +39,7 @@ const EventCard = (props) => {
               </div>
               <div className={styles.miniRow}>
                   <Clock className={styles.icon}/>
-                  {props.showing["startTime"]} - {props.showing["endTime"]}
+                  {startTime} - {endTime}
               </div>
               <div className={styles.miniRow}>
                   <Calendar className={styles.icon}/>

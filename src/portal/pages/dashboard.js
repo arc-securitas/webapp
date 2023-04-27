@@ -142,7 +142,7 @@ const Dashboard = () => {
         return safetyAlerts.map((safetyAlert) => {
             let agent = agentsMap.get(safetyAlert.agent.toString());
             let date = new Date(safetyAlert.dateTime).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
-            let time = new Date(safetyAlert.dateTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })
+            let time = new Date(safetyAlert.dateTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
 
             if (agent != null) {
                 let agentName = agent.firstName + " " + agent.lastName;
@@ -188,6 +188,9 @@ const Dashboard = () => {
 
         // Render all of today's events and their details
         return events.map((showing) => {
+            let startTime = new Date(showing.startTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+            let endTime = new Date(showing.endTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+
             return (
                 <div className={styles.eventCard}>
                     <Link to={`/portal/events/${showing["_id"]}`}>
@@ -201,7 +204,7 @@ const Dashboard = () => {
                             </div>
                             <div className={styles.miniRow}>
                                 <Clock className={styles.icon} />
-                                {" " + showing.startTime} - {showing.endTime}
+                                {" " + startTime} - {endTime}
                             </div>
                             <div className={styles.miniRow}>
                                 <Calendar className={styles.icon} />

@@ -11,23 +11,78 @@ import pencilIcon from "../images/pencilIcon.svg";
 import addIcon from "../images/Add_Plus.svg";
 
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
+
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+
+import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
+
 
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { useAuth0 } from "@auth0/auth0-react";
+
+const DialogModal = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+        padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+        padding: theme.spacing(1),
+    },
+}));
+
+function DialogModalTitle(props) {
+    const { children, onClose, ...other } = props;
+
+    return (
+        <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+            {children}
+            {onClose ? (
+                <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            ) : null}
+        </DialogTitle>
+    );
+}
+
+DialogModalTitle.propTypes = {
+    children: PropTypes.node,
+    onClose: PropTypes.func.isRequired,
+};
+
 
 
 const Record = (props) => (
     <tr>
-        <td>{props.record.firstName + " " + props.record.middleName + " " + props.record.lastName}</td>
-        <td>{props.record.phoneNumber}</td>
-        <td>{props.record.email}</td>
-        <td>{props.record.licenseID}</td>
-        <td>
+        <td className={agentsStyles.record}>{props.record.firstName + " " + props.record.middleName + " " + props.record.lastName}</td>
+        <td className={agentsStyles.record}>{props.record.phoneNumber}</td>
+        <td className={agentsStyles.record}>{props.record.email}</td>
+        <td className={agentsStyles.record}>{props.record.licenseID}</td>
+        <td className={agentsStyles.record}>
             <PopupState variant="popover" popupId="demo-popup-menu">
                 {(popupState) => (
                     <React.Fragment>
@@ -38,6 +93,7 @@ const Record = (props) => (
                                     sx={{
                                         fontFamily: "Outfit",
                                         fontWeight: '500',
+                                        color: "black"
                                     }}
                                 ><img src={trashIcon} /> Delete </MenuItem>
                             </Button>
@@ -46,6 +102,7 @@ const Record = (props) => (
                                 <MenuItem onClick={() => { popupState.close(); props.editRecord(); }} sx={{
                                     fontFamily: "Outfit",
                                     fontWeight: '500',
+                                    color: "black"
                                 }}> <img src={pencilIcon} />Edit</MenuItem>
                             </Button>
                         </Menu>
@@ -65,6 +122,16 @@ const RecordTable = () => {
     // in the page. All the filtering (search) and categorizing (active / pending / inactive)
     // happens on displayRecords
     const [displayRecords, setDisplayRecords] = useState(records);
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+
 
     // This method fetches the records from the database.
     // and store the list of agents in records
@@ -123,7 +190,7 @@ const RecordTable = () => {
         return (
             <div className={agentsStyles.threeTable}>
                 <h4 className={agentsStyles.title}>{name}</h4>
-                <table className="table" >
+                <table >
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -263,33 +330,45 @@ const RecordTable = () => {
                     {displayTable(inactiveRecords, "Inactive")}
                 </div>
 
-                <Button className={`${agentsStyles.primaryButton} ${agentsStyles.addAgentButton}`} onClick={handleAddAgentShow}>
-                    <img src={addIcon} className={agentsStyles.addIcon}/>Add New Agent
-                </Button>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row-reverse',
+                    }}
+                >
+                    <Button variant="contained" onClick={handleAddAgentShow} sx={{ borderRadius: "100px", marginBottom: "50px" }}>
+                        <img src={addIcon} className={agentsStyles.addIcon} />Add New Agent
+                    </Button>
+                </Box>
 
-                {/* Add Agents */}
-                <Modal show={addAgentShow} onHide={handleAddAgentClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Add New Agent</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
+
+
+                <DialogModal
+                    onClose={handleAddAgentClose}
+                    aria-labelledby="customized-dialog-title"
+                    open={addAgentShow}
+                >
+                    <DialogModalTitle id="customized-dialog-title" onClose={handleAddAgentClose}>
+                        Add New Agent
+                    </DialogModalTitle>
+                    <DialogContent dividers>
                         <form onSubmit={onSubmit}>
                             <div className="form-group">
-                                <label htmlFor="firstName">First Name</label>
+                                <label className={agentsStyles.formlabel} htmlFor="firstName">First Name</label><br />
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={agentsStyles.formInput}
                                     id="firstName"
-                                    defaultValue={form.firstName}
+                                    value={form.firstName}
                                     onChange={(e) => updateForm({ firstName: e.target.value })}
                                 />
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="middleName">Middle Name</label>
+                                <label htmlFor="middleName" className={agentsStyles.formlabel}>Middle Name</label><br />
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={agentsStyles.formInput}
                                     id="middleName"
                                     defaultValue={form.middleName}
                                     onChange={(e) => updateForm({ middleName: e.target.value })}
@@ -297,10 +376,10 @@ const RecordTable = () => {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="lastName">Last Name</label>
+                                <label htmlFor="lastName" className={agentsStyles.formlabel}>Last Name</label><br />
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={agentsStyles.formInput}
                                     id="lastName"
                                     defaultValue={form.lastName}
                                     onChange={(e) => updateForm({ lastName: e.target.value })}
@@ -308,10 +387,10 @@ const RecordTable = () => {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="phoneNumber">Phone Number</label>
+                                <label htmlFor="phoneNumber">Phone Number</label><br />
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={agentsStyles.formInput}
                                     id="phoneNumber"
                                     defaultValue={form.phoneNumber}
                                     onChange={(e) => updateForm({ phoneNumber: e.target.value })}
@@ -319,39 +398,215 @@ const RecordTable = () => {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="email">Email</label>
+                                <label htmlFor="email">Email</label><br />
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={agentsStyles.formInput}
                                     id="email"
                                     defaultValue={form.email}
                                     onChange={(e) => updateForm({ email: e.target.value })}
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="licenseID">License ID</label>
+                                <label htmlFor="licenseID">License ID</label><br />
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={agentsStyles.formInput}
                                     id="licenseID"
                                     defaultValue={form.licenseID}
                                     onChange={(e) => updateForm({ licenseID: e.target.value })}
                                 />
                             </div>
                         </form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleAddAgentClose}>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant="text" onClick={handleAddAgentClose}>
                             Cancel
                         </Button>
-                        <Button variant="primary" onClick={onSubmit}>
+                        <Button variant="contained" onClick={onSubmit}>
                             Add Agent
                         </Button>
-                    </Modal.Footer>
-                </Modal>
+                    </DialogActions>
+                </DialogModal>
+
+                <DialogModal
+                    onClose={handleEditAgentClose}
+                    aria-labelledby="customized-dialog-title"
+                    open={editAgentShow}
+                >
+                    <DialogModalTitle id="customized-dialog-title" onClose={handleEditAgentClose}>
+                        Add New Agent
+                    </DialogModalTitle>
+                    <DialogContent dividers>
+                        <form onSubmit={onEditAgentSubmit}>
+                            <div className="form-group">
+                                <label className={agentsStyles.formlabel} htmlFor="firstName">First Name</label><br />
+                                <input
+                                    type="text"
+                                    className={agentsStyles.formInput}
+                                    id="firstName"
+                                    defaultValue={editAgentForm.firstName}
+                                    onChange={(e) => updateEditAgentForm({ firstName: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="middleName" className={agentsStyles.formlabel}>Middle Name</label><br />
+                                <input
+                                    type="text"
+                                    className={agentsStyles.formInput}
+                                    id="middleName"
+                                    defaultValue={editAgentForm.middleName}
+                                    onChange={(e) => updateEditAgentForm({ middleName: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="lastName" className={agentsStyles.formlabel}>Last Name</label><br />
+                                <input
+                                    type="text"
+                                    className={agentsStyles.formInput}
+                                    id="lastName"
+                                    defaultValue={editAgentForm.lastName}
+                                    onChange={(e) => updateEditAgentForm({ lastName: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="phoneNumber">Phone Number</label><br />
+                                <input
+                                    type="text"
+                                    className={agentsStyles.formInput}
+                                    id="phoneNumber"
+                                    defaultValue={editAgentForm.phoneNumber}
+                                    onChange={(e) => updateEditAgentForm({ phoneNumber: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="email">Email</label><br />
+                                <input
+                                    type="text"
+                                    className={agentsStyles.formInput}
+                                    id="email"
+                                    defaultValue={editAgentForm.email}
+                                    onChange={(e) => updateEditAgentForm({ email: e.target.value })}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="licenseID">License ID</label><br />
+                                <input
+                                    type="text"
+                                    className={agentsStyles.formInput}
+                                    id="licenseID"
+                                    defaultValue={editAgentForm.licenseID}
+                                    onChange={(e) => updateEditAgentForm({ licenseID: e.target.value })}
+                                />
+                            </div>
+                        </form>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant="text" onClick={handleEditAgentClose}>
+                            Cancel
+                        </Button>
+                        <Button variant="contained" onClick={onEditAgentSubmit}>
+                            Edit Agent
+                        </Button>
+                    </DialogActions>
+                </DialogModal>
+
+
+
+
+
+
+                {/* 
+                <div className="modal show" style={{ display: 'block', position: 'initial' }}>
+                    <Modal show={addAgentShow} onHide={handleAddAgentClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Add New Agent</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <form onSubmit={onSubmit}>
+                                <div className="form-group">
+                                    <label htmlFor="firstName">First Name</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="firstName"
+                                        defaultValue={form.firstName}
+                                        onChange={(e) => updateForm({ firstName: e.target.value })}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="middleName">Middle Name</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="middleName"
+                                        defaultValue={form.middleName}
+                                        onChange={(e) => updateForm({ middleName: e.target.value })}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="lastName">Last Name</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="lastName"
+                                        defaultValue={form.lastName}
+                                        onChange={(e) => updateForm({ lastName: e.target.value })}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="phoneNumber">Phone Number</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="phoneNumber"
+                                        defaultValue={form.phoneNumber}
+                                        onChange={(e) => updateForm({ phoneNumber: e.target.value })}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="email">Email</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="email"
+                                        defaultValue={form.email}
+                                        onChange={(e) => updateForm({ email: e.target.value })}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="licenseID">License ID</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="licenseID"
+                                        defaultValue={form.licenseID}
+                                        onChange={(e) => updateForm({ licenseID: e.target.value })}
+                                    />
+                                </div>
+                            </form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleAddAgentClose}>
+                                Cancel
+                            </Button>
+                            <Button variant="primary" onClick={onSubmit}>
+                                Add Agent
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </div> */}
 
                 {/* Edit Agents Modal */}
-                <Modal show={editAgentShow} onHide={handleEditAgentClose}>
+                {/* <Modal show={editAgentShow} onHide={handleEditAgentClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Edit Agent</Modal.Title>
                     </Modal.Header>
@@ -431,7 +686,7 @@ const RecordTable = () => {
                             Edit Agent
                         </Button>
                     </Modal.Footer>
-                </Modal>
+                </Modal> */}
             </div>
         </div>
     );

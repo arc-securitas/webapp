@@ -34,7 +34,7 @@ eventRoutes.route("/api/events/:startDate/:endDate").get(function (req, res) {
   let startDate = new Date(req.params.startDate);
   let endDate = new Date(req.params.endDate)
   db_connect
-      .find({ date: { $gte: startDate, $lt: endDate } })
+      .find({ startTime: { $gte: startDate, $lt: endDate } })
       .toArray(function (err, result) {
           if (err) throw err;
           res.json(result);
@@ -46,7 +46,7 @@ eventRoutes.route("/api/events/:managerEmail/:startDate/:endDate").get(function 
   let endDate = new Date(req.params.endDate);
   let managerEmail = req.params.managerEmail;
   db_connect
-      .find({ managerEmail: managerEmail, date: { $gte: startDate, $lt: endDate } })
+      .find({ managerEmail: managerEmail, startTime: { $gte: startDate, $lt: endDate } })
       .toArray(function (err, result) {
           if (err) throw err;
           res.json(result);
@@ -74,8 +74,6 @@ function assignValues(event, values) {
     event.eventType = values.eventType;
   if (values.location != undefined)
     event.location = values.location;
-  if (values.date != undefined)
-    event.date = values.date;
   if (values.startTime != undefined)
     event.startTime = values.startTime;
   if (values.endTime != undefined)
