@@ -5,7 +5,7 @@
 .title {
     font-family: 'Outfit';
     font-weight: bold;
-    font-size: 21px; 
+    font-size: 21px;
 }
 
 .threeTable {
@@ -16,14 +16,19 @@
 .threeTable th {
     color: #3684C9;
     border: none;
+    text-align: left;
+}
+
+.record {
+    padding: 0 15px 0 0;
 }
 
 .searchBar {
     border-radius: 8px;
     border: 1.5px solid #3684C9;
-    width: 40%;  
+    width: 40%;
     margin-right: 10px;
-    padding: 6px;  
+    padding: 6px;
 }
 
 .linkStyle {
@@ -53,6 +58,11 @@
     margin-left: 20px;
 }
 
+.align-right {
+    display: flex !important;
+    justify-content: right !important;
+  }
+
 .sectionScroll {
     padding: 20px;
     overflow-y: scroll;
@@ -69,9 +79,27 @@ img {
     height: auto;
 }
 
+.formTitle {
+    font-family: 'Outfit';
+    font-weight: 700;
+}
+
+.formLabel {
+    font-family: 'Lato';
+}
+
+.formInput {
+    padding: 5px 5px;
+    border: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 400px;
+    margin-bottom: 12px;
+}
+
 .searchButton {
     margin-left: 50px;
     margin-right: 50px;
     height: 10px;
 }
-
