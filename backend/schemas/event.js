@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 const eventSchema = new Schema({
   // Agents-
   agents: [{
-    firstName: {type: String, required: true },
+    firstName: { type: String, required: true },
     middleName: String,
     lastName: { type: String, required: true },
   }],
@@ -16,9 +16,14 @@ const eventSchema = new Schema({
     lastName: String,
   }],
   eventType: { type: String, enum: ['Showing', 'Open House', 'Other'] },
-  location: { type: String, required : true },
+  location: { type: String, required: true },
+  
   startTime: Date,
   endTime: Date,
+  timezone: { type: String, required: true },
+
+  latitude: { type: String, required: true },
+  longitude: { type: String, required: true },
 
   managerEmail: String,
   // TODO: Related Alerts-

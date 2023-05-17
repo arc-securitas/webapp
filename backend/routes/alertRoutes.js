@@ -30,11 +30,11 @@ alertRoutes.route("/api/alerts/getById/:id").get(function (req, res) {
     var query = { _id: new ObjectId(req.params.id) };
 
     db_connect
-      .find ( query )
-      .toArray(function (err, result) {
-        if (err) throw err;
-        res.json(result);
-    });
+        .find(query)
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
 });
 
 alertRoutes.route("/api/alerts/:managerEmail/:startDate/:endDate").get(function (req, res) {
@@ -87,12 +87,21 @@ function assignValues(alert, values) {
         alert.dateTime = values.dateTime;
     }
 
+    if (values.timezone != undefined) {
+        alert.timezone = values.timezone;
+    }
+    if (values.latitude != undefined) {
+        alert.latitude = values.latitude;
+    }
+    if (values.longitude != undefined) {
+        alert.longitude = values.longitude;
+    }
+
     if (values.audioTranscription != undefined) {
         alert.audioTranscription = values.audioTranscription;
     }
 
-    if (values.managerEmail != undefined)
-    {
+    if (values.managerEmail != undefined) {
         alert.managerEmail = values.managerEmail;
     }
 }
