@@ -74,10 +74,10 @@ const Alerts = () => {
                                                     <Black_Map_Pin /> {showing["location"]}
                                                 </div>
                                                 <div className={styles.miniRow}>
-                                                    <Black_Calendar /> {new Date(showing["dateTime"]).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}
+                                                    <Black_Calendar /> {new Date(showing["dateTime"]).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', timeZone: showing.timezone, timeZoneName: "short" })}
                                                 </div>
                                                 <div className={styles.miniRow}>
-                                                    <Black_Clock /> {new Date(showing["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}
+                                                    <Black_Clock /> {new Date(showing["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: showing.timezone, timeZoneName: "short" })}
                                                 </div>
                                             </div>
                                             <div className={styles.vert}/>
