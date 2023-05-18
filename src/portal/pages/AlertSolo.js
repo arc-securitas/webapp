@@ -40,16 +40,18 @@ const AlertSolo = () => {
   let endDate = new Date(eventData["endTime"]);
   endDate.setHours(0, 0, 0, 0);
 
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  // Get date
+  const options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: eventData["timezone"] };
   startTime += startDate.toLocaleDateString(undefined, options) + " ";
 
   if (startDate.getTime() < endDate.getTime()) {
-
+    // if different end date
     endTime += endDate.toLocaleDateString(undefined, options) + " ";
   }
 
-  startTime += new Date(eventData["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
-  endTime += new Date(eventData["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+  // get times
+  startTime += new Date(eventData["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: eventData["timezone"], timeZoneName: "short" });
+  endTime += new Date(eventData["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: eventData["timezone"], timeZoneName: "short" });
 
   return (
     <div className={portalStyles.portal}>
@@ -64,11 +66,11 @@ const AlertSolo = () => {
           <div className={portalStyles.mainPad}>
             <div className={styles.row}>
               <div className={styles.column}>
-                <h1 className={styles.title}>{agentData["firstName"]} {agentData["lastName"]}: {new Date(alertData["dateTime"]).toLocaleString(undefined, { weekday: "long", year: "numeric", month: "numeric", day: "numeric"})} {new Date(alertData["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}</h1>
+                <h1 className={styles.title}>{agentData["firstName"]} {agentData["lastName"]}: {new Date(alertData["dateTime"]).toLocaleString(undefined, { weekday: "long", year: "numeric", month: "numeric", day: "numeric", timeZone: alertData["timezone"]})} {new Date(alertData["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: alertData["timezone"], timeZoneName: "short" })}</h1>
                 <div className={styles.row}>
                   <div>
                   <h1 className={styles.sectionTitle}>Location</h1>
-                  {/* <MapWrapper features={[]} address={alertData["location"]}/> */}
+                  <MapWrapper features={[]} latitude={alertData["latitude"]} longitude={alertData["longitude"]}/>
                   {alertData["location"]}
                 </div>
                 <div>
