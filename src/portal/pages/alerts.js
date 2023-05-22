@@ -38,9 +38,14 @@ const Alerts = () => {
         for (let i=0; i<7; i++) {
             let startDate = new Date(day);
             let endDate = new Date(day);
+
             startDate.setDate(startDate.getDate()+i);
+            startDate.setHours(0, 0, 0, 0);
+
             endDate.setDate(endDate.getDate()+i+1);
-            const response = await fetch(`/api/alerts/${user.email}/${startDate.toISOString().split('T')[0]}/${endDate.toISOString().split('T')[0]}`);
+            endDate.setHours(0, 0, 0, 0);
+
+            const response = await fetch(`/api/alerts/${user.email}/${startDate}/${endDate}`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
