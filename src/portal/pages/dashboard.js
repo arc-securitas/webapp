@@ -141,14 +141,14 @@ const Dashboard = () => {
         }
         return safetyAlerts.map((safetyAlert) => {
             let agent = agentsMap.get(safetyAlert.agent.toString());
-            let date = new Date(safetyAlert.dateTime).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', timeZone: safetyAlert.timezone, timeZoneName: "short" });
+            let date = new Date(safetyAlert.dateTime).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', timeZone: safetyAlert.timezone });
             let time = new Date(safetyAlert.dateTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: safetyAlert.timezone, timeZoneName: "short" });
 
             if (agent != null) {
                 let agentName = agent.firstName + " " + agent.lastName;
                 return (
                     <div className={styles.alertCard}>
-                        <Link to={`/portal/alerts/${safetyAlert["_id"]}`}>
+                        <Link to={`/portal/alerts/${safetyAlert["managerEmail"]}/${safetyAlert["_id"]}`}>
                             <Card>
                                 <span className={styles.miniRow}>
                                     {displayDot(safetyAlert.viewed ? "GrayDot" : "RedDot")}
@@ -188,7 +188,7 @@ const Dashboard = () => {
 
         // Render all of today's events and their details
         return events.map((showing) => {
-            let startTime = new Date(showing.startTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: showing.timezone, timeZoneName: "short" });
+            let startTime = new Date(showing.startTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: showing.timezone });
             let endTime = new Date(showing.endTime).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: showing.timezone, timeZoneName: "short" });
 
             return (

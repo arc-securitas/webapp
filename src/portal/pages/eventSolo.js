@@ -46,7 +46,7 @@ const EventSolo = () => {
     endTime += endDate.toLocaleDateString(undefined, options) + " ";
   }
 
-  startTime += new Date(eventData[0]["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: eventData[0]["timezone"], timeZoneName: "short" });
+  startTime += new Date(eventData[0]["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: eventData[0]["timezone"] });
   endTime += new Date(eventData[0]["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: eventData[0]["timezone"], timeZoneName: "short" });
 
   return (

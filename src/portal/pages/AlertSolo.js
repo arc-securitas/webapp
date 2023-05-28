@@ -20,7 +20,7 @@ import { useParams } from 'react-router-dom';
 */
 
 const AlertSolo = () => {
-  const { id } = useParams();
+  const { managerEmail, id } = useParams();
   const [alertData, setAlertData] = useState([]);
   const [eventData, setEventData] = useState([]);
   const [agentData, setAgentData] = useState([]);
@@ -50,7 +50,7 @@ const AlertSolo = () => {
   }
 
   // get times
-  startTime += new Date(eventData["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: eventData["timezone"], timeZoneName: "short" });
+  startTime += new Date(eventData["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: eventData["timezone"]});
   endTime += new Date(eventData["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: eventData["timezone"], timeZoneName: "short" });
 
   return (
@@ -142,6 +142,21 @@ const AlertSolo = () => {
 
     setEventData(await populateEvent());
     setAgentData(await populateAgent());
+    setViewedStatus();
+  }
+
+  async function setViewedStatus() {
+    const response = await fetch(`/api/alerts/viewed/${managerEmail}/${id}`);
+    
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
+    console.log(response);
+
+    return;
   }
 
   async function getEventData(id) {

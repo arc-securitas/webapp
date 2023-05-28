@@ -40,7 +40,7 @@ function App(props) {
         {/* Portal Pages */}
         <Route exact path="/portal/dashboard" element={<Dashboard />} />
         <Route exact path="/portal/alerts/" element={<Alerts />} />
-        <Route exact path="/portal/alerts/:id" element={<AlertSolo />} />
+        <Route exact path="/portal/alerts/:managerEmail/:id" element={<AlertSolo />} />
         <Route exact path="/portal/events" element={<Events />} />
         <Route exact path="/portal/events/:id" element={<EventSolo />} />
         <Route exact path="/portal/agents" element={<Agents />} />

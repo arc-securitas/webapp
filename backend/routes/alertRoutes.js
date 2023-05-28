@@ -73,6 +73,21 @@ alertRoutes.route("/api/alerts/:startDate/:endDate").get(function (req, res) {
         });
 });
 
+alertRoutes.route("/api/alerts/viewed/:managerEmail/:id").post(function (req, res) {
+    const filter = { managerEmail: req.params.managerEmail, _id: new ObjectId((req.params.id)) };
+    const update = { viewed: true };
+
+    
+
+    console.log("here");
+    Alert.findOneAndUpdate(filter, update, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        res.json(result);
+        
+    });
+});
+
 // Assigns values to the agent's properties
 function assignValues(alert, values) {
     if (values.agent != undefined) {

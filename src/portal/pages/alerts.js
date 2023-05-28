@@ -65,7 +65,7 @@ const Alerts = () => {
                     <div className={styles.row}>
                         {day.length !== 0 ? day.map((showing) => {
                             return (
-                                <Link to={`/portal/alerts/${showing["_id"]}`}>
+                                <Link to={`/portal/alerts/${showing["managerEmail"]}/${showing["_id"]}`}>
                                     <Card>
                                         <div className={styles.bigRow}>
                                             <div className={styles.column}>
@@ -79,7 +79,7 @@ const Alerts = () => {
                                                     <Black_Map_Pin /> {showing["location"]}
                                                 </div>
                                                 <div className={styles.miniRow}>
-                                                    <Black_Calendar /> {new Date(showing["dateTime"]).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', timeZone: showing.timezone, timeZoneName: "short" })}
+                                                    <Black_Calendar /> {new Date(showing["dateTime"]).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', timeZone: showing.timezone })}
                                                 </div>
                                                 <div className={styles.miniRow}>
                                                     <Black_Clock /> {new Date(showing["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: showing.timezone, timeZoneName: "short" })}
