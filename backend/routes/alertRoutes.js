@@ -74,18 +74,36 @@ alertRoutes.route("/api/alerts/:startDate/:endDate").get(function (req, res) {
 });
 
 alertRoutes.route("/api/alerts/viewed/:managerEmail/:id").post(function (req, res) {
-    const filter = { managerEmail: req.params.managerEmail, _id: new ObjectId((req.params.id)) };
-    const update = { viewed: true };
-
-    
-
-    console.log("here");
-    Alert.findOneAndUpdate(filter, update, function (err, result) {
+    console.log("there");
+    const filter = { managerEmail: req.params.managerEmail, _id: new ObjectId(req.params.id) };
+    const update = { viewed: true }
+    Alert.findOneAndUpdate(filter, { $set: {viewed: true}}, { new: true }, function (err, result) {
         if (err) throw err;
         console.log(result);
         res.json(result);
-        
     });
+
+    // Alert.updateOne()
+
+    // Alert.findOne(filter, function (err, alert) {
+    //     if (err) throw err;
+    //     if (alert != null) {
+    //         let newA = { ...alert}
+    //         console.log(newA.viewed);
+    //         console.log(newA);
+    //         newA.viewed = true;
+    //         console.log(newA);
+
+    //         // console.log(alert)
+    //         // assignViewed(alert);
+    //         // console.log(alert)
+
+    //         alert.save(function (err, result) {
+    //             if (err) throw err;
+    //             res.json(result);
+    //         });
+    //     }
+    // });
 });
 
 // Assigns values to the agent's properties
