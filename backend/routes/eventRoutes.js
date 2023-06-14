@@ -4,6 +4,7 @@ const express = require("express");
 const ObjectId = require("mongodb").ObjectId;
 const eventRoutes = express.Router();
 const Event = require('../schemas/event.js');
+const { events } = require("../schemas/alert.js");
 let db_connect = mongoose.connection.collection("events");
 
 eventRoutes.route("/api/events/getByDate/:managerEmail/:date").get(function (req, res) {
@@ -23,7 +24,7 @@ eventRoutes.route("/api/events/getById/:id").get(function (req, res) {
   var query = { _id: new ObjectId(req.params.id) };
 
   db_connect
-    .find ( query )
+    .find(query)
     .toArray(function (err, result) {
       if (err) throw err;
       res.json(result);
@@ -34,11 +35,11 @@ eventRoutes.route("/api/events/:startDate/:endDate").get(function (req, res) {
   let startDate = new Date(req.params.startDate);
   let endDate = new Date(req.params.endDate)
   db_connect
-      .find({ startTime: { $gte: startDate, $lt: endDate } })
-      .toArray(function (err, result) {
-          if (err) throw err;
-          res.json(result);
-      });
+    .find({ startTime: { $gte: startDate, $lt: endDate } })
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
 });
 
 eventRoutes.route("/api/events/:managerEmail/:startDate/:endDate").get(function (req, res) {
@@ -46,11 +47,11 @@ eventRoutes.route("/api/events/:managerEmail/:startDate/:endDate").get(function 
   let endDate = new Date(req.params.endDate);
   let managerEmail = req.params.managerEmail;
   db_connect
-      .find({ managerEmail: managerEmail, startTime: { $gte: startDate, $lt: endDate } })
-      .toArray(function (err, result) {
-          if (err) throw err;
-          res.json(result);
-      });
+    .find({ managerEmail: managerEmail, startTime: { $gte: startDate, $lt: endDate } })
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
 });
 
 eventRoutes.route("/api/events/add").post(function (req, res) {
@@ -78,6 +79,12 @@ function assignValues(event, values) {
     event.startTime = values.startTime;
   if (values.endTime != undefined)
     event.endTime = values.endTime;
+  if (values.timezone != undefined)
+    event.timezone = values.timezone;
+  if (values.latitude != undefined)
+    event.latitude = values.latitude;
+  if (values.longitude != undefined)
+    event.longitude = values.longitude;
   if (values.managerEmail != undefined)
     event.managerEmail = values.managerEmail;
 }

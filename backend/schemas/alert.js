@@ -12,6 +12,10 @@ const alertSchema = new Schema({
     event: { type: Schema.Types.ObjectId },
 
     dateTime: { type: Date, required: true },
+    timezone: { type: String, required: true },
+
+    latitude: { type: String, required: true },
+    longitude: { type: String, required: true },
 
     // alert audio
     // audio: ???    ---> GridFS????

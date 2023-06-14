@@ -77,7 +77,7 @@ DialogModalTitle.propTypes = {
 
 
 const Record = (props) => (
-    <tr>
+    <tr className={agentsStyles.row}>
         <td className={agentsStyles.record}>{props.record.firstName + " " + props.record.middleName + " " + props.record.lastName}</td>
         <td className={agentsStyles.record}>{props.record.phoneNumber}</td>
         <td className={agentsStyles.record}>{props.record.email}</td>
@@ -190,7 +190,7 @@ const RecordTable = () => {
         return (
             <div className={agentsStyles.threeTable}>
                 <h4 className={agentsStyles.title}>{name}</h4>
-                <table >
+                <table className={agentsStyles.table}>
                     <thead>
                         <tr>
                             <th>Name</th>

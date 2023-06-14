@@ -30,11 +30,11 @@ alertRoutes.route("/api/alerts/getById/:id").get(function (req, res) {
     var query = { _id: new ObjectId(req.params.id) };
 
     db_connect
-      .find ( query )
-      .toArray(function (err, result) {
-        if (err) throw err;
-        res.json(result);
-    });
+        .find(query)
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
 });
 
 alertRoutes.route("/api/alerts/:managerEmail/:startDate/:endDate").get(function (req, res) {
@@ -73,6 +73,39 @@ alertRoutes.route("/api/alerts/:startDate/:endDate").get(function (req, res) {
         });
 });
 
+alertRoutes.route("/api/alerts/viewed/:managerEmail/:id").post(function (req, res) {
+    console.log("there");
+    const filter = { managerEmail: req.params.managerEmail, _id: new ObjectId(req.params.id) };
+    const update = { viewed: true }
+    Alert.findOneAndUpdate(filter, { $set: {viewed: true}}, { new: true }, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        res.json(result);
+    });
+
+    // Alert.updateOne()
+
+    // Alert.findOne(filter, function (err, alert) {
+    //     if (err) throw err;
+    //     if (alert != null) {
+    //         let newA = { ...alert}
+    //         console.log(newA.viewed);
+    //         console.log(newA);
+    //         newA.viewed = true;
+    //         console.log(newA);
+
+    //         // console.log(alert)
+    //         // assignViewed(alert);
+    //         // console.log(alert)
+
+    //         alert.save(function (err, result) {
+    //             if (err) throw err;
+    //             res.json(result);
+    //         });
+    //     }
+    // });
+});
+
 // Assigns values to the agent's properties
 function assignValues(alert, values) {
     if (values.agent != undefined) {
@@ -87,12 +120,21 @@ function assignValues(alert, values) {
         alert.dateTime = values.dateTime;
     }
 
+    if (values.timezone != undefined) {
+        alert.timezone = values.timezone;
+    }
+    if (values.latitude != undefined) {
+        alert.latitude = values.latitude;
+    }
+    if (values.longitude != undefined) {
+        alert.longitude = values.longitude;
+    }
+
     if (values.audioTranscription != undefined) {
         alert.audioTranscription = values.audioTranscription;
     }
 
-    if (values.managerEmail != undefined)
-    {
+    if (values.managerEmail != undefined) {
         alert.managerEmail = values.managerEmail;
     }
 }

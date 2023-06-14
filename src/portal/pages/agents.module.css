@@ -19,8 +19,17 @@
     text-align: left;
 }
 
+.table {
+    border-collapse: collapse; 
+}
+
 .record {
     padding: 0 15px 0 0;
+}
+
+.row {
+    border-bottom: 1px solid grey;
+    padding-bottom: 10px;
 }
 
 .searchBar {

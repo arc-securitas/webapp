@@ -18,13 +18,13 @@ const EventCard = (props) => {
 
     
     if (startDate.getTime() < endDate.getTime()) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: props.showing["timezone"] };
         startTime += startDate.toLocaleDateString(undefined, options) + " ";
         endTime += endDate.toLocaleDateString(undefined, options) + " ";
     }
 
-    startTime += new Date(props.showing["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
-    endTime += new Date(props.showing["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+    startTime += new Date(props.showing["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: props.showing["timezone"] });
+    endTime += new Date(props.showing["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: props.showing["timezone"], timeZoneName: "short" });
 
 
   return (

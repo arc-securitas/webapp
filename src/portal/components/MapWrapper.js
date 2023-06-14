@@ -50,17 +50,17 @@ function MapWrapper(props) {
     /**
      * Converts the given |address| into lat-long coordinates, then initializes the OpenLayers Map to that location
      */
-    async function geocodeForward(address) {
-      const response = await fetch(`http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_POSITION_STACK_TEMP}&query=${address}`);
+    async function geocodeForward(latitude, longitude) {
+      // const response = await fetch(`http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_POSITION_STACK_TEMP}&query=${address}`);
 
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
+      // if (!response.ok) {
+      //   const message = `An error occurred: ${response.statusText}`;
+      //   window.alert(message);
+      //   return;
+      // }
 
-      let result = await response.json();
-      const coord = [result["data"][0]['longitude'], result["data"][0]['latitude']];
+      // let result = await response.json();
+      const coord = [longitude, latitude]; // weirdly, the api wants longitude first and then latitude...
 
       // Create marker
       const markerFeature = new Feature({
@@ -116,7 +116,7 @@ function MapWrapper(props) {
       setFeaturesLayer(initalFeaturesLayer)
     }
 
-    geocodeForward(props.address);
+    geocodeForward(props.latitude, props.longitude);
   },[])
 
   // update map if features prop changes - logic formerly put into componentDidUpdate

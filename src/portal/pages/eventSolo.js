@@ -38,7 +38,7 @@ const EventSolo = () => {
   let endDate = new Date(eventData[0]["endTime"]);
   endDate.setHours(0, 0, 0, 0);
 
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: eventData[0]["timezone"] };
   startTime += startDate.toLocaleDateString(undefined, options) + " ";
 
   if (startDate.getTime() < endDate.getTime()) {
@@ -46,8 +46,8 @@ const EventSolo = () => {
     endTime += endDate.toLocaleDateString(undefined, options) + " ";
   }
 
-  startTime += new Date(eventData[0]["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
-  endTime += new Date(eventData[0]["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+  startTime += new Date(eventData[0]["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: eventData[0]["timezone"] });
+  endTime += new Date(eventData[0]["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: eventData[0]["timezone"], timeZoneName: "short" });
 
   return (
     <div className={portalStyles.portal}>
@@ -63,7 +63,7 @@ const EventSolo = () => {
           <div className={styles.row}>
             <div>
               <h1 className={styles.sectionTitle}>Location</h1>
-              {/* <MapWrapper features={[]} address={eventData[0]["location"]} /> */}
+              <MapWrapper features={[]} latitude={eventData[0]["latitude"]} longitude={eventData[0]["longitude"]} />
               {eventData[0]["location"]}
             </div>
             <div>

@@ -20,13 +20,13 @@ import { useParams } from 'react-router-dom';
 */
 
 const AlertSolo = () => {
-  const { id } = useParams();
+  const { managerEmail, id } = useParams();
   const [alertData, setAlertData] = useState([]);
   const [eventData, setEventData] = useState([]);
   const [agentData, setAgentData] = useState([]);
 
   useEffect(() => {
-      getAlertData(id);
+    getAlertData(id);
   }, [id]);
 
   if (alertData.length === 0) return (<div>Loading...</div>);
@@ -40,35 +40,37 @@ const AlertSolo = () => {
   let endDate = new Date(eventData["endTime"]);
   endDate.setHours(0, 0, 0, 0);
 
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  // Get date
+  const options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: eventData["timezone"] };
   startTime += startDate.toLocaleDateString(undefined, options) + " ";
 
   if (startDate.getTime() < endDate.getTime()) {
-
+    // if different end date
     endTime += endDate.toLocaleDateString(undefined, options) + " ";
   }
 
-  startTime += new Date(eventData["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
-  endTime += new Date(eventData["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+  // get times
+  startTime += new Date(eventData["startTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: eventData["timezone"] });
+  endTime += new Date(eventData["endTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: eventData["timezone"], timeZoneName: "short" });
 
   return (
     <div className={portalStyles.portal}>
-      <div className={portalStyles.nav}><PortalNav page="Alerts"/></div>
+      <div className={portalStyles.nav}><PortalNav page="Alerts" /></div>
       <main className={portalStyles.main}>
         <PortalHeader>
-            <AlertSvg />
-            Safety Alerts
-            <div className={styles.flexGrow}/>
+          <AlertSvg />
+          Safety Alerts
+          <div className={styles.flexGrow} />
         </PortalHeader>
         {/* Insert all main content below header here */}
-          <div className={portalStyles.mainPad}>
-            <div className={styles.row}>
-              <div className={styles.column}>
-                <h1 className={styles.title}>{agentData["firstName"]} {agentData["lastName"]}: {new Date(alertData["dateTime"]).toLocaleString(undefined, { weekday: "long", year: "numeric", month: "numeric", day: "numeric"})} {new Date(alertData["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}</h1>
-                <div className={styles.row}>
-                  <div>
+        <div className={portalStyles.mainPad}>
+          <div className={styles.row}>
+            <div className={styles.column}>
+              <h1 className={styles.title}>{agentData["firstName"]} {agentData["lastName"]}: {new Date(alertData["dateTime"]).toLocaleString(undefined, { weekday: "long", year: "numeric", month: "numeric", day: "numeric", timeZone: alertData["timezone"] })} {new Date(alertData["dateTime"]).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: alertData["timezone"], timeZoneName: "short" })}</h1>
+              <div className={styles.row}>
+                <div>
                   <h1 className={styles.sectionTitle}>Location</h1>
-                  {/* <MapWrapper features={[]} address={alertData["location"]}/> */}
+                  <MapWrapper features={[]} latitude={alertData["latitude"]} longitude={alertData["longitude"]} />
                   {alertData["location"]}
                 </div>
                 <div>
@@ -82,26 +84,26 @@ const AlertSolo = () => {
                   <div className={styles.section}>
                     <h1 className={styles.sectionTitle}>Event</h1>
                     <div className={styles.iconLine}>
-                      <Black_Calendar className={styles.icon}/>
+                      <Black_Calendar className={styles.icon} />
                       {eventData["eventType"]}
                     </div>
                     <div className={styles.iconLine}>
-                      <Black_Map_Pin  className={styles.icon}/>
+                      <Black_Map_Pin className={styles.icon} />
                       {eventData["location"]}
                     </div>
                     <div className={styles.iconLine}>
-                      <Black_Clock  className={styles.icon}/>
+                      <Black_Clock className={styles.icon} />
                       {startTime} - {endTime}
                     </div>
                   </div>
                   <div className={styles.section}>
                     <h1 className={styles.sectionTitle}>Agent Contact</h1>
                     <div className={styles.iconLine}>
-                      <Phone  className={styles.icon}/>
+                      <Phone className={styles.icon} />
                       {agentData["phoneNumber"]}
                     </div>
                     <div className={styles.iconLine}>
-                      <Mail  className={styles.icon}/>
+                      <Mail className={styles.icon} />
                       {agentData["email"]}
                     </div>
                   </div>
@@ -119,13 +121,18 @@ const AlertSolo = () => {
     const response = await fetch(`/api/alerts/getById/${id}`);
 
     if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
     }
 
     let result = await response.json();
     setAlertData(result[0]);
+
+    if (!result[0]["viewed"]) {
+      await setViewedStatus();
+    }
+
     const populateEvent = async () => {
       if (result[0]["event"] !== undefined) {
         return await getEventData(result[0]["event"])
@@ -140,6 +147,24 @@ const AlertSolo = () => {
 
     setEventData(await populateEvent());
     setAgentData(await populateAgent());
+  }
+
+  async function setViewedStatus() {
+    const response = await fetch(`/api/alerts/viewed/${managerEmail}/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
+    console.log(response);
+
+    return;
   }
 
   async function getEventData(id) {
@@ -173,12 +198,12 @@ export default AlertSolo;
 
 class AlertSvg extends React.Component {
   render() {
-      return (
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M21.5264 18.5L12.8661 3.5C12.4812 2.83333 11.519 2.83333 11.1341 3.5L2.47385 18.5C2.08895 19.1667 2.57007 20 3.33987 20H20.6604C21.4302 20 21.9113 19.1667 21.5264 18.5Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M11.9502 16H12.0502V16.1H11.9502V16Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M12 9V13" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-      );
+    return (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.5264 18.5L12.8661 3.5C12.4812 2.83333 11.519 2.83333 11.1341 3.5L2.47385 18.5C2.08895 19.1667 2.57007 20 3.33987 20H20.6604C21.4302 20 21.9113 19.1667 21.5264 18.5Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M11.9502 16H12.0502V16.1H11.9502V16Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M12 9V13" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
   }
 }
