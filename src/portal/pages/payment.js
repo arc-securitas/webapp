@@ -50,8 +50,28 @@ const Payment = () => {
                         </div>
                     </div>
                     <div className={portalStyles.column}>
-                        <h1 className={`${styles.h1}`}>Payment Info</h1>
-                        <div>insert payment stuff here</div>
+                        <h1 className={`${styles.h1}`}>Payment Information</h1>
+                        <Card className={styles.leftPad}>
+                            <div className={styles.row}>Cardholder Name</div>
+                            <input type="text" id="name" placeholder="John Smith"/>
+                            <div className={styles.row}>Card Number (no spaces)</div>
+                            <input type="text" id="ccn" pattern="[0-9\s]{13,19}" maxlength="19" placeholder="0123456789012345"/>
+                            <tr>    
+                                <td><div className={styles.row}>Expiration</div></td>                        
+                                <td><div className={styles.row}>CVV</div></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="tel" id="exp" maxlength="2" placeholder="01"/>  /  <input type="tel" id="exp" maxlength="2" placeholder="01"/> 
+                                </td>
+                                <td>
+                                    <input type="tel" id="exp" maxlength="3" placeholder="123"/>
+                                </td>
+                            </tr>
+                            <div className={styles.row}>Zip Code</div>
+                            <input type="tel" id="zip" maxlength="5" placeholder="12345"/><br></br><br></br>
+                            <button className="btn">  Edit Information  </button>
+                        </Card>
                     </div>
                 </div>
             </main>

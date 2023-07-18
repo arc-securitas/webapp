@@ -5,10 +5,15 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const managerSchema = new Schema({
-    // Name
-    firstName: { type: String, required: true },
-    middleName: String,
-    lastName: { type: String, required: true },
+
+    // Updated Profile info
+    fullName: { type: String, required: true },
+    emailAddress: { type: String, required: true },
+    brokerage: { type: String, required: true },
+    streetAddress: { type: String, required: true },
+    cityAddress: { type: String, required: true },
+    stateAddress: { type: String, required: true },
+    zipAddress: { type: String, required: true },
 
     // contact info
     countryCode: String,  // Needed?

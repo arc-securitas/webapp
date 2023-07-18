@@ -132,11 +132,12 @@ agentRoutes.route("/api/agents/delete/:managerEmail/:id").delete((req, res) => {
 
 // Assigns values to the agent's properties
 function assignValues(agent, values) {
+    /* 
     // First Name
     if (values.firstName != undefined) {
         agent.firstName = values.firstName;
     }
-
+    
     // Middle Name
     if (values.middleName != undefined) {
         agent.middleName = values.middleName;
@@ -146,15 +147,51 @@ function assignValues(agent, values) {
     if (values.lastName != undefined) {
         agent.lastName = values.lastName;
     }
-
-    // Country Code
-    if (values.countryCode != undefined) {
-        agent.countryCode = values.countryCode;
+    */
+       
+    // Full Name
+       if (values.fullName != undefined) {
+        agent.fullName = values.fullName;
     }
 
     // Phone Number
     if (values.phoneNumber != undefined) {
         agent.phoneNumber = values.phoneNumber;
+    }
+       
+    // Email Address
+       if (values.emailAddress != undefined) {
+        agent.emailAddress = values.emailAddress;
+    }
+       
+    // Brokerage
+       if (values.brokerage != undefined) {
+        agent.brokerage = values.brokerage;
+    }
+       
+    // Street Address
+       if (values.streetAddress != undefined) {
+        agent.streetAddress = values.streetAddress;
+    }
+       
+    // City Address
+       if (values.cityAddress != undefined) {
+        agent.cityAddress = values.cityAddress;
+    }
+       
+    // State Address
+       if (values.stateAddress != undefined) {
+        agent.stateAddress = values.stateAddress;
+    }
+       
+    // Zip Address
+       if (values.zipAddress != undefined) {
+        agent.zipAddress = values.zipAddress;
+    }
+
+    // Country Code
+    if (values.countryCode != undefined) {
+        agent.countryCode = values.countryCode;
     }
 
     // Email

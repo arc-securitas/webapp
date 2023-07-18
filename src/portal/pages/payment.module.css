@@ -105,3 +105,31 @@
 .h1 {
   font-family: 'Outfit';
 }
+
+input {
+  font-family: 'Outfit';
+  padding: 6px 10px;
+  margin: 2px 0;
+  box-sizing: border-box;
+
+}
+
+input[type=text] {
+  width: 400px;
+}
+
+input[type=tel] {
+  width: 70px;
+}
+
+
+button {
+  font-family: 'Outfit';
+  color: white;
+  background-color: #3684C9 ;
+  border-radius: 10px;
+  border-color: #3684C9;
+  padding: 8px 20px 10px 20px;
+  font-size: 18px ;
+  margin-bottom: 10px;
+}

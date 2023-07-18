@@ -24,14 +24,21 @@ managerRoutes.route("/api/managers/:email").get(function (req, res) {
 });
 
 // Updates the given manager info (based on their email). Middle name is optional.
-managerRoutes.route("/api/managers/update/:email/:firstName/:middleName?/:lastName/:phoneNumber").post(function (req, res) {
+// managerRoutes.route("/api/managers/update/:email/:firstName/:middleName?/:lastName/:phoneNumber").post(function (req, res) {
+managerRoutes.route("/api/managers/update/:email/:fullName/:phoneNumber/:emailAddress/:brokerage/:streetAddress/:cityAddress/:stateAddress/:zipAddress").post(function (req, res) {
     db_connect.updateOne(
         {email: req.params.email},
         {$set: {user_metadata: {
-            firstName: req.params.firstName,
-            middleName: req.params.middleName == null ? "" : req.params.middleName,
-            lastName: req.params.lastName,
-            phoneNumber: req.params.phoneNumber
+            fullName: req.params.fullName, // changed from first name
+            // middleName: req.params.middleName == null ? "" : req.params.middleName,
+            // lastName: req.params.lastName,
+            phoneNumber: req.params.phoneNumber,
+            emailAddress: req.params.emailAddress,
+            brokerage: req.params.brokerage,
+            streetAddress: req.params.streetAddress,
+            cityAddress: req.params.cityAddress,
+            stateAddress: req.params.stateAddress,
+            zipAddress: req.params.zipAddress,
         }}},
         function (err, result) {
             if (err) throw err;

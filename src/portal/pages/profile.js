@@ -62,18 +62,29 @@ const Profile = () => {
 					<div className={styles.center}>
 					  <div className={styles.column}>
 							<div className={styles.row}>
-								<div className={styles.header}>Account Information</div>
-								<ProfileModal firstName={user_metadata.firstName} middleName={user_metadata.middleName} lastName={user_metadata.lastName} phoneNumber={user_metadata.phoneNumber} />
+								<div className={styles.header}>{`${user_metadata.fullName}`}</div>
+								<ProfileModal fullName={user_metadata.fullName} phoneNumber={user_metadata.phoneNumber} />
 							</div>
 							<div className={styles.horizontal} />
 							<div className={styles.pair}>
-								<div className={styles.title}>Name</div>
-								<div className={styles.subtext}>{`${user_metadata.firstName} ${user_metadata.middleName} ${user_metadata.lastName}`}</div>
+								<div className={styles.title}>Email</div>
+								<div className={styles.subtext}>{user_metadata.emailAddress}</div>
 							</div>
 							<div className={styles.horizontal} />
 							<div className={styles.pair}>
 								<div className={styles.title}>Phone Number</div>
 								<div className={styles.subtext}>{user_metadata.phoneNumber}</div>
+							</div>
+							<div className={styles.horizontal} />
+							<div className={styles.pair}>
+								<div className={styles.title}>Brokerage</div>
+								<div className={styles.subtext}>{user_metadata.brokerage}</div>
+							</div>
+							<div className={styles.horizontal} />
+							<div className={styles.pair}>
+								<div className={styles.title}>Address</div>
+								<div className={styles.subtext}>{user_metadata.streetAddress}</div>
+								<div className={styles.subtext}>{`${user_metadata.cityAddress} ${user_metadata.stateAddress} ${user_metadata.zipAddress}`}</div>
 							</div>
 					  </div>
 					</div>

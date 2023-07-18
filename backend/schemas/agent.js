@@ -9,12 +9,23 @@ const saltRounds = 10;
 var Schema = mongoose.Schema;
 
 const agentSchema = new Schema({
+    /* 
     // Name
     firstName: { type: String, required: true },
     middleName: String,
     lastName: { type: String, required: true },
+    */
+
+    // Updated Profile info
+    fullName: { type: String, required: true },
+    brokerage: { type: String, required: true },
+    streetAddress: { type: String, required: true },
+    cityAddress: { type: String, required: true },
+    stateAddress: { type: String, required: true },
+    zipAddress: { type: String, required: true },
 
     // contact info
+    emailAddress: { type: String, required: true },
     countryCode: String,  // Needed?
     phoneNumber: { type: String, required: true, unique: true },
     email: { type: String, unique: true, required: true, lowercase: true }, // required: true ?
@@ -27,9 +38,13 @@ const agentSchema = new Schema({
     // emergency contacts list
     contacts: [{
         // Name
+        /** 
         firstName: { type: String, required: true },
         middleName: String,
         lastName: { type: String, required: true },
+        */
+        fullName: {type: String, required: true },
+        brokerage: {type: String, required: true },
 
         // contact info
         countryCode: String,  // Needed?

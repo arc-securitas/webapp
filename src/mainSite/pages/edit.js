@@ -3,9 +3,14 @@ import { useParams, useNavigate } from "react-router";
 
 export default function Edit() {
     const [form, setForm] = useState({
-        firstName: "",
-        lastName: "",
+        fullName: "",
         phoneNumber: "",
+        emailAddress: "",
+        brokerage: "",
+        streetAddress: "",
+        cityAddress: "",
+        stateAddress: "",
+        zipAddress: "",
         email: "",
         records: [],
     });
@@ -48,10 +53,14 @@ export default function Edit() {
     async function onSubmit(e) {
         e.preventDefault();
         const editedPerson = {
-            firstName: form.firstName,
-            middleName: form.middleName,
-            lastName: form.lastName,
+            fullName: form.fullName,
             phoneNumber: form.phoneNumber,
+            emailAddress: form.emailAddress,
+            brokerage: form.brokerage,
+            streetAddress: form.streetAddress,    
+            cityAddress: form.cityAddress,    
+            stateAddress: form.stateAddress,    
+            zipAddress: form.zipAddress,    
             email: form.email,
         };
 
@@ -72,25 +81,81 @@ export default function Edit() {
         <div>
             <h3>Update Record</h3>
             <form onSubmit={onSubmit}>
+
                 <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
+                    <label htmlFor="fullName">Full Name</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="firstName"
-                        defaultValue={form.firstName}
-                        onChange={(e) => updateForm({ firstName: e.target.value })}
+                        id="fullName"
+                        defaultValue={form.fullName}
+                        onChange={(e) => updateForm({ fullName: e.target.value })}
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
+                    <label htmlFor="brokerage">Brokerage</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="lastName"
-                        defaultValue={form.lastName}
-                        onChange={(e) => updateForm({ lastName: e.target.value })}
+                        id="brokerage"
+                        defaultValue={form.brokerage}
+                        onChange={(e) => updateForm({ brokerage: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="emailAddress">Email Address</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="emailAddress"
+                        defaultValue={form.emailAddress}
+                        onChange={(e) => updateForm({ emailAddress: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="streetAddress">Street Address</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="streetAddress"
+                        defaultValue={form.streetAddress}
+                        onChange={(e) => updateForm({ streetAddress: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="cityAddress">City Address</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="cityAddress"
+                        defaultValue={form.cityAddress}
+                        onChange={(e) => updateForm({ cityAddress: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="stateAddress">State Address</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="stateAddress"
+                        defaultValue={form.stateAddress}
+                        onChange={(e) => updateForm({ stateAddress: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="zipAddress">Zip Address</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="zipAddress"
+                        defaultValue={form.zipAddress}
+                        onChange={(e) => updateForm({ zipAddress: e.target.value })}
                     />
                 </div>
 

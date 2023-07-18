@@ -7,6 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Modal from '@mui/material/Modal';
 
 import { useAuth0 } from "@auth0/auth0-react";
+import { add } from "ol/coordinate";
 
 /*
     Popup for the Profile Page.
@@ -17,16 +18,30 @@ import { useAuth0 } from "@auth0/auth0-react";
         lastName="Squarepants"
         phoneNumber="555-5555" />
     ---------------------------------------------
+    ---------------------------------------------
+    <ProfileModal { UPDATED VERSION }
+        fullName="Spongebob Squarepants"
+        name="Spongebob Squarepants"
+        emailAddress=sponge@bob.com
+        phoneNumber="555-5555" />
+        brokerage="SBSP Inc"
+        address="1 Bikini Bottom Ave"
+    ---------------------------------------------
+
     Each prop corresponds to an input field in the popup, where the value passed
     in is the filler value.
 */
 
 const ProfileModal = (props) => {
     const [open, setOpen] = React.useState(false);
-    const [firstName, setFirstName] = React.useState(props.firstName);
-    const [middleName, setMiddleName] = React.useState(props.middleName);
-    const [lastName, setLastName] = React.useState(props.lastName);
+    const [fullName, setFullName] = React.useState(props.fullName);
+    const [emailAddress, setEmailAddress] = React.useState(props.emailAddress);
     const [phoneNumber, setPhoneNumber] = React.useState(props.phoneNumber);
+    const [brokerage, setBrokerage] = React.useState(props.brokerage);
+    const [streetAddress, setStreetAddress] = React.useState(props.streetAddress);
+    const [cityAddress, setCityAddress] = React.useState(props.cityAddress);
+    const [stateAddress, setStateAddress] = React.useState(props.stateAddress);
+    const [zipAddress, setZipAddress] = React.useState(props.zipAddress);
     const { user } = useAuth0();
 
     const handleOpen = () => {
@@ -39,13 +54,18 @@ const ProfileModal = (props) => {
 
     async function saveChanges() {
         let response;
+        let url = `/api/managers/update/${user.email}/${fullName}/${phoneNumber}/${emailAddress}/${brokerage}/${streetAddress}/${cityAddress}/${stateAddress}/${zipAddress}`;
+        response = await fetch(url, {method: 'POST'});
+
+        {/*  DELETING MIDDLE/LAST NAME
         if (middleName) {
-            let url = `/api/managers/update/${user.email}/${firstName}/${middleName}/${lastName}/${phoneNumber}`;
+            let url = `/api/managers/update/${user.email}/${firstName}/${middleName}/${lastName}/${phoneNumber}/${emailAddress}/${brokerage}/${address}`;
             response = await fetch(url, {method: 'POST'});
         } else {
-            let url = `/api/managers/update/${user.email}/${firstName}/${lastName}/${phoneNumber}`;
+            let url = `/api/managers/update/${user.email}/${firstName}/${lastName}/${phoneNumber}/${emailAddress}/${brokerage}/${address}`;
             response = await fetch(url, {method: 'POST'});
         }
+        */}
 
         if (!response.ok) {
             const message = `An error occurred: ${response.statusText}`;
@@ -91,23 +111,40 @@ const ProfileModal = (props) => {
                     borderRadius: '10px',
                 }}>
                     <div className={`${styles.column} ${styles.font}`}>
-                        <h2 className={styles.title}>Update Account Information</h2>
+                        <h2 className={styles.title}>Edit Profile</h2>
                         <div className={styles.inputPair}>
-                            <div>First Name</div>
-                            <input className={styles.input} type="text" name="First Name" onChange={(e) => setFirstName(e.target.value)} value={firstName} placeholder="First Name" />
-                        </div>
-                        <div className={styles.inputPair}>
-                            <div>Middle Name (optional)</div>
-                            <input className={styles.input} type="text" name="Middle Name" onChange={(e) => setMiddleName(e.target.value)} value={middleName} placeholder="Middle Name" />
-                        </div>
-                        <div className={styles.inputPair}>
-                            <div>Last Name</div>
-                            <input className={styles.input} type="text" name="Last Name" onChange={(e) => setLastName(e.target.value)} value={lastName} placeholder="Last Name" />
+                            <div>Full Name</div>
+                            <input className={styles.input} type="text" name="Full Name" onChange={(e) => setFullName(e.target.value)} value={fullName} placeholder="Full Name" />
                         </div>
                         <div className={styles.inputPair}>
                             <div>Phone Number</div>
                             <input className={styles.input} type="text" name="Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} value={phoneNumber} placeholder="Phone Number" />
                         </div>
+                        <div className={styles.inputPair}>
+                            <div>Email Address</div>
+                            <input className={styles.input} type="text" name="Email Address" onChange={(e) => setEmailAddress(e.target.value)} value={emailAddress} placeholder="Email Address" />
+                        </div>
+                        <div className={styles.inputPair}>
+                            <div>Brokerage</div>
+                            <input className={styles.input} type="text" name="Brokerage" onChange={(e) => setBrokerage(e.target.value)} value={brokerage} placeholder="Brokerage" />
+                        </div>
+                        <div className={styles.inputPair}>
+                            <div>Address</div>
+                            <input className={styles.input} type="text" name="Street Address" onChange={(e) => setStreetAddress(e.target.value)} value={streetAddress} placeholder="Street Address" />
+                        </div>
+                        <div className={styles.inputPair}>
+                            <div>City</div>
+                            <input className={styles.input} type="text" name="city" onChange={(e) => setCityAddress(e.target.value)} value={cityAddress} placeholder="City Address" />
+                        </div>
+                        <div className={styles.inputPair}>
+                            <div>State</div>
+                            <input className={styles.input} type="text" name="State" onChange={(e) => setStateAddress(e.target.value)} value={stateAddress} placeholder="State Address" />
+                        </div>
+                        <div className={styles.inputPair}>
+                            <div>Zip Code</div>
+                            <input className={styles.input} type="text" name="Zip Code" onChange={(e) => setZipAddress(e.target.value)} value={zipAddress} placeholder="Zip Code" />
+                        </div>
+                        <br></br>
                         <div className={styles.grow} />
                         <div className={styles.buttonPair}>
                             <Button onClick={handleClose} sx={{

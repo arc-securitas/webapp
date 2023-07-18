@@ -5,9 +5,14 @@ import { Link } from "react-router-dom";
 const Record = (props) => (
     <tr>
         <td>{props.record._id}</td>
-        <td>{props.record.firstName}</td>
-        <td>{props.record.middleName}</td>
-        <td>{props.record.lastName}</td>
+        <td>{props.record.fullName}</td>
+        <td>{props.record.brokerage}</td>
+        <td>{props.record.emailAddress}</td>
+        <td>{props.record.streetAddress}</td>
+        <td>{props.record.cityAddress}</td>
+        <td>{props.record.stateAddress}</td>
+        <td>{props.record.zipAddress}</td>
+
         <td>{props.record.phoneNumber}</td>
         <td>{props.record.email}</td>
         <td>{props.record.safetyCode}</td>
@@ -65,8 +70,13 @@ const BackendTest = () => {
     }
 
     const [form, setForm] = useState({
-        firstName: "",
-        lastName: "",
+        fullName: "",
+        brokerage: "",
+        emailAddress: "",
+        streetAddress: "",
+        cityAddress: "",
+        stateAddress: "",
+        zipAddress: "",
         phoneNumber: "",
         email: "",
     });
@@ -97,7 +107,7 @@ const BackendTest = () => {
                 return;
             });
 
-        setForm({ firstName: "", lastName: "", phoneNumber: "", email: "" });
+        setForm({ fullName: "", brokerage: "", emailAddress: "", streetAddress: "", cityAddress: "", stateAddress: "", zipAddress: "", phoneNumber: "", email: "" });
         navigate("/");
     }
 
@@ -119,10 +129,17 @@ const BackendTest = () => {
                 <thead>
                     <tr>
                         <th>ID</th>
+                        {/* 
                         <th>First Name</th>
                         <th>Middle Name</th>
                         <th>Last Name</th>
-                        <th>Phone Number</th>
+                        */}
+                        <th>Full Name</th>
+                        <th>Brokerage</th>
+                        <th>Street Address</th>
+                        <th>City Address</th>
+                        <th>State Address</th>
+                        <th>Zip Address</th>
                         <th>Email</th>
                         <th>Safety Code</th>
                         <th>Status</th>
@@ -138,24 +155,70 @@ const BackendTest = () => {
             <h3>Create New Record</h3>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
+                    <label htmlFor="fullName">Full Name</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="firstName"
-                        defaultValue={form.firstName}
-                        onChange={(e) => updateForm({ firstName: e.target.value })}
+                        id="fullName"
+                        defaultValue={form.fullName}
+                        onChange={(e) => updateForm({ fullName: e.target.value })}
+                    />
+                </div>
+
+
+                <div className="form-group">
+                    <label htmlFor="brokerage">Brokerage</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="brokerage"
+                        defaultValue={form.brokerage}
+                        onChange={(e) => updateForm({ brokerage: e.target.value })}
+                    />
+                </div>
+
+
+                <div className="form-group">
+                    <label htmlFor="streetAddress">Street Address</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="streetAddress"
+                        defaultValue={form.streetAddress}
+                        onChange={(e) => updateForm({ streetAddress: e.target.value })}
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
+                    <label htmlFor="cityAddress">City Address</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="lastName"
-                        defaultValue={form.lastName}
-                        onChange={(e) => updateForm({ lastName: e.target.value })}
+                        id="cityAddress"
+                        defaultValue={form.cityAddress}
+                        onChange={(e) => updateForm({ cityAddress: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="stateAddress">State Address</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="stateAddress"
+                        defaultValue={form.stateAddress}
+                        onChange={(e) => updateForm({ stateAddress: e.target.value })}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="zipAddress">Zip Address</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="zipAddress"
+                        defaultValue={form.zipAddress}
+                        onChange={(e) => updateForm({ zipAddress: e.target.value })}
                     />
                 </div>
 

@@ -26,6 +26,8 @@
 
 .box {
     padding: 40px;
+    overflow-y: scroll;
+    
 }
 
 .input {
