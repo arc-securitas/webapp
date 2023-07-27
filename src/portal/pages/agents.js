@@ -78,7 +78,14 @@ DialogModalTitle.propTypes = {
 
 const Record = (props) => (
     <tr className={agentsStyles.row}>
-        <td className={agentsStyles.record}>{props.record.firstName + " " + props.record.middleName + " " + props.record.lastName}</td>
+        {/*<td className={agentsStyles.record}>{props.record.firstName + " " + props.record.middleName + " " + props.record.lastName}</td>*/}
+        <td className={agentsStyles.record}>{props.record.fullName}</td>
+        <td className={agentsStyles.record}>{props.record.emailAddress}</td>
+        <td className={agentsStyles.record}>{props.record.brokerage}</td>
+        <td className={agentsStyles.record}>{props.record.streetAddress}</td>
+        <td className={agentsStyles.record}>{props.record.cityAddress}</td>
+        <td className={agentsStyles.record}>{props.record.stateAddress}</td>
+        <td className={agentsStyles.record}>{props.record.zipAddress}</td>
         <td className={agentsStyles.record}>{props.record.phoneNumber}</td>
         <td className={agentsStyles.record}>{props.record.email}</td>
         <td className={agentsStyles.record}>{props.record.licenseID}</td>
@@ -220,9 +227,13 @@ const RecordTable = () => {
 
     // for create new agents form
     const [form, setForm] = useState({
-        firstName: "",
-        middleName: "",
-        lastName: "",
+        fullName: "",
+        brokerage: "",
+        emailAddress: "",
+        streetAddress: "",
+        stateAddress: "",
+        cityAddress: "",
+        zipAddress: "",
         phoneNumber: "",
         email: "",
         licenseID: "",
@@ -231,9 +242,13 @@ const RecordTable = () => {
 
     const [editAgentForm, setEditAgentForm] = useState({
         _id: "",
-        firstName: "",
-        middleName: "",
-        lastName: "",
+        fullName: "",
+        brokerage: "",
+        emailAddress: "",
+        streetAddress: "",
+        stateAddress: "",
+        cityAddress: "",
+        zipAddress: "",
         phoneNumber: "",
         email: "",
         licenseID: "",
@@ -273,7 +288,8 @@ const RecordTable = () => {
                 return;
             });
 
-        setForm({ firstName: "", middleName: "", lastName: "", phoneNumber: "", email: "", licenseID: "", managerEmail: user.email });
+        // setForm({ firstName: "", middleName: "", lastName: "", phoneNumber: "", email: "", licenseID: "", managerEmail: user.email });
+        setForm({ fullName: "", brokerage: "", emailAddress: "", streetAddress: "", cityAddress: "", stateAddress: "", zipAddress: "", phoneNumber: "", email: "", licenseID: "", managerEmail: user.email });
         handleAddAgentClose();
         navigate("/");
     }
@@ -281,9 +297,16 @@ const RecordTable = () => {
     async function onEditAgentSubmit(e) {
         //e.preventDefault(); ------------why doesn't this work?
         const editedAgent = {
-            firstName: editAgentForm.firstName,
-            middleName: editAgentForm.middleName,
-            lastName: editAgentForm.lastName,
+            // firstName: editAgentForm.firstName,
+            // middleName: editAgentForm.middleName,
+            // lastName: editAgentForm.lastName,
+            fullName: editAgentForm.fullName,
+            brokerage: editAgentForm.brokerage,
+            emailAddress: editAgentForm.emailAddress,
+            streetAddress: editAgentForm.streetAddress,
+            stateAddress: editAgentForm.stateAddress,
+            cityAddress: editAgentForm.cityAddress,
+            zipAddress: editAgentForm.zipAddress,  
             phoneNumber: editAgentForm.phoneNumber,
             email: editAgentForm.email,
             licenseID: editAgentForm.licenseID,
@@ -353,6 +376,87 @@ const RecordTable = () => {
                     </DialogModalTitle>
                     <DialogContent dividers>
                         <form onSubmit={onSubmit}>
+
+                            <div className="form-group">
+                                <label className={agentsStyles.formlabel} htmlFor="fullName">Full Name</label><br />
+                                <input
+                                    type="text"
+                                    className={agentsStyles.formInput}
+                                    id="fullName"
+                                    value={form.fullName}
+                                    onChange={(e) => updateForm({ fullName: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className={agentsStyles.formlabel} htmlFor="brokerage">Brokerage</label><br />
+                                <input
+                                    type="text"
+                                    className={agentsStyles.formInput}
+                                    id="brokerage"
+                                    value={form.brokerage}
+                                    onChange={(e) => updateForm({ brokerage: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className={agentsStyles.formlabel} htmlFor="streetAddress">Street Address</label><br />
+                                <input
+                                    type="text"
+                                    className={agentsStyles.formInput}
+                                    id="streetAddress"
+                                    value={form.streetAddress}
+                                    onChange={(e) => updateForm({ streetAddress: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className={agentsStyles.formlabel} htmlFor="cityAddress">City Address</label><br />
+                                <input
+                                    type="text"
+                                    className={agentsStyles.formInput}
+                                    id="cityAddress"
+                                    value={form.cityAddress}
+                                    onChange={(e) => updateForm({ cityAddress: e.target.value })}
+                                />
+                            </div>
+
+
+                            <div className="form-group">
+                                <label className={agentsStyles.formlabel} htmlFor="stateAddress">State Address</label><br />
+                                <input
+                                    type="text"
+                                    className={agentsStyles.formInput}
+                                    id="stateAddress"
+                                    value={form.stateAddress}
+                                    onChange={(e) => updateForm({ stateAddress: e.target.value })}
+                                />
+                            </div>
+
+
+                            <div className="form-group">
+                                <label className={agentsStyles.formlabel} htmlFor="zipAddress">Zip Address</label><br />
+                                <input
+                                    type="text"
+                                    className={agentsStyles.formInput}
+                                    id="zipAddress"
+                                    value={form.zipAddress}
+                                    onChange={(e) => updateForm({ zipAddress: e.target.value })}
+                                />
+                            </div>
+
+
+                            <div className="form-group">
+                                <label className={agentsStyles.formlabel} htmlFor="emailAddress">Email Address</label><br />
+                                <input
+                                    type="text"
+                                    className={agentsStyles.formInput}
+                                    id="emailAddress"
+                                    value={form.emailAddress}
+                                    onChange={(e) => updateForm({ emailAddress: e.target.value })}
+                                />
+                            </div>
+
                             <div className="form-group">
                                 <label className={agentsStyles.formlabel} htmlFor="firstName">First Name</label><br />
                                 <input
